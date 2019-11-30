@@ -1,0 +1,142 @@
+<!--{%extends "base-layout.twig"%}-->
+<!--{%block main_content%}-->
+<div class="row-fluid">
+	<div class="span12">
+	    <div class="box box-color box-bordered">
+			<div class="box-title">
+				<h3>
+					<i class="icon-table"></i>
+					用户管理
+					<span class="badge badge-warning"><!--{{totalcount}}--></span>
+				</h3>
+				<div class="actions">
+				    <form action="<!--{{url('user/user/list')}}-->" class="">
+				    <table class="table-filter">				        
+				        <tr>
+				            <td><input name="mobile" type="text" class="input-small" placeholder="手机号码"  value="<!--{{search.mobile}}-->" /></td>
+							<td><input name="name" type="text" class="input-small" placeholder="姓名"  value="<!--{{search.name}}-->" /></td>
+				            <td><button class="btn btn-teal"><i class="icon-search"></i>搜索</button></td>
+				            <td><a href="<!--{{url('user/user/add')}}-->" class="btn btn-teal">添加用户</a></td>
+				        </tr>
+				    </table>
+				    </form>
+				</div>
+			</div>
+			<div class="box-content nopadding">
+			    <table class="table table-hover table-nomargin">
+			        <thead>
+						<tr>
+						    <th class="col-50">URID</th>
+							<th class="col-150">手机号码</th>
+							<th class="col-150">姓名</th>
+							<th class="col-50">是否注册</th>
+							<th class="col-80">审核状态</th>
+							<th class="col-150">创建时间</th>
+							<th class="col-150">修改时间</th>
+							<th class="table-btn-group">操作</th>
+						</tr>
+					</thead>
+					<tbody>
+					<!--{%for item in datalist%}-->
+					<tr>
+						<td><!--{{item.urid}}--></td>
+						<td><!--{{item.mobile}}--></td>
+						<td><!--{{item.card_name}}--></td>
+						<td><!--{{item.register == 1 ? 'Y' : 'N'}}--></td>
+						<!--{%if item.identify==1 %}-->
+							<td>认证成功</td>
+						<!--{%elseif item.identify==2 %}-->
+							<td>审核中</td>
+						<!--{%else%}-->
+							<td>未认证</td>
+						<!--{%endif%}-->
+						<td><!--{{item.created_at|date('Y-m-d H:i:s')}}--></td>
+						<td><!--{{item.updated_at|date('Y-m-d H:i:s')}}--></td>
+						<td>
+							<a href="<!--{{url('user/user/video',{'admin_id':item.urid})}}-->" class="btn btn-primary">视频审核</a>
+							<!--{%if item.identify==1 %}--><a class="btn btn-danger ajax-reset" urid="<!--{{item.urid}}-->" href="javascript:void(0);">重新年审</a><!--{%endif%}-->
+							<a href="<!--{{url('user/user/edit',{'admin_id':item.urid})}}-->" class="btn btn-primary">编辑</a>
+							<a class="btn btn-danger ajax-del" urid="<!--{{item.urid}}-->" href="javascript:void(0);">删除</a>
+						</td>
+					</tr>
+					<!--{%endfor%}-->
+					</tbody>
+			    </table>
+			    <div class="pagelink">
+			        <!--{{pagelinks}}-->
+			    </div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!--{%endblock%}-->
+<!--{%block footer_js%}-->
+<script src="/static/js/laydate/laydate.js"></script>
+<script src="<!--{{asset('/static/js/ajaxfileupload.js')}}-->"></script>
+<script>
+	$(function(){
+		$('input.ids').iCheck({
+			checkboxClass: 'icheckbox_square-orange',
+			radioClass: 'iradio_square-orange',
+			increaseArea: '20%' // optional
+		});
+		var bar = $('.bar');
+		var percent = $('.percent');
+		var progress = $(".progress");
+
+		$(".ajax-del").bind('click',function(){
+			var obj = $(this);
+			alertify.confirm('确认删除该用户？',function(e){
+				if(e){
+					var urid = obj.attr('urid');
+					$.ajax({
+						url:'/user/user/ajax-del',
+						type : 'post',
+						data:{urid: urid},
+						dataType : 'JSON',
+						success : function (data){
+							if(data.state){
+								alertify.success(data.msg);
+								setTimeout(function(){location.reload();},1000);
+							}else{
+								alertify.error(data.msg);
+							}
+						}
+					})
+				}
+			});
+		});
+		$(".ajax-reset").bind('click',function(){
+			var obj = $(this);
+			alertify.confirm('确认对该用户重新年审？',function(e){
+				if(e){
+					var urid = obj.attr('urid');
+					$.ajax({
+						url:'/user/user/ajax-reset',
+						type : 'post',
+						data:{urid: urid},
+						dataType : 'JSON',
+						success : function (data){
+							if(data.state){
+								alertify.success(data.msg);
+								setTimeout(function(){location.reload();},1000);
+							}else{
+								alertify.error(data.msg);
+							}
+						}
+					})
+				}
+			});
+		});
+		$('input[name="all"]').on('ifChecked',function(event){
+			$('input[name="ids"]').iCheck('check');
+		});
+
+		$('input[name="all"]').on('ifUnchecked',function(event){
+			$('input[name="ids"]').iCheck('uncheck');
+		});
+
+	});
+</script>
+<!--{%endblock%}-->

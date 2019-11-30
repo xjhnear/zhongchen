@@ -1,0 +1,32 @@
+[2017-10-30 23:03:24] log.ERROR: exception 'PDOException' with message 'SQLSTATE[HY000] [1045] Access denied for user 'admin'@'116.227.82.47' (using password: YES)' in D:\wamp\www\near\near\mcp.me.com\vendor\laravel\framework\src\Illuminate\Database\Connectors\Connector.php:47
+Stack trace:
+#0 D:\wamp\www\near\near\mcp.me.com\vendor\laravel\framework\src\Illuminate\Database\Connectors\Connector.php(47): PDO->__construct('mysql:host=test...', 'admin', 'somethingyouxid...', Array)
+#1 D:\wamp\www\near\near\mcp.me.com\vendor\laravel\framework\src\Illuminate\Database\Connectors\MySqlConnector.php(20): Illuminate\Database\Connectors\Connector->createConnection('mysql:host=test...', Array, Array)
+#2 D:\wamp\www\near\near\mcp.me.com\vendor\laravel\framework\src\Illuminate\Database\Connectors\ConnectionFactory.php(41): Illuminate\Database\Connectors\MySqlConnector->connect(Array)
+#3 D:\wamp\www\near\near\mcp.me.com\vendor\laravel\framework\src\Illuminate\Database\DatabaseManager.php(128): Illuminate\Database\Connectors\ConnectionFactory->make(Array, 'system')
+#4 D:\wamp\www\near\near\mcp.me.com\vendor\laravel\framework\src\Illuminate\Database\DatabaseManager.php(64): Illuminate\Database\DatabaseManager->makeConnection('system')
+#5 D:\wamp\www\near\near\mcp.me.com\vendor\laravel\framework\src\Illuminate\Support\Facades\Facade.php(206): Illuminate\Database\DatabaseManager->connection('system')
+#6 D:\wamp\www\near\near\mcp.me.com\services\Youxiduo\Base\Model.php(35): Illuminate\Support\Facades\Facade::__callStatic('connection', Array)
+#7 D:\wamp\www\near\near\mcp.me.com\services\Youxiduo\Base\Model.php(35): Illuminate\Support\Facades\DB::connection('system')
+#8 D:\wamp\www\near\near\mcp.me.com\services\Youxiduo\System\Model\Module.php(35): Youxiduo\Base\Model::db()
+#9 D:\wamp\www\near\near\mcp.me.com\apps\admin\routes.php(36): Youxiduo\System\Model\Module::getNameList()
+#10 D:\wamp\www\near\near\mcp.me.com\vendor\laravel\framework\src\Illuminate\Foundation\start.php(253): require('D:\\wamp\\www\\nea...')
+#11 D:\wamp\www\near\near\mcp.me.com\apps\admin\start.php(84): require('D:\\wamp\\www\\nea...')
+#12 D:\wamp\www\near\near\mcp.me.com\web\admin\index.php(35): require_once('D:\\wamp\\www\\nea...')
+#13 {main} [] []
+[2017-10-30 23:03:26] log.ERROR: exception 'PDOException' with message 'SQLSTATE[HY000] [1045] Access denied for user 'admin'@'116.227.82.47' (using password: YES)' in D:\wamp\www\near\near\mcp.me.com\vendor\laravel\framework\src\Illuminate\Database\Connectors\Connector.php:47
+Stack trace:
+#0 D:\wamp\www\near\near\mcp.me.com\vendor\laravel\framework\src\Illuminate\Database\Connectors\Connector.php(47): PDO->__construct('mysql:host=test...', 'admin', 'somethingyouxid...', Array)
+#1 D:\wamp\www\near\near\mcp.me.com\vendor\laravel\framework\src\Illuminate\Database\Connectors\MySqlConnector.php(20): Illuminate\Database\Connectors\Connector->createConnection('mysql:host=test...', Array, Array)
+#2 D:\wamp\www\near\near\mcp.me.com\vendor\laravel\framework\src\Illuminate\Database\Connectors\ConnectionFactory.php(41): Illuminate\Database\Connectors\MySqlConnector->connect(Array)
+#3 D:\wamp\www\near\near\mcp.me.com\vendor\laravel\framework\src\Illuminate\Database\DatabaseManager.php(128): Illuminate\Database\Connectors\ConnectionFactory->make(Array, 'system')
+#4 D:\wamp\www\near\near\mcp.me.com\vendor\laravel\framework\src\Illuminate\Database\DatabaseManager.php(64): Illuminate\Database\DatabaseManager->makeConnection('system')
+#5 D:\wamp\www\near\near\mcp.me.com\vendor\laravel\framework\src\Illuminate\Support\Facades\Facade.php(206): Illuminate\Database\DatabaseManager->connection('system')
+#6 D:\wamp\www\near\near\mcp.me.com\services\Youxiduo\Base\Model.php(35): Illuminate\Support\Facades\Facade::__callStatic('connection', Array)
+#7 D:\wamp\www\near\near\mcp.me.com\services\Youxiduo\Base\Model.php(35): Illuminate\Support\Facades\DB::connection('system')
+#8 D:\wamp\www\near\near\mcp.me.com\services\Youxiduo\System\Model\Module.php(35): Youxiduo\Base\Model::db()
+#9 D:\wamp\www\near\near\mcp.me.com\apps\admin\routes.php(36): Youxiduo\System\Model\Module::getNameList()
+#10 D:\wamp\www\near\near\mcp.me.com\vendor\laravel\framework\src\Illuminate\Foundation\start.php(253): require('D:\\wamp\\www\\nea...')
+#11 D:\wamp\www\near\near\mcp.me.com\apps\admin\start.php(84): require('D:\\wamp\\www\\nea...')
+#12 D:\wamp\www\near\near\mcp.me.com\web\admin\index.php(35): require_once('D:\\wamp\\www\\nea...')
+#13 {main} [] []

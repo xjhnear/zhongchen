@@ -1,0 +1,57 @@
+检查更新
+app/upgrade
+version	版本号
+udid	设备id
+urid	用户id
+
+登录
+user/login
+mobile	手机号
+password	密码
+
+注册、忘记密码、更换绑定手机
+user/register
+mobile	手机号
+password	密码
+verifycode	验证码
+type	0 注册 1 忘记密码 2 更换手机
+urid	用户id
+
+意见反馈
+user/feedback
+urid	用户id
+contact	联系方式
+content	内容
+
+获取用户信息
+user/info
+urid	用户id
+
+用户资料编辑
+user/edit
+urid	用户id
+name	名字
+sex	性别
+imgkey	头像数据流
+
+文章列表
+article/getlist
+pageIndex	当前页数
+pageSize		每页条数
+
+文章评论
+article/comment
+pid	文章id
+content	内容
+urid	用户id
+
+视频列表
+video/getlist
+pageIndex	当前页数
+pageSize		每页条数
+
+视频评论
+video/comment
+pid	视频id
+content	内容
+urid	用户id
