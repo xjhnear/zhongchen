@@ -162,11 +162,8 @@ class UserController extends BaseController
 			return $this->fail(202,'参数异常');
 		}
 		$result = UserService::getUserInfo($urid);
-		if (!empty($result['data']['avatar'])) {
-            $result['data']['avatar'] = Config::get('app.api','').$result['data']['avatar'];
-        }
-        if (!empty($result['data']['head_img'])) {
-            $result['data']['head_img'] = Config::get('app.api','').$result['data']['head_img'];
+		if (!empty($result['data']['image'])) {
+            $result['data']['image'] = Config::get('app.img_url','').$result['data']['image'];
         }
 		if($result['result']){
 			return $this->success($result['data']);
