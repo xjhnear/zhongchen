@@ -22,7 +22,7 @@ final class User extends Model implements IModel
 {	
 	const IDENTIFY_FIELD_URID      = 'urid';
 	const IDENTIFY_FIELD_MOBILE   = 'mobile';
-	const IDENTIFY_FIELD_NAME = 'name';
+	const IDENTIFY_FIELD_NAME = 'username';
 	
 	
     public static function getClassName()
@@ -48,12 +48,12 @@ final class User extends Model implements IModel
 		return $user;
 	}
 
-	public static function isExistsByField($identify,$identify_field,$uid=0)
+	public static function isExistsByField($identify,$identify_field,$urid=0)
 	{
 		if(!in_array($identify_field,array('mobile','name'))) return true;
 		$tb = self::db()->where($identify_field,'=',$identify);
-		if($uid){
-			$tb = $tb->where('uid','!=',$uid);
+		if($urid){
+			$tb = $tb->where('urid','!=',$urid);
 		}
 		$user = $tb->first();
 		return $user ? true : false;
@@ -67,8 +67,8 @@ final class User extends Model implements IModel
 		$data = array();
 		$data['mobile'] = $mobile;
 		$data['password'] = Utility::cryptPwd($password);
-		$data['created_at'] = time();
-		$data['updated_at'] = time();
+		$data['regTime'] = time();
+		$data['updateTime'] = time();
 		$uid = self::db()->insertGetId($data);
 		return $uid;
 	}
@@ -143,16 +143,16 @@ final class User extends Model implements IModel
 		if(!$user) return $user;
 		//默认的fields的字段列表是全部的字段
 		$fields = array(
-			'urid','mobile','name',
-			'avatar','sex','card_name','card_sex','card_address','card_id','head_img','created_at','updated_at','identify',
-			'udid'
+			'urid','mobile','username',
+			'image','email','regTime','regIp','lastLoginTime','lastLoginIp','updateTime','tuid','score','scoreTotal',
+			'state','companyId','companyName','type'
 		);
 
 		if(is_string($filter)){
 			if($filter === 'short'){
-				$fields = array('urid','mobile','name','identify');
+				$fields = array('urid','mobile','username','image');
 			}elseif($filter === 'info'){
-				$fields = array('urid','name','avatar','sex','card_name','card_sex','card_address','card_id','head_img','register');
+				$fields = array('urid','mobile','username','image','regTime','companyId','companyName','type');
 			}
 		}
 		$out = array();
@@ -178,15 +178,15 @@ final class User extends Model implements IModel
 	public static function getList($search,$pageIndex=1,$pageSize=20)
 	{
 		$tb = self::db();
-		if(isset($search['name']) && !empty($search['name'])) $tb = $tb->where('card_name','like','%'.$search['name'].'%');
+		if(isset($search['username']) && !empty($search['username'])) $tb = $tb->where('username','like','%'.$search['username'].'%');
 		if(isset($search['mobile']) && !empty($search['mobile'])) $tb = $tb->where('mobile','=',$search['mobile']);
-		return $tb->orderBy('created_at','desc')->forPage($pageIndex,$pageSize)->get();
+		return $tb->orderBy('urid','desc')->forPage($pageIndex,$pageSize)->get();
 	}
 
 	public static function getCount($search)
 	{
 		$tb = self::db();
-		if(isset($search['name']) && !empty($search['name'])) $tb = $tb->where('card_name','like','%'.$search['name'].'%');
+		if(isset($search['username']) && !empty($search['username'])) $tb = $tb->where('username','like','%'.$search['username'].'%');
 		if(isset($search['mobile']) && !empty($search['mobile'])) $tb = $tb->where('mobile','=',$search['mobile']);
 		return $tb->count();
 	}
@@ -207,8 +207,8 @@ final class User extends Model implements IModel
 	protected static function m_buildSearch($search)
 	{
 		$tb = self::db();
-		if(isset($search['name'])){
-			$tb = $tb->where('card_name','like','%'.$search['name'].'%');
+		if(isset($search['username'])){
+			$tb = $tb->where('username','like','%'.$search['username'].'%');
 		}
 		return $tb;
 	}
@@ -218,12 +218,12 @@ final class User extends Model implements IModel
 		if(isset($data['urid']) && $data['urid']){
 			$urid = $data['urid'];
 			unset($data['urid']);
-			$data['updated_at'] = time();
+			$data['updateTime'] = time();
 			return self::db()->where('urid','=',$urid)->update($data);
 		}else{
 			unset($data['urid']);
-			$data['created_at'] = time();
-			$data['updated_at'] = time();
+			$data['regTime'] = time();
+			$data['updateTime'] = time();
 			return self::db()->insertGetId($data);
 		}
 	}

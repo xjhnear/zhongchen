@@ -16,7 +16,19 @@ $v4_tables = array(
     'youxiduo_user_model_post'=>array('db'=>'www','table'=>'post'),
 
     'youxiduo_phone_model_phonebatch'=>array('db'=>'www','table'=>'phone_batch'),
-    'youxiduo_phone_model_phonenumbers'=>array('db'=>'www','table'=>'phone_numbers')
+    'youxiduo_phone_model_phonenumbers'=>array('db'=>'www','table'=>'phone_numbers'),
+
+
+    // 中晨
+    'youxiduo_company_model_company'=>array('db'=>'www','table'=>'company'),
+    'youxiduo_order_model_order'=>array('db'=>'www','table'=>'order'),
+    'youxiduo_order_model_orderlog'=>array('db'=>'www','table'=>'orderlog'),
+    'youxiduo_order_model_orderproduct'=>array('db'=>'www','table'=>'orderproduct'),
+    'youxiduo_order_model_orderrepair'=>array('db'=>'www','table'=>'orderrepair'),
+    'youxiduo_product_model_product'=>array('db'=>'www','table'=>'product'),
+    'youxiduo_user_model_user'=>array('db'=>'www','table'=>'user'),
+    'youxiduo_user_model_userdistributor'=>array('db'=>'www','table'=>'userdistributor')
+
 
 
 );
