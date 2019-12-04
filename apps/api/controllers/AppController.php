@@ -12,9 +12,15 @@ class AppController extends BaseController
 		$version = Input::get('version','');
 		$udid = Input::get('udid','');
 		$urid = Input::get('urid','');
-		if($version != '1.0.0'){
-			return $this->fail(203,'没有版本信息');
+		if(version_compare($version, '1.0.0', '<')){
+			$hasNew = 1;
+		} else {
+			$hasNew = 0;
 		}
-		return $this->success(array('urid'=>$urid));
+		$result = [
+			'hasNew' => $hasNew,
+			'latest_ver' => '1.0.0',
+		];
+		return $this->success($result);
 	}	
 }
