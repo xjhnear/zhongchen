@@ -20,6 +20,8 @@ $v4_tables = array(
 
 
     // 中晨
+    'youxiduo_system_model_appvers'=>array('db'=>'system','table'=>'appvers'),
+
     'youxiduo_company_model_company'=>array('db'=>'www','table'=>'company'),
     'youxiduo_order_model_order'=>array('db'=>'www','table'=>'order'),
     'youxiduo_order_model_orderlog'=>array('db'=>'www','table'=>'orderlog'),
