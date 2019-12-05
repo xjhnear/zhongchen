@@ -34,4 +34,13 @@ class AppversService extends BaseService
 		}
 		return array('result'=>false,'msg'=>"暂无数据");
 	}
+
+    public static function fetchByPlatform($platform)
+    {
+        $appvers = Appvers::getInfoByPlatform($platform);
+        if($appvers){
+            return $appvers;
+        }
+        return false;
+    }
 }

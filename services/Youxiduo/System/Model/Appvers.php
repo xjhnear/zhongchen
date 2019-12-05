@@ -24,7 +24,7 @@ final class Appvers extends Model implements IModel
 		return __CLASS__;
 	}
 	
-	public static function getInfoByUsername($platform)
+	public static function getInfoByPlatform($platform)
 	{
 		$info = self::db()->where('platform','=',$platform)->first();
 		return $info;

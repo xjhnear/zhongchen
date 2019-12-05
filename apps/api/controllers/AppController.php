@@ -11,20 +11,26 @@ class AppController extends BaseController
 	public function upGrade()
 	{
 		$version = Input::get('version','');
-		$search['platform'] = Input::get('platform','');
+		$platform = Input::get('platform','');
 		$udid = Input::get('udid','');
 		$urid = Input::get('urid','');
-		$result = AppversService::getAppversList($search,1,1);
-		print_r($result);exit;
-		if(version_compare($version, '1.0.0', '<')){
-			$hasNew = 1;
-		} else {
-			$hasNew = 0;
-		}
-		$result = [
-			'hasNew' => $hasNew,
-			'latest_ver' => '1.0.0',
-		];
-		return $this->success($result);
+		$result = AppversService::fetchByPlatform($platform);
+		if($result){
+            if(version_compare($version, $result['appver'], '<')){
+                $hasNew = 1;
+            } else {
+                $hasNew = 0;
+            }
+            $result = [
+                'hasNew' => $hasNew,
+                'latest_ver' => $result['appver'],
+                'info' => $result['info'],
+                'force' => $result['force'],
+                'link' => $result['link'],
+            ];
+            return $this->success($result);
+        }else{
+            return $this->fail(500,'暂无数据');
+        }
 	}	
 }
