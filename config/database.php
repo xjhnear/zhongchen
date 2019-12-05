@@ -48,7 +48,8 @@ return array(
 
 		'mysql' => array(
 			'driver'    => 'mysql',
-			'host'      => '127.0.0.1',
+//			'host'      => '127.0.0.1',
+			'host'      => '139.199.20.108',
 			'database'  => 'bazhou_www',
 			'username'  => 'root',
 			'password'  => 'Near19880322',
@@ -58,8 +59,9 @@ return array(
 		),
 		'system' => array(
 			'driver'    => 'mysql',
-			'host'      => '127.0.0.1',
-			'database'  => 'bazhou_www',
+//			'host'      => '127.0.0.1',
+			'host'      => '139.199.20.108',
+			'database'  => 'zhongchen',
 			'username'  => 'root',
 			'password'  => 'Near19880322',
 			'charset'   => 'utf8',
@@ -68,7 +70,8 @@ return array(
 		),
 		'www' => array(
 		    'driver'    => 'mysql',
-			'host'      => '127.0.0.1',
+//			'host'      => '127.0.0.1',
+			'host'      => '139.199.20.108',
 			'database'  => 'bazhou_www',
 			'username'  => 'root',
 			'password'  => 'Near19880322',
