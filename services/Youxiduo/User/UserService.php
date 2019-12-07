@@ -32,9 +32,9 @@ class UserService extends BaseService
 		return array('result'=>$exists,'data'=>$user);
 	}
 
-	public static function checkPasswordbyMobile($mobile,$password,$register=1)
+	public static function checkPasswordbyMobile($mobile,$password)
 	{
-		$user = User::doLocalLogin($mobile,User::IDENTIFY_FIELD_MOBILE,$password,$register);
+		$user = User::doLocalLogin($mobile,User::IDENTIFY_FIELD_MOBILE,$password);
 		$exists = $user ? true : false;
 		return array('result'=>$exists,'data'=>$user);
 	}
@@ -47,9 +47,9 @@ class UserService extends BaseService
 	{
 		if(Utility::validateMobile($mobile)===true){
 			$verifycode = Utility::random(6,'alnum');
-//			$verifycode = '123456';
+			$verifycode = '123456';
 			$result = UserMobile::saveVerifyCodeByPhone($mobile,$type,$verifycode,false,$udid);
-			$result==true && Utility::sendVerifySMS($mobile,$verifycode,$sms);
+//			$result==true && Utility::sendVerifySMS($mobile,$verifycode,$sms);
 			return array('result'=>true,'data'=>$result);
 		}
 		return array('result'=>false,'msg'=>"手机号无效");
@@ -166,13 +166,13 @@ class UserService extends BaseService
 	{
 		if(!$urid) return false;
 
-		$fields = array('name','avatar','sex','identify','register','numbers','video','password');
+		$fields = array('username','image','sex','type','companyId','companyName','password');
 		$data = array();
 		//过滤非法字段
 		foreach($fields as $field){
 			isset($input[$field]) && !empty($input[$field]) && $data[$field] = $input[$field];
 		}
-        $data['updated_at'] = time();
+        $data['updateTime'] = time();
 		if($data){
 			$res = User::modifyUserInfo($urid, $data);
 			if($res){

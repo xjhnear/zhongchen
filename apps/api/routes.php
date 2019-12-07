@@ -57,6 +57,15 @@ Route::any('post/comment{symbol}',array('before'=>'uri_verify','uses'=>'PostCont
 //获取验证码
 Route::any('sms/verify{symbol}',array('before'=>'uri_verify','uses'=>'UserController@smsVerify'));
 
+
+//产品列表
+Route::any('product/getlist{symbol}',array('before'=>'uri_verify','uses'=>'ProductController@getlist'));
+Route::any('product/getdetail{symbol}',array('before'=>'uri_verify','uses'=>'ProductController@getdetail'));
+
+//订单列表
+Route::any('order/getlist{symbol}',array('before'=>'uri_verify','uses'=>'OrderController@getlist'));
+Route::any('order/getdetail{symbol}',array('before'=>'uri_verify','uses'=>'OrderController@getdetail'));
+
 /*
 App::missing(function($exception){
 	return Response::json(array('result'=>array(),'errorCode'=>11211,'errorMessage'=>'Page Is Not Exists!!'));

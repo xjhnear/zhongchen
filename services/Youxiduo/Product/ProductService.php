@@ -26,9 +26,23 @@ class ProductService extends BaseService
 	{
 		$product = Product::getList($search,$pageIndex,$pageSize);
 		if($product){
+            foreach ($product as &$item) {
+                unset($item['content']);
+                unset($item['remarks']);
+                unset($item['extrainfo']);
+            }
 			return array('result'=>true,'data'=>$product);
 		}
 		return array('result'=>false,'msg'=>"暂无数据");
 	}
+
+    public static function getProductInfo($prid)
+    {
+        $product = Product::getProductInfoById($prid);
+        if($product){
+            return array('result'=>true,'data'=>$product);
+        }
+        return array('result'=>false,'msg'=>"用户不存在");
+    }
 
 }

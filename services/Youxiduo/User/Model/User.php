@@ -33,17 +33,14 @@ final class User extends Model implements IModel
 	/**
 	 * 账号登录
 	 */
-	public static function doLocalLogin($identify,$identify_field,$password,$register)
+	public static function doLocalLogin($identify,$identify_field,$password)
 	{
 		if(!in_array($identify_field,array('urid','mobile'))) return false;
 //		if(strlen($password) != 32){
 //			$password = Utility::cryptPwd($password);
 //		}
 		$user = self::db();
-		$user = $user->where($identify_field,'=',$identify)->where('password','=',$password);
-		if ($register==1) {
-			$user = $user->where('register','=',$register);
-		}
+		$user = $user->where($identify_field,'=',$identify)->where('password','=',md5($password));
 		$user = $user->first();
 		return $user;
 	}
@@ -66,6 +63,8 @@ final class User extends Model implements IModel
 	{
 		$data = array();
 		$data['mobile'] = $mobile;
+        $data['username'] = '用户'.Utility::random(4,'alnum');
+        $data['salt'] = Utility::random(6,'alnum');;
 		$data['password'] = Utility::cryptPwd($password);
 		$data['regTime'] = time();
 		$data['updateTime'] = time();
@@ -143,16 +142,16 @@ final class User extends Model implements IModel
 		if(!$user) return $user;
 		//默认的fields的字段列表是全部的字段
 		$fields = array(
-			'urid','mobile','username',
+			'urid','mobile','username','sex',
 			'image','email','regTime','regIp','lastLoginTime','lastLoginIp','updateTime','tuid','score','scoreTotal',
 			'state','companyId','companyName','type'
 		);
 
 		if(is_string($filter)){
 			if($filter === 'short'){
-				$fields = array('urid','mobile','username','image');
+				$fields = array('urid','mobile','username','image','sex');
 			}elseif($filter === 'info'){
-				$fields = array('urid','mobile','username','image','regTime','companyId','companyName','type');
+				$fields = array('urid','mobile','username','image','sex','regTime','companyId','companyName','type');
 			}
 		}
 		$out = array();

@@ -88,16 +88,16 @@ class UserController extends BaseController
 						}else{
 							return $this->fail(201,$user['msg']);
 						}
-					}else{
-						return $this->fail(201,'手机号码信息未采集');
-					}
-//					$user = UserService::createUserByPhone($mobile, $password);
-//					if($user['result']){
-//						$urid = array('urid'=>$user['data']);
-//						return $this->success($urid);
 //					}else{
-//						return $this->fail(201,$user['msg']);
-//					}
+//						return $this->fail(201,'手机号码信息未采集');
+					}
+					$user = UserService::createUserByPhone($mobile, $password);
+					if($user['result']){
+						$urid = array('urid'=>$user['data']);
+						return $this->success($urid);
+					}else{
+						return $this->fail(201,$user['msg']);
+					}
 					break;
 				case 1:
 					//忘记密码

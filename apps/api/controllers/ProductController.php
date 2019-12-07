@@ -28,4 +28,15 @@ class ProductController extends BaseController
 		}
 	}
 
+    public function getdetail()
+    {
+        $prid = Input::get('prid',0);
+
+        $result = ProductService::getProductInfo($prid);
+        if($result['result']){
+            return $this->success(array('result'=>$result['data']));
+        }else{
+            return $this->fail(201,$result['msg']);
+        }
+    }
 }

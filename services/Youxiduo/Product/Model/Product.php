@@ -39,6 +39,14 @@ final class Product extends Model implements IModel
         return $tb->count();
     }
 
+    public static function getProductInfoById($prid)
+    {
+        $info = self::db()->where('prid','=',$prid)->first();
+        if(!$info) return null;
+		$info && $info['img'] = Utility::getImageUrl($info['img']);
+        return $info;
+    }
+
     public static function save($data)
     {
         if(isset($data['prid']) && $data['prid']){

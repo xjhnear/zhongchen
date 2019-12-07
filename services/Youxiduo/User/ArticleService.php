@@ -26,6 +26,12 @@ class ArticleService extends BaseService
 	{
 		$article = Article::getList($pageIndex,$pageSize,$gid);
 		if($article){
+		    foreach ($article as &$item) {
+                unset($item['gid']);
+                unset($item['summary']);
+                unset($item['content']);
+                $item['img'] = Utility::getImageUrl($item['img']);
+            }
 			return array('result'=>true,'data'=>$article);
 		}
 		return array('result'=>false,'msg'=>"暂无数据");

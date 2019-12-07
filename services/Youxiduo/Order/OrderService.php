@@ -31,4 +31,14 @@ class OrderService extends BaseService
 		return array('result'=>false,'msg'=>"暂无数据");
 	}
 
+
+    public static function getOrderInfo($prid)
+    {
+        $order = Order::getOrderInfoById($prid);
+        if($order){
+            return array('result'=>true,'data'=>$order);
+        }
+        return array('result'=>false,'msg'=>"用户不存在");
+    }
+
 }

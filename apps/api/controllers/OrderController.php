@@ -28,4 +28,16 @@ class OrderController extends BaseController
 		}
 	}
 
+    public function getdetail()
+    {
+        $orid = Input::get('orid',0);
+
+        $result = OrderService::getOrderInfo($orid);
+        if($result['result']){
+            return $this->success(array('result'=>$result['data']));
+        }else{
+            return $this->fail(201,$result['msg']);
+        }
+    }
+
 }
