@@ -61,4 +61,13 @@ final class Orderproduct extends Model implements IModel
         }
         return $re;
     }
+
+    public static function getListByOrid($orid)
+    {
+        $tb = self::db();
+        $tb = $tb->join('product','product.prid','=','orderproduct.prid');
+        $tb = $tb->where('orid','=',$orid);
+        $tb = $tb->where('orderproduct.state','=',1);
+        return $tb->orderBy('orid','desc')->get();
+    }
 }

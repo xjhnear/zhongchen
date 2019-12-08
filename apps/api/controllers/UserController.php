@@ -176,12 +176,14 @@ class UserController extends BaseController
 	{
 		$urid = Input::get('urid',0);
 		$input = array();
-		$input['name'] = Input::get('name');
+		$input['username'] = Input::get('username');
         if(Input::hasFile('imgkey')){
-            $avatar = MyHelp::save_img_no_url(Input::file('imgkey'),'avatar');
-            $input['avatar'] = $avatar;
+            $avatar = MyHelp::save_img_no_url(Input::file('imgkey'),'img');
+            $input['img'] = $avatar;
         }
 		$input['sex'] = Input::get('sex');
+        $input['companyId'] = Input::get('companyId',0);
+        $input['companyName'] = Input::get('companyName');
 		if($urid <= 0){
 			return $this->fail(202,'参数异常');
 		}

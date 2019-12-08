@@ -16,6 +16,7 @@ use Youxiduo\User\Model\Feedback;
 use Youxiduo\User\Model\Comment;
 use Youxiduo\User\Model\User;
 use Youxiduo\User\Model\UserMobile;
+use Youxiduo\Company\Model\Company;
 use Youxiduo\User\UploaderService;
 use Youxiduo\Helper\Utility;
 use Illuminate\Support\Facades\Input;
@@ -174,6 +175,16 @@ class UserService extends BaseService
 		}
         $data['updateTime'] = time();
 		if($data){
+		    if ($data['companyName']) {
+		        $company_data = [];
+		        if ($data['companyId'] > 0) {
+                    $company_data['id'] = $data['companyId'];
+                }
+                $company_data['companyName'] = $data['companyName'];
+		        Company::save($company_data);
+                unset($data['companyId']);
+                unset($data['companyName']);
+            }
 			$res = User::modifyUserInfo($urid, $data);
 			if($res){
 				return array('result'=>true,'data'=>$res);
