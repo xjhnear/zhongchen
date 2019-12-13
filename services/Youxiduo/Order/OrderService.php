@@ -106,6 +106,9 @@ class OrderService extends BaseService
                 unset($item_sub['remarks']);
             }
             $order['productList'] = $productList;
+            $search['orid'] = $order['orid'];
+            $pairList = Orderrepair::getList($search);
+            $order['pairList'] = $pairList;
             return array('result'=>true,'data'=>$order);
         }
         return array('result'=>false,'msg'=>"用户不存在");
