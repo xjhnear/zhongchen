@@ -25,8 +25,8 @@ Route::any('app/upgrade{symbol}',array('before'=>'uri_verify','uses'=>'AppContro
 /*-------------------------------用户-------------------------------*/
 //登录√
 Route::any('user/login{symbol}',array('before'=>'uri_verify','uses'=>'UserController@login'));
-//注册、忘记密码、更换绑定手机
-Route::any('user/register{symbol}',array('uses'=>'UserController@register'));
+//更换绑定手机
+Route::any('user/changemobile{symbol}',array('uses'=>'UserController@changemobile'));
 //意见反馈
 Route::any('user/feedback{symbol}',array('before'=>'uri_verify','uses'=>'UserController@feedback'));
 //获取用户信息
