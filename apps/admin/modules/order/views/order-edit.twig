@@ -4,16 +4,17 @@
     <div class="span12">
         <div class="box">
             <div class="box-title">
-                <h3><i class="icon-edit"></i>添加广告</h3>
+                <h3><i class="icon-edit"></i>编辑广告</h3>
             </div>
 
             <div class="box-content">
-                <form id="gift-info-form" action="<!--{{url('/article/article/add')}}-->" method="POST" class='form-horizontal form-validate' enctype="multipart/form-data">
-	
-           			<div class="control-group" >
+                <form id="gift-info-form" action="<!--{{url('/order/order/edit')}}-->" method="POST" class='form-horizontal form-validate' enctype="multipart/form-data">
+                    <input name="id" type="hidden" value="<!--{{data.arid}}-->"  />
+					<input name="old_img" type="hidden" value="<!--{{data.img}}-->" />
+                    <div class="control-group" >
                         <label class="control-label">标题:</label>
                         <div class="controls">
-                            <input type="text" name="title" class="input-large" value="" />
+                            <input type="text" name="title" class="input-large" value="<!--{{data.title  }}-->" />
                         </div>
                     </div>
 
@@ -27,7 +28,7 @@
 					{#<div class="control-group" >#}
 						{#<label class="control-label">摘要:</label>#}
 						{#<div class="controls">#}
-							{#<input type="text" name="summary" class="input-large" value="" />#}
+							{#<input type="text" name="summary" class="input-large" value="<!--{{data.summary  }}-->" />#}
 						{#</div>#}
 					{#</div>#}
 
@@ -38,7 +39,7 @@
 								<div class="controls">
 									<div class="fileupload fileupload-new" data-provides="fileupload">
 										<div class="fileupload-new thumbnail" style="max-width: 120px; max-height: 120px;">
-											<img src="/static/img/nopic.gif" />
+											<img src="<!--{{data.img|default('/static/img/nopic.gif')}}-->" />
 										</div>
 										<div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 120px; max-height: 120px; line-height: 20px;"></div>
 										<div>
@@ -54,18 +55,17 @@
 					{#<div class="control-group">#}
 						{#<label for="textfield" class="control-label">内容</label>#}
 						{#<div class="controls">#}
-							{#<script id="intro" name="content" type="text/plain"><!--{{ input_old('content') }}--></script>#}
+							{#<script id="intro" name="content" type="text/plain"><!--{{ data.content }}--></script>#}
 						{#</div>#}
 					{#</div>#}
-
+		
 			        <div class="form-actions">
 			            <button type="submit" class="btn btn-primary"><i class="icon-ok"></i>保存</button>
 			        </div>
-			        
+			        			        
 			        <div class="box-title"></div>
-                
-		        </form>
-		                        
+
+				</form>
 		    </div>
 		</div>
 	</div>
@@ -93,5 +93,6 @@
 	// 	});
 	// 	$('.switchbox').bootstrapSwitch();
 	// });
+	    
 </script>
 <!--{%endblock%}-->

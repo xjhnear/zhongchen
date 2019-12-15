@@ -5,23 +5,22 @@
  * Date: 2016/4/15
  * Time: 11:25
  */
-namespace modules\article\controllers;
+namespace modules\order\controllers;
 
 use Yxd\Modules\Core\BackendController;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Paginator;
 use Illuminate\Support\Facades\Config;
 use Youxiduo\Helper\MyHelp;
-use Youxiduo\User\Model\Article;
+use Youxiduo\Order\Model\Order;
 use Youxiduo\User\Model\Comment;
-use Youxiduo\User\Model\ArticleGroup;
 
-class ArticleController extends BackendController
+class OrderController extends BackendController
 {
 
     public function _initialize()
     {
-        $this->current_module = 'article';
+        $this->current_module = 'order';
     }
 
     public function getList()
@@ -31,40 +30,40 @@ class ArticleController extends BackendController
         $pageSize = 10;
 		$search = array();
 
-        $data['datalist'] = Article::getList($pageIndex,$pageSize);
+        $data['datalist'] = Order::getList($pageIndex,$pageSize);
         $data['search'] = $search;
-        $total = Article::getCount();
+        $total = Order::getCount();
         $pager = Paginator::make(array(),$total,$pageSize);
         $pager->appends($search);
         $data['pagelinks'] = $pager->links();
-        return $this->display('article-list', $data);
+        return $this->display('order-list', $data);
     }
 
     public function getAdd()
     {
         $data = array();
-//        $groups = ArticleGroup::getNameList();
+//        $groups = OrderGroup::getNameList();
 //        $data['groups'] = $groups;
-        return $this->display('article-add', $data);
+        return $this->display('order-add', $data);
     }
     
     public function postAdd()
     {
-        $input = Input::only('title', 'content', 'summary','img','gid');
+        $input = Input::only('urid', 'name', 'tel','address','gid');
 
         $data['title'] = $input['title'];
 //        $data['summary'] = $input['summary'];
 //        $data['content'] = $input['content'];
 //        $data['gid'] = $input['gid'];
         if(Input::hasFile('img')){
-            $img = MyHelp::save_img_no_url(Input::file('img'),'article_img');
+            $img = MyHelp::save_img_no_url(Input::file('img'),'order_img');
             $data['img'] = $img;
         }
 
-        $result = Article::save($data);
+        $result = Order::save($data);
         
         if ($result) {
-            return $this->redirect('article/article/list')->with('global_tips', '保存成功');
+            return $this->redirect('order/order/list')->with('global_tips', '保存成功');
         } else {
             return $this->back('保存失败');
         }
@@ -73,11 +72,11 @@ class ArticleController extends BackendController
     public function getEdit($id)
     {
         $data = array();
-        $data['data'] = Article::getInfo($id);
-//        $groups = ArticleGroup::getNameList();
+        $data['data'] = Order::getInfo($id);
+//        $groups = OrderGroup::getNameList();
 //        $data['groups'] = $groups;
         $data['data']['img'] = Config::get('app.img_url').$data['data']['img'];
-        return $this->display('article-edit', $data);
+        return $this->display('order-edit', $data);
     }
 
     public function postEdit()
@@ -91,14 +90,14 @@ class ArticleController extends BackendController
 //        $data['gid'] = $input['gid'];
         $img = $input['old_img'];unset($input['old_img']);
         if(Input::hasFile('img')){
-            $img = MyHelp::save_img_no_url(Input::file('img'),'article_img');
+            $img = MyHelp::save_img_no_url(Input::file('img'),'order_img');
         }
         $data['img'] = $img;
 
-        $result = Article::save($data);
+        $result = Order::save($data);
         
         if ($result) {
-            return $this->redirect('article/article/list')->with('global_tips', '保存成功');
+            return $this->redirect('order/order/list')->with('global_tips', '保存成功');
         } else {
             return $this->back('保存失败');
         }

@@ -11,7 +11,7 @@
                 <div class="actions">
                     <table class="table-filter">
                         <tr>
-                            <td><a href="<!--{{url('article/article/add')}}-->" class="btn btn-teal">添加广告</a></td>
+                            <td><a href="<!--{{url('order/order/add')}}-->" class="btn btn-teal">添加广告</a></td>
                         </tr>
                     </table>
                 </div>
@@ -31,8 +31,8 @@
                     	<td><!--{{item.arid}}--></td>
                         <td><!--{{item.title}}--></td>
                         <td>
-                            <a href="<!--{{url('article/article/edit',{id:item.arid})}}-->" class="btn btn-primary">编辑</a> |
-                            {#<a href="<!--{{url('article/article/commentlist',{pid:item.arid})}}-->" class="btn btn-primary">查看评论</a>#}
+                            <a href="<!--{{url('order/order/edit',{id:item.arid})}}-->" class="btn btn-primary">编辑</a> |
+                            {#<a href="<!--{{url('order/order/commentlist',{pid:item.arid})}}-->" class="btn btn-primary">查看评论</a>#}
                         </td>
                     </tr>
                     <!--{%endfor%}-->
