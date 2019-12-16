@@ -82,14 +82,14 @@ class UserService extends BaseService
 	/**
 	 * 手机注册
 	 */
-	public static function createUserByPhone($mobile,$password)
+	public static function createUserByPhone($mobile,$password,$register)
 	{
 		if(Utility::validateMobile($mobile)===true && !empty($password)){
 			if(User::isExistsByField($mobile,User::IDENTIFY_FIELD_MOBILE)===true){
 				return array('result'=>false,'msg'=>"该手机号已经存在");
 			}else{
 				if(UserMobile::phoneVerifyStatus($mobile,true)===false) return array('result'=>false,'msg'=>"手机未验证");
-				$uid = User::createUserByPhone($mobile,$password);
+				$uid = User::createUserByPhone($mobile,$password,$register);
 			}
 			if($uid>0){
 				return array('result'=>true,'data'=>$uid);
@@ -168,7 +168,7 @@ class UserService extends BaseService
 	{
 		if(!$urid) return false;
 
-		$fields = array('username','image','sex','type','companyId','companyName','password');
+		$fields = array('username','image','sex','type','companyId','companyName','password','state','parentId','register');
 		$data = array();
 		//过滤非法字段
 		foreach($fields as $field){
@@ -258,6 +258,31 @@ class UserService extends BaseService
 		}else{
 			return array('result'=>false,'msg'=>"评论提交失败");
 		}
+	}
+
+	public static function getSubUserList($pageIndex=1,$pageSize=20,$urid=0)
+	{
+		$search['parentId'] = $urid;
+		$subuser = User::getList($search,$pageIndex,$pageSize);
+		if($subuser){
+			foreach ($subuser as &$item) {
+				unset($item['password']);
+				unset($item['salt']);
+				unset($item['email']);
+				unset($item['regTime']);
+				unset($item['regIp']);
+				unset($item['lastLoginTime']);
+				unset($item['lastLoginIp']);
+				unset($item['updateTime']);
+				unset($item['tuid']);
+				unset($item['score']);
+				unset($item['scoreTotal']);
+				unset($item['type']);
+				$item['img'] = Utility::getImageUrl($item['img']);
+			}
+			return array('result'=>true,'data'=>$subuser);
+		}
+		return array('result'=>false,'msg'=>"暂无数据");
 	}
 
 }

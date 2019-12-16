@@ -27,11 +27,17 @@ class UserController extends BaseController
 		if($result['result']){
 			$result_pwd = UserService::getUserInfobyMobile($mobile);
 			if($result_pwd['result']){
+				if ($result_pwd['data']['state'] == 0) {
+					return $this->fail(202,'账号已被禁用');
+				}
 				$urid = $result_pwd['data']['urid'];
+				if ($result_pwd['data']['register'] == 0) {
+					UserService::modifyUserInfo($urid,['register'=>1]);
+				}
 				$result = array('urid'=>$urid);
 				return $this->success($result);
 			} else {
-				$user = UserService::createUserByPhone($mobile, $verifycode);
+				$user = UserService::createUserByPhone($mobile, $verifycode, 1);
 				if($user['result']){
 					$urid = array('urid'=>$user['data']);
 					return $this->success($urid);
@@ -201,4 +207,17 @@ class UserController extends BaseController
 		}
 	}
 
+	public function subuserlist()
+	{
+		$pageIndex = Input::get('pageIndex',1);
+		$pageSize = Input::get('pageSize',20);
+		$urid = Input::get('urid',0);
+
+		$result = UserService::getSubUserList($pageIndex,$pageSize,$urid);
+		if($result['result']){
+			return $this->success(array('result'=>$result['data']));
+		}else{
+			return $this->fail(201,$result['msg']);
+		}
+	}
 }

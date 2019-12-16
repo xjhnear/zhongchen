@@ -66,6 +66,11 @@ Route::any('product/getdetail{symbol}',array('before'=>'uri_verify','uses'=>'Pro
 Route::any('order/getlist{symbol}',array('before'=>'uri_verify','uses'=>'OrderController@getlist'));
 Route::any('order/getdetail{symbol}',array('before'=>'uri_verify','uses'=>'OrderController@getdetail'));
 
+//子用户管理
+Route::any('user/subuserlist{symbol}',array('before'=>'uri_verify','uses'=>'UserController@subuserlist'));
+Route::any('user/subuseradd{symbol}',array('before'=>'uri_verify','uses'=>'UserController@subuseradd'));
+Route::any('user/subuseredit{symbol}',array('before'=>'uri_verify','uses'=>'UserController@subuseredit'));
+Route::any('user/subuserdel{symbol}',array('before'=>'uri_verify','uses'=>'UserController@subuserdel'));
 /*
 App::missing(function($exception){
 	return Response::json(array('result'=>array(),'errorCode'=>11211,'errorMessage'=>'Page Is Not Exists!!'));

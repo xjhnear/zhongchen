@@ -59,7 +59,7 @@ final class User extends Model implements IModel
 	/**
 	 * 创建用户通过手机号
 	 */
-	public static function createUserByPhone($mobile,$password)
+	public static function createUserByPhone($mobile,$password,$register)
 	{
 		$data = array();
 		$data['mobile'] = $mobile;
@@ -68,6 +68,7 @@ final class User extends Model implements IModel
 		$data['password'] = Utility::cryptPwd($password);
 		$data['regTime'] = time();
 		$data['updateTime'] = time();
+		$data['register'] = $register;
 		$uid = self::db()->insertGetId($data);
 		return $uid;
 	}
@@ -179,6 +180,7 @@ final class User extends Model implements IModel
 		$tb = self::db();
 		if(isset($search['username']) && !empty($search['username'])) $tb = $tb->where('username','like','%'.$search['username'].'%');
 		if(isset($search['mobile']) && !empty($search['mobile'])) $tb = $tb->where('mobile','=',$search['mobile']);
+		if(isset($search['parentId']) && !empty($search['parentId'])) $tb = $tb->where('parentId','=',$search['parentId']);
 		return $tb->orderBy('urid','desc')->forPage($pageIndex,$pageSize)->get();
 	}
 
@@ -187,6 +189,7 @@ final class User extends Model implements IModel
 		$tb = self::db();
 		if(isset($search['username']) && !empty($search['username'])) $tb = $tb->where('username','like','%'.$search['username'].'%');
 		if(isset($search['mobile']) && !empty($search['mobile'])) $tb = $tb->where('mobile','=',$search['mobile']);
+		if(isset($search['parentId']) && !empty($search['parentId'])) $tb = $tb->where('parentId','=',$search['parentId']);
 		return $tb->count();
 	}
 
