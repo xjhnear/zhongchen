@@ -220,4 +220,60 @@ class UserController extends BaseController
 			return $this->fail(201,$result['msg']);
 		}
 	}
+
+	public function subuseradd()
+	{
+		$input = Input::only('mobile','username','companyId','companyName','sex');
+		$input['parentId'] = Input::get('urid',0);
+		$input['register'] = 0;
+
+		$result = UserService::saveSubUser($input);
+		if($result['result']){
+			return $this->success(array('result'=>$result['data']));
+		}else{
+			return $this->fail(201,$result['msg']);
+		}
+	}
+
+	public function subuseredit()
+	{
+		$input = Input::only('mobile','username','companyId','companyName','sex');
+		$input['urid'] = Input::get('suburid',0);
+		$input['parentId'] = Input::get('urid',0);
+
+		$data['info'] = User::getInfo($input['urid']);
+		if (!$data['info']) {
+			return $this->fail(201,'参数异常');
+		}
+		if ($data['info']['parentId'] != $input['parentId']) {
+			return $this->fail(201,'无权操作');
+		}
+		$result = UserService::saveSubUser($input);
+		if($result['result']){
+			return $this->success(array('result'=>$result['data']));
+		}else{
+			return $this->fail(201,$result['msg']);
+		}
+	}
+
+	public function subuserdel()
+	{
+		$input['urid'] = Input::get('suburid',0);
+		$input['parentId'] = Input::get('urid',0);
+
+		$data['info'] = User::getInfo($input['urid']);
+		if (!$data['info']) {
+			return $this->fail(201,'参数异常');
+		}
+		if ($data['info']['parentId'] != $input['parentId']) {
+			return $this->fail(201,'无权操作');
+		}
+		$input['parentId'] = 0;
+		$result = UserService::saveSubUser($input);
+		if($result['result']){
+			return $this->success(array('result'=>$result['data']));
+		}else{
+			return $this->fail(201,$result['msg']);
+		}
+	}
 }

@@ -285,4 +285,18 @@ class UserService extends BaseService
 		return array('result'=>false,'msg'=>"暂无数据");
 	}
 
+	public static function saveSubUser($input)
+	{
+		if (!$input['mobile']) return array('result'=>false,'msg'=>"保存失败");
+		if(User::isExistsByField($input['mobile'],User::IDENTIFY_FIELD_MOBILE)===true){
+			return array('result'=>false,'msg'=>"该手机号已经存在");
+		}else{
+			$result = User::save($input);
+			if($result){
+				return array('result'=>true);
+			}else{
+				return array('result'=>false,'msg'=>"保存失败");
+			}
+		}
+	}
 }
