@@ -88,7 +88,7 @@ class UserService extends BaseService
 			if(User::isExistsByField($mobile,User::IDENTIFY_FIELD_MOBILE)===true){
 				return array('result'=>false,'msg'=>"该手机号已经存在");
 			}else{
-				if(UserMobile::phoneVerifyStatus($mobile,true)===false) return array('result'=>false,'msg'=>"手机未验证");
+//				if(UserMobile::phoneVerifyStatus($mobile,true)===false) return array('result'=>false,'msg'=>"手机未验证");
 				$uid = User::createUserByPhone($mobile,$password,$register);
 			}
 			if($uid>0){
