@@ -41,18 +41,18 @@ class UserController extends BackendController
 	{
 		$data = array();
 		$data['info'] = User::getInfo($urid);
-		$data['info']['head_img'] = Config::get('app.img_url').$data['info']['head_img'];
+		$data['info']['image'] = Config::get('app.img_url').$data['info']['image'];
 		return $this->display('user_info',$data);
 	}
 	
 	public function postSave()
 	{
-		$input = Input::only('urid','mobile','card_name','card_sex','card_address','card_id','head_img','old_head_img');
-		$head_img = $input['old_head_img'];unset($input['old_head_img']);
-        if(Input::hasFile('head_img')){
-            $head_img = MyHelp::save_img_no_url(Input::file('head_img'),'head_img');
+		$input = Input::only('urid','mobile','username','sex','type','image','old_image');
+		$head_img = $input['old_image'];unset($input['old_image']);
+        if(Input::hasFile('image')){
+            $head_img = MyHelp::save_img_no_url(Input::file('image'),'image');
         }
-        $input['head_img'] = $head_img;
+        $input['image'] = $head_img;
 		$result = User::save($input);
 		if($result){
 			return $this->redirect('user/user/list','用户保存成功');
@@ -73,10 +73,11 @@ class UserController extends BackendController
 	public function postAjaxReset()
 	{
 		$urid = Input::get('urid');
+        $type = Input::get('type',1);
 		if($urid){
-			User::modifyUserInfo($urid,array('identify'=>0));
+			User::modifyUserInfo($urid,array('type'=>$type));
 		}
-		return json_encode(array('state'=>1,'msg'=>'用户重新年审成功'));
+		return json_encode(array('state'=>1,'msg'=>'用户操作成功'));
 	}
 
     public function getVideo($urid)

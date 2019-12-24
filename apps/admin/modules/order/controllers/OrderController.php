@@ -49,16 +49,16 @@ class OrderController extends BackendController
     
     public function postAdd()
     {
-        $input = Input::only('urid', 'name', 'tel','address','gid');
+        $input = Input::only('urid', 'orderNo', 'tel','price');
 
         $data['title'] = $input['title'];
 //        $data['summary'] = $input['summary'];
 //        $data['content'] = $input['content'];
 //        $data['gid'] = $input['gid'];
-        if(Input::hasFile('img')){
-            $img = MyHelp::save_img_no_url(Input::file('img'),'order_img');
-            $data['img'] = $img;
-        }
+//        if(Input::hasFile('img')){
+//            $img = MyHelp::save_img_no_url(Input::file('img'),'order_img');
+//            $data['img'] = $img;
+//        }
 
         $result = Order::save($data);
         
@@ -75,24 +75,24 @@ class OrderController extends BackendController
         $data['data'] = Order::getInfo($id);
 //        $groups = OrderGroup::getNameList();
 //        $data['groups'] = $groups;
-        $data['data']['img'] = Config::get('app.img_url').$data['data']['img'];
+//        $data['data']['img'] = Config::get('app.img_url').$data['data']['img'];
         return $this->display('order-edit', $data);
     }
 
     public function postEdit()
     {
-        $input = Input::only('id', 'title', 'content', 'summary','img','old_img','gid');
+        $input = Input::only('id', 'urid', 'orderNo', 'tel','price');
         
-        $data['arid'] = $input['id'];
-        $data['title'] = $input['title'];
-//        $data['summary'] = $input['summary'];
-//        $data['content'] = $input['content'];
+        $data['orid'] = $input['id'];
+        $data['orderNo'] = $input['orderNo'];
+        $data['tel'] = $input['tel'];
+        $data['price'] = $input['price'];
 //        $data['gid'] = $input['gid'];
-        $img = $input['old_img'];unset($input['old_img']);
-        if(Input::hasFile('img')){
-            $img = MyHelp::save_img_no_url(Input::file('img'),'order_img');
-        }
-        $data['img'] = $img;
+//        $img = $input['old_img'];unset($input['old_img']);
+//        if(Input::hasFile('img')){
+//            $img = MyHelp::save_img_no_url(Input::file('img'),'order_img');
+//        }
+//        $data['img'] = $img;
 
         $result = Order::save($data);
         

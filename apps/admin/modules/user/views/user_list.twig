@@ -30,7 +30,7 @@
 							<th class="col-150">手机号码</th>
 							<th class="col-150">姓名</th>
 							<th class="col-50">是否注册</th>
-							<th class="col-80">审核状态</th>
+							<th class="col-80">用户状态</th>
 							<th class="col-150">创建时间</th>
 							<th class="col-150">修改时间</th>
 							<th class="table-btn-group">操作</th>
@@ -42,19 +42,17 @@
 						<td><!--{{item.urid}}--></td>
 						<td><!--{{item.mobile}}--></td>
 						<td><!--{{item.card_name}}--></td>
-						<td><!--{{item.register == 1 ? 'Y' : 'N'}}--></td>
-						<!--{%if item.identify==1 %}-->
-							<td>认证成功</td>
-						<!--{%elseif item.identify==2 %}-->
-							<td>审核中</td>
-						<!--{%else%}-->
-							<td>未认证</td>
-						<!--{%endif%}-->
-						<td><!--{{item.created_at|date('Y-m-d H:i:s')}}--></td>
-						<td><!--{{item.updated_at|date('Y-m-d H:i:s')}}--></td>
+						<td><!--{{item.register == 1 ? '是' : '否'}}--></td>
+						<td><!--{{item.type == 1 ? '普通用户' : '经销商用户'}}--></td>
+						<td><!--{{item.regTime|date('Y-m-d H:i:s')}}--></td>
+						<td><!--{{item.updateTime|date('Y-m-d H:i:s')}}--></td>
 						<td>
-							<a href="<!--{{url('user/user/video',{'admin_id':item.urid})}}-->" class="btn btn-primary">视频审核</a>
-							<!--{%if item.identify==1 %}--><a class="btn btn-danger ajax-reset" urid="<!--{{item.urid}}-->" href="javascript:void(0);">重新年审</a><!--{%endif%}-->
+							{#<a href="<!--{{url('user/user/video',{'admin_id':item.urid})}}-->" class="btn btn-primary">视频审核</a>#}
+							<!--{%if item.type==1 %}-->
+								<a class="btn btn-danger ajax-reset" urid="<!--{{item.urid}}-->" type="2" href="javascript:void(0);">升为经销商用户</a>
+							<!--{%else%}-->
+								<a class="btn btn-danger ajax-reset" urid="<!--{{item.urid}}-->" type="1" href="javascript:void(0);">降为普通用户</a>
+							<!--{%endif%}-->
 							<a href="<!--{{url('user/user/edit',{'admin_id':item.urid})}}-->" class="btn btn-primary">编辑</a>
 							<a class="btn btn-danger ajax-del" urid="<!--{{item.urid}}-->" href="javascript:void(0);">删除</a>
 						</td>
@@ -109,13 +107,14 @@
 		});
 		$(".ajax-reset").bind('click',function(){
 			var obj = $(this);
-			alertify.confirm('确认对该用户重新年审？',function(e){
+			alertify.confirm('确认对该用户进行操作？',function(e){
 				if(e){
 					var urid = obj.attr('urid');
+                    var type = obj.attr('type');
 					$.ajax({
 						url:'/user/user/ajax-reset',
 						type : 'post',
-						data:{urid: urid},
+						data:{urid: urid, type: type},
 						dataType : 'JSON',
 						success : function (data){
 							if(data.state){
