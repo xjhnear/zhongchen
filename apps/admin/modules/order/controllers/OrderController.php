@@ -30,7 +30,7 @@ class OrderController extends BackendController
         $pageSize = 10;
 		$search = array();
 
-        $data['datalist'] = Order::getList($pageIndex,$pageSize);
+        $data['datalist'] = Order::getList($search,$pageIndex,$pageSize);
         $data['search'] = $search;
         $total = Order::getCount();
         $pager = Paginator::make(array(),$total,$pageSize);

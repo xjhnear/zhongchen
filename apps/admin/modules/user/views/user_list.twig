@@ -47,11 +47,10 @@
 						<td><!--{{item.regTime|date('Y-m-d H:i:s')}}--></td>
 						<td><!--{{item.updateTime|date('Y-m-d H:i:s')}}--></td>
 						<td>
-							{#<a href="<!--{{url('user/user/video',{'admin_id':item.urid})}}-->" class="btn btn-primary">视频审核</a>#}
 							<!--{%if item.type==1 %}-->
-								<a class="btn btn-danger ajax-reset" urid="<!--{{item.urid}}-->" type="2" href="javascript:void(0);">升为经销商用户</a>
+								<a class="btn btn-primary ajax-reset" urid="<!--{{item.urid}}-->" type="2" href="javascript:void(0);">升为经销商用户</a>
 							<!--{%else%}-->
-								<a class="btn btn-danger ajax-reset" urid="<!--{{item.urid}}-->" type="1" href="javascript:void(0);">降为普通用户</a>
+								<a class="btn btn-primary ajax-reset" urid="<!--{{item.urid}}-->" type="1" href="javascript:void(0);">降为普通用户</a>
 							<!--{%endif%}-->
 							<a href="<!--{{url('user/user/edit',{'admin_id':item.urid})}}-->" class="btn btn-primary">编辑</a>
 							<a class="btn btn-danger ajax-del" urid="<!--{{item.urid}}-->" href="javascript:void(0);">删除</a>
