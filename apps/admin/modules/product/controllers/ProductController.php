@@ -104,4 +104,12 @@ class ProductController extends BackendController
         }
     }
 
+    public function postAjaxDel()
+    {
+        $id = Input::get('prid');
+        if($id){
+            Product::del($id);
+        }
+        return json_encode(array('state'=>1,'msg'=>'删除成功'));
+    }
 }
