@@ -120,4 +120,13 @@ class ArticleController extends BackendController
         $data['pagelinks'] = $pager->links();
         return $this->display('comment-list', $data);
     }
+
+    public function postAjaxDel()
+    {
+        $id = Input::get('id');
+        if($id){
+            Article::del($id);
+        }
+        return json_encode(array('state'=>1,'msg'=>'删除成功'));
+    }
 }

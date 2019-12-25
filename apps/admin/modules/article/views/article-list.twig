@@ -32,6 +32,7 @@
                         <td><!--{{item.title}}--></td>
                         <td>
                             <a href="<!--{{url('article/article/edit',{id:item.arid})}}-->" class="btn btn-primary">编辑</a> |
+                            <a class="btn btn-danger ajax-del" arid="<!--{{item.arid}}-->" href="javascript:void(0);">删除</a>
                         </td>
                     </tr>
                     <!--{%endfor%}-->
@@ -45,4 +46,49 @@
     </div>
 </div>
 
+<!--{%endblock%}-->
+<!--{%block footer_js%}-->
+<script>
+    $(function(){
+        $('input.ids').iCheck({
+            checkboxClass: 'icheckbox_square-orange',
+            radioClass: 'iradio_square-orange',
+            increaseArea: '20%' // optional
+        });
+        var bar = $('.bar');
+        var percent = $('.percent');
+        var progress = $(".progress");
+
+        $(".ajax-del").bind('click',function(){
+            var obj = $(this);
+            alertify.confirm('确认删除该记录？',function(e){
+                if(e){
+                    var arid = obj.attr('arid');
+                    $.ajax({
+                        url:'/article/article/ajax-del',
+                        type : 'post',
+                        data:{id: arid},
+                        dataType : 'JSON',
+                        success : function (data){
+                            if(data.state){
+                                alertify.success(data.msg);
+                                setTimeout(function(){location.reload();},1000);
+                            }else{
+                                alertify.error(data.msg);
+                            }
+                        }
+                    })
+                }
+            });
+        });
+        $('input[name="all"]').on('ifChecked',function(event){
+            $('input[name="ids"]').iCheck('check');
+        });
+
+        $('input[name="all"]').on('ifUnchecked',function(event){
+            $('input[name="ids"]').iCheck('uncheck');
+        });
+
+    });
+</script>
 <!--{%endblock%}-->

@@ -32,7 +32,7 @@ class OrderController extends BackendController
 
         $data['datalist'] = Order::getList($search,$pageIndex,$pageSize);
         $data['search'] = $search;
-        $total = Order::getCount();
+        $total = Order::getCount($search);
         $pager = Paginator::make(array(),$total,$pageSize);
         $pager->appends($search);
         $data['pagelinks'] = $pager->links();

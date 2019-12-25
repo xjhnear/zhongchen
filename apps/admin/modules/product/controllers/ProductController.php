@@ -32,7 +32,7 @@ class ProductController extends BackendController
 
         $data['datalist'] = Product::getList($search,$pageIndex,$pageSize);
         $data['search'] = $search;
-        $total = Product::getCount();
+        $total = Product::getCount($search);
         $pager = Paginator::make(array(),$total,$pageSize);
         $pager->appends($search);
         $data['pagelinks'] = $pager->links();
