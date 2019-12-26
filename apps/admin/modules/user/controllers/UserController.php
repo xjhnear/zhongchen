@@ -30,7 +30,22 @@ class UserController extends BackendController
 		$data['pagelinks'] = $pager->links();
 		return $this->display('user_list',$data);
 	}
-	
+
+	public function getSublist()
+	{
+		$pageIndex = Input::get('page',1);
+		$search = Input::only('mobile','name','parentId');
+		$pageSize = 10;
+		$data = array();
+		$data['datalist'] = User::getList($search,$pageIndex,$pageSize);
+		$data['search'] = $search;
+		$total = User::getCount($search);
+		$pager = Paginator::make(array(),$total,$pageSize);
+		$pager->appends($search);
+		$data['pagelinks'] = $pager->links();
+		return $this->display('user_sublist',$data);
+	}
+
 	public function getAdd()
 	{
 		$data = array();

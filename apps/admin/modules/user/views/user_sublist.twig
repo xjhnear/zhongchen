@@ -6,13 +6,14 @@
 			<div class="box-title">
 				<h3>
 					<i class="icon-table"></i>
-					用户管理
+					经销商所属用户管理
 					<span class="badge badge-warning"><!--{{totalcount}}--></span>
 				</h3>
 				<div class="actions">
 				    <form action="<!--{{url('user/user/list')}}-->" class="">
 				    <table class="table-filter">				        
 				        <tr>
+							<td><input name="parentId" type="hidden" class="input-small" value="<!--{{search.parentId}}-->" /></td>
 				            <td><input name="mobile" type="text" class="input-small" placeholder="手机号码"  value="<!--{{search.mobile}}-->" /></td>
 							<td><input name="name" type="text" class="input-small" placeholder="姓名"  value="<!--{{search.name}}-->" /></td>
 				            <td><button class="btn btn-teal"><i class="icon-search"></i>搜索</button></td>
@@ -30,7 +31,6 @@
 							<th class="col-150">手机号码</th>
 							<th class="col-150">姓名</th>
 							<th class="col-50">是否注册</th>
-							<th class="col-80">用户状态</th>
 							<th class="col-150">创建时间</th>
 							<th class="col-150">修改时间</th>
 							<th class="table-btn-group">操作</th>
@@ -43,18 +43,9 @@
 						<td><!--{{item.mobile}}--></td>
 						<td><!--{{item.card_name}}--></td>
 						<td><!--{{item.register == 1 ? '是' : '否'}}--></td>
-						<td><!--{{item.type == 1 ? '普通用户' : '经销商用户'}}--></td>
 						<td><!--{{item.regTime|date('Y-m-d H:i:s')}}--></td>
 						<td><!--{{item.updateTime|date('Y-m-d H:i:s')}}--></td>
 						<td>
-							<!--{%if item.type==1 %}-->
-								<a class="btn btn-primary ajax-reset" urid="<!--{{item.urid}}-->" type="2" href="javascript:void(0);">升为经销商用户</a>
-							<!--{%else%}-->
-								<a class="btn btn-primary ajax-reset" urid="<!--{{item.urid}}-->" type="1" href="javascript:void(0);">降为普通用户</a>
-							<!--{%endif%}-->
-							<!--{%if item.type==2 %}-->
-								<a href="<!--{{url('user/user/sublist',{'parentId':item.urid})}}-->" class="btn btn-primary">查看下属用户</a>
-							<!--{%endif%}-->
 							<a href="<!--{{url('user/user/edit',{'admin_id':item.urid})}}-->" class="btn btn-primary">编辑</a>
 							<a class="btn btn-danger ajax-del" urid="<!--{{item.urid}}-->" href="javascript:void(0);">删除</a>
 						</td>
