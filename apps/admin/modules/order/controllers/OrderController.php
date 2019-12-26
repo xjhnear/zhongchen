@@ -21,6 +21,18 @@ class OrderController extends BackendController
     public function _initialize()
     {
         $this->current_module = 'order';
+        //1-新建 2-到款 3-开始生产 4-生产完成 5-已发货 6-已签收 7-尾款结清 8-已安排调试 9-完成
+        $this->status_arr = [
+            1 => '新建',
+            2 => '到款',
+            3 => '开始生产',
+            4 => '生产完成',
+            5 => '已发货',
+            6 => '已签收',
+            7 => '尾款结清',
+            8 => '已安排调试',
+            9 => '完成',
+        ];
     }
 
     public function getList()
@@ -35,6 +47,7 @@ class OrderController extends BackendController
         $total = Order::getCount($search);
         $pager = Paginator::make(array(),$total,$pageSize);
         $pager->appends($search);
+        $data['status_arr'] = $this->status_arr;
         $data['pagelinks'] = $pager->links();
         return $this->display('order-list', $data);
     }
@@ -42,14 +55,13 @@ class OrderController extends BackendController
     public function getAdd()
     {
         $data = array();
-//        $groups = OrderGroup::getNameList();
-//        $data['groups'] = $groups;
+        $data['status_arr'] = $this->status_arr;
         return $this->display('order-add', $data);
     }
     
     public function postAdd()
     {
-        $input = Input::only('urid', 'orderNo', 'tel','price');
+        $input = Input::only('urid', 'orderNo', 'tel','price','status');
 
         $data['title'] = $input['title'];
 //        $data['summary'] = $input['summary'];
@@ -73,15 +85,13 @@ class OrderController extends BackendController
     {
         $data = array();
         $data['data'] = Order::getInfo($id);
-//        $groups = OrderGroup::getNameList();
-//        $data['groups'] = $groups;
-//        $data['data']['img'] = Config::get('app.img_url').$data['data']['img'];
+        $data['status_arr'] = $this->status_arr;
         return $this->display('order-edit', $data);
     }
 
     public function postEdit()
     {
-        $input = Input::only('id', 'urid', 'orderNo', 'tel','price');
+        $input = Input::only('id', 'urid', 'orderNo', 'tel','price','status');
         
         $data['orid'] = $input['id'];
         $data['orderNo'] = $input['orderNo'];
