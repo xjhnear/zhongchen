@@ -44,6 +44,7 @@ final class Product extends Model implements IModel
         $info = self::db()->where('prid','=',$prid)->first();
         if(!$info) return null;
 		$info && $info['img'] = Utility::getImageUrl($info['img']);
+        $info && $info['extrainfo'] = json_decode($info['extrainfo'],true);
         return $info;
     }
 

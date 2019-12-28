@@ -22,7 +22,7 @@ class OrderController extends BaseController
 
 		$result = OrderService::getOrderList($search,$pageIndex,$pageSize);
 		if($result['result']){
-			return $this->success(array('result'=>$result['data']));
+			return $this->success(array('result'=>$result['data'],'hotline'=>'4006800000'));
 		}else{
 			return $this->fail(201,$result['msg']);
 		}
@@ -34,7 +34,7 @@ class OrderController extends BaseController
 
         $result = OrderService::getOrderInfo($orid);
         if($result['result']){
-            return $this->success(array('result'=>$result['data']));
+            return $this->success(array('result'=>$result['data'],'hotline'=>'4006800000'));
         }else{
             return $this->fail(201,$result['msg']);
         }
