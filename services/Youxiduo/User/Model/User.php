@@ -152,7 +152,7 @@ final class User extends Model implements IModel
 			if($filter === 'short'){
 				$fields = array('urid','mobile','username','image','sex','parentId','register');
 			}elseif($filter === 'info'){
-				$fields = array('urid','mobile','username','image','sex','regTime','companyId','companyName','type','parentId','register');
+				$fields = array('urid','mobile','username','image','sex','regTime','companyId','companyName','type','parentId','register','state');
 			}
 		}
 		$out = array();

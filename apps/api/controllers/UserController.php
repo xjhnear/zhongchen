@@ -27,7 +27,6 @@ class UserController extends BaseController
 		if($result['result']){
 			$result_pwd = UserService::getUserInfobyMobile($mobile);
 			if($result_pwd['result']){
-			    print_r($result_pwd['data']);exit;
 				if ($result_pwd['data']['state'] == 0) {
 					return $this->fail(202,'账号已被禁用');
 				}
