@@ -87,10 +87,17 @@
 					<div class="control-group">
 						<label for="textfield" class="control-label">其他参数</label>
 						<div class="controls">
-							<input type="text" name="specs" class="input-large" value="" />
+							<div id="kv">
+								<span style="width:50%">
+									<input type="text" name="keys[]" class="input-large" value="">
+								</span>
+									<span style="width:50%;padding-left: 50px;">
+									<input type="text" name="values[]" class="input-xlarge" value="">
+								</span>
+							</div>
 						</div>
 						<div class="controls">
-							<input type="text" name="specs" class="input-large" value="" />
+							<a class="btn btn-primary ajax-addkey" href="javascript:void(0);">添加参数</a>
 						</div>
 					</div>
 
@@ -130,6 +137,12 @@
 			increaseArea: '20%' // optional
 		});
 		$('.switchbox').bootstrapSwitch();
+
+        $(".ajax-addkey").bind('click',function(){
+            var str = '<span style="width:50%"><input type="text" name="keys[]" class="input-large" value=""></span>' +
+                '<span style="width:50%;padding-left: 50px;"><input type="text" name="values[]" class="input-xlarge" value=""></span>';
+            $("#kv").append(str);
+        });
 	});
 </script>
 <!--{%endblock%}-->
