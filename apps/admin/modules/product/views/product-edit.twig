@@ -66,13 +66,6 @@
 						</div>
 					</div>
 
-					<div class="control-group">
-						<label for="textfield" class="control-label">其他参数</label>
-						<div class="controls">
-							<script id="intro2" name="extrainfo" type="text/plain"><!--{{ data.extrainfo }}--></script>
-						</div>
-					</div>
-
 					<div class="row-fluid">
 						<div class="span3">
 							<div class="control-group">
@@ -88,6 +81,21 @@
 								<input name="type" type="radio" value="0"
 								<!--{{ data.type==0 ? 'checked' : '' }}-->/>无效
 							</div>
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label for="textfield" class="control-label">其他参数</label>
+						<div class="controls">
+							<div id="kv">
+								<!--{%for item in data.extrainfo%}-->
+								<span style="width:50%"><input type="text" name="keys[]" class="input-large" value="<!--{{item.title  }}-->" ></span>
+								<span style="width:50%;padding-left: 50px;"><input type="text" name="values[]" class="input-xlarge" value="<!--{{item.content  }}-->" ></span>
+								<!--{%endfor%}-->
+							</div>
+						</div>
+						<div class="controls">
+							<a class="btn btn-primary ajax-addkey" href="javascript:void(0);">添加参数</a>
 						</div>
 					</div>
 
@@ -119,13 +127,18 @@
 		$('input.datetimepicker').datetimepicker({format:'Y-m-d H:i',lang:'ch','minDate':''});
 		UE.getEditor('intro',{initialFrameHeight:100});
         UE.getEditor('intro1',{initialFrameHeight:100});
-        UE.getEditor('intro2',{initialFrameHeight:100});
 		$('input').iCheck({
 			checkboxClass: 'icheckbox_square-orange',
 			radioClass: 'iradio_square-orange',
 			increaseArea: '20%' // optional
 		});
 		$('.switchbox').bootstrapSwitch();
+
+        $(".ajax-addkey").bind('click',function(){
+            var str = '<span style="width:50%"><input type="text" name="keys[]" class="input-large" value=""></span>' +
+                '<span style="width:50%;padding-left: 50px;"><input type="text" name="values[]" class="input-xlarge" value=""></span>';
+            $("#kv").append(str);
+        });
 	});
 	    
 </script>

@@ -48,14 +48,23 @@ class ProductController extends BackendController
     
     public function postAdd()
     {
-        $input = Input::only('name', 'content', 'specs','img','price','remarks','extrainfo','state');
+        $input = Input::only('name', 'content', 'specs','img','price','remarks','extrainfo','state','keys','values');
 
         $data['name'] = $input['name'];
         $data['specs'] = $input['specs'];
         $data['content'] = $input['content'];
         $data['price'] = $input['price'];
         $data['remarks'] = $input['remarks'];
-        $data['extrainfo'] = $input['extrainfo'];
+        $extrainfo = [];
+        foreach ($input['keys'] as $k=>$v) {
+            if (strlen($v) > 0) {
+                $item = [];
+                $item['title'] = $v;
+                $item['content'] = $input['values'][$k];
+                $extrainfo[] = $item;
+            }
+        }
+        $data['extrainfo'] = json_encode($extrainfo);
         $data['state'] = $input['state'];
         if(Input::hasFile('img')){
             $img = MyHelp::save_img_no_url(Input::file('img'),'product_img');
@@ -75,7 +84,6 @@ class ProductController extends BackendController
     {
         $data = array();
         $data['data'] = Product::getProductInfoById($id);
-//        $data['data']['img'] = Config::get('app.img_url').$data['data']['img'];
         return $this->display('product-edit', $data);
     }
 
