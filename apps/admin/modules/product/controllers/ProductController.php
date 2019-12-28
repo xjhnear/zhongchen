@@ -81,7 +81,7 @@ class ProductController extends BackendController
 
     public function postEdit()
     {
-        $input = Input::only('id', 'name', 'content', 'specs','img','price','remarks','extrainfo','state','old_img');
+        $input = Input::only('id', 'name', 'content', 'specs','img','price','remarks','extrainfo','state','old_img','keys','values');
         
         $data['prid'] = $input['id'];
         $data['name'] = $input['name'];
@@ -89,7 +89,16 @@ class ProductController extends BackendController
         $data['content'] = $input['content'];
         $data['price'] = $input['price'];
         $data['remarks'] = $input['remarks'];
-        $data['extrainfo'] = $input['extrainfo'];
+        $extrainfo = [];
+        foreach ($input['keys'] as $k=>$v) {
+            if (strlen($v) > 0) {
+                $item = [];
+                $item['title'] = $v;
+                $item['content'] = $input['values'][$k];
+                $extrainfo[] = $item;
+            }
+        }
+        $data['extrainfo'] = json_encode($extrainfo);
         $img = $input['old_img'];unset($input['old_img']);
         if(Input::hasFile('img')){
             $img = MyHelp::save_img_no_url(Input::file('img'),'product_img');
