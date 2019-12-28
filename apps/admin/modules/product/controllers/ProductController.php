@@ -80,7 +80,7 @@ class ProductController extends BackendController
 
     public function postEdit()
     {
-        $input = Input::only('id', 'name', 'content', 'specs','img','price','remarks','extrainfo','state');
+        $input = Input::only('id', 'name', 'content', 'specs','img','price','remarks','extrainfo','state','old_img');
         
         $data['prid'] = $input['id'];
         $data['name'] = $input['name'];
