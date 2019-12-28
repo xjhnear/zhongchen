@@ -176,7 +176,7 @@ class UserService extends BaseService
 		}
         $data['updateTime'] = time();
 		if($data){
-		    if ($data['companyName']) {
+		    if (isset($data['companyName'])) {
 		        $company_data = [];
 		        if ($data['companyId'] > 0) {
                     $company_data['id'] = $data['companyId'];
