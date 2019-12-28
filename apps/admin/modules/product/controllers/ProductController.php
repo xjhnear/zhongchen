@@ -74,7 +74,7 @@ class ProductController extends BackendController
     public function getEdit($id)
     {
         $data = array();
-        $data['data'] = Product::getInfo($id);
+        $data['data'] = Product::getProductInfoById($id);
         $data['data']['img'] = Config::get('app.img_url').$data['data']['img'];
         return $this->display('product-edit', $data);
     }
@@ -109,7 +109,7 @@ class ProductController extends BackendController
     {
         $id = Input::get('prid');
         if($id){
-            Product::del($id);
+            Product::delById($id);
         }
         return json_encode(array('state'=>1,'msg'=>'删除成功'));
     }
