@@ -75,7 +75,7 @@ class ProductController extends BackendController
     {
         $data = array();
         $data['data'] = Product::getProductInfoById($id);
-        $data['data']['img'] = Config::get('app.img_url').$data['data']['img'];
+//        $data['data']['img'] = Config::get('app.img_url').$data['data']['img'];
         return $this->display('product-edit', $data);
     }
 
