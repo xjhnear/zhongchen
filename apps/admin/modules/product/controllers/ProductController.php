@@ -42,6 +42,7 @@ class ProductController extends BackendController
     public function getAdd()
     {
         $data = array();
+        $data['state'] = 1;
         return $this->display('product-add', $data);
     }
     

@@ -22,6 +22,7 @@
                     <tr>
                     	<th class="col-60">ID</th>
                         <th class="col-60">产品名</th>
+                        <th class="col-60">价格</th>
                         <th class="table-btn-group">操作</th>
                     </tr>
                     </thead>
@@ -29,7 +30,8 @@
                     <!--{%for item in datalist%}-->
                     <tr>
                     	<td><!--{{item.prid}}--></td>
-                        <td><!--{{item.title}}--></td>
+                        <td><!--{{item.name}}--></td>
+                        <td><!--{{item.price}}--></td>
                         <td>
                             <a href="<!--{{url('product/product/edit',{id:item.prid})}}-->" class="btn btn-primary">编辑</a> |
                             <a class="btn btn-danger ajax-del" prid="<!--{{item.prid}}-->" href="javascript:void(0);">删除</a>
