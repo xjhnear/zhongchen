@@ -72,14 +72,14 @@
 								<label class="control-label">产品状态</label>
 								<div class="controls">
 									<input name="type" type="radio" value="1"
-									<!--{{ data.type==0 ? '' : 'checked' }}-->/>有效
+									<!--{{ data.state==0 ? '' : 'checked' }}-->/>有效
 								</div>
 							</div>
 						</div>
 						<div class="span3">
 							<div class="controls">
 								<input name="type" type="radio" value="0"
-								<!--{{ data.type==0 ? 'checked' : '' }}-->/>无效
+								<!--{{ data.state==0 ? 'checked' : '' }}-->/>无效
 							</div>
 						</div>
 					</div>
@@ -89,8 +89,10 @@
 						<div class="controls">
 							<div id="kv">
 								<!--{%for item in data.extrainfo%}-->
+                                <p>
 								<span style="width:50%"><input type="text" name="keys[]" class="input-large" value="<!--{{item.title  }}-->" ></span>
 								<span style="width:50%;padding-left: 50px;"><input type="text" name="values[]" class="input-xlarge" value="<!--{{item.content  }}-->" ></span>
+                                </p>
 								<!--{%endfor%}-->
 							</div>
 						</div>
@@ -135,8 +137,8 @@
 		$('.switchbox').bootstrapSwitch();
 
         $(".ajax-addkey").bind('click',function(){
-            var str = '<span style="width:50%"><input type="text" name="keys[]" class="input-large" value=""></span>' +
-                '<span style="width:50%;padding-left: 50px;"><input type="text" name="values[]" class="input-xlarge" value=""></span>';
+            var str = '<p><span style="width:50%"><input type="text" name="keys[]" class="input-large" value=""></span>' +
+                '<span style="width:50%;padding-left: 50px;"><input type="text" name="values[]" class="input-xlarge" value=""></span></p>';
             $("#kv").append(str);
         });
 	});
