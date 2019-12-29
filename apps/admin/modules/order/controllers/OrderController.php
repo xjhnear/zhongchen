@@ -21,6 +21,12 @@ class OrderController extends BackendController
     public function _initialize()
     {
         $this->current_module = 'order';
+        //付款状态 0-未付款 1-已付定金 2-已付全款
+        $this->payStatus_arr = [
+            0 => '未付款',
+            1 => '已付定金',
+            2 => '已付全款',
+        ];
         //1-新建 2-到款 3-开始生产 4-生产完成 5-已发货 6-已签收 7-尾款结清 8-已安排调试 9-完成
         $this->status_arr = [
             1 => '新建',
@@ -47,6 +53,7 @@ class OrderController extends BackendController
         $total = Order::getCount($search);
         $pager = Paginator::make(array(),$total,$pageSize);
         $pager->appends($search);
+        $data['payStatus_arr'] = $this->payStatus_arr;
         $data['status_arr'] = $this->status_arr;
         $data['pagelinks'] = $pager->links();
         return $this->display('order-list', $data);
@@ -55,6 +62,7 @@ class OrderController extends BackendController
     public function getAdd()
     {
         $data = array();
+        $data['payStatus_arr'] = $this->payStatus_arr;
         $data['status_arr'] = $this->status_arr;
         return $this->display('order-add', $data);
     }
@@ -85,6 +93,7 @@ class OrderController extends BackendController
     {
         $data = array();
         $data['data'] = Order::getInfo($id);
+        $data['payStatus_arr'] = $this->payStatus_arr;
         $data['status_arr'] = $this->status_arr;
         return $this->display('order-edit', $data);
     }
