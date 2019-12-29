@@ -52,7 +52,7 @@ final class Order extends Model implements IModel
 
 	public static function getInfo($id)
 	{
-		$batch = self::db()->where('id','=',$id)->first();
+		$batch = self::db()->where('orid','=',$id)->first();
 		if(!$batch) return array();
 		return $batch;
 	}
@@ -60,7 +60,7 @@ final class Order extends Model implements IModel
     public static function m_search($search)
 	{
 		$tb = self::m_buildSearch($search);
-		return $tb->orderBy('id','desc')->get();
+		return $tb->orderBy('orid','desc')->get();
 	}
 	
 	protected static function m_buildSearch($search)
@@ -74,13 +74,13 @@ final class Order extends Model implements IModel
 
     public static function save($data)
     {
-        if(isset($data['id']) && $data['id']){
-            $id = $data['id'];
-            unset($data['id']);
+        if(isset($data['orid']) && $data['orid']){
+            $id = $data['orid'];
+            unset($data['orid']);
             $data['createTime'] = date('Y-m-d H:i:s',time());
-            return self::db()->where('id','=',$id)->update($data);
+            return self::db()->where('orid','=',$id)->update($data);
         }else{
-            unset($data['id']);
+            unset($data['orid']);
             $data['createTime'] = date('Y-m-d H:i:s',time());
             $data['updateTime'] = date('Y-m-d H:i:s',time());
             return self::db()->insertGetId($data);
@@ -90,7 +90,7 @@ final class Order extends Model implements IModel
     public static function delById($id)
     {
         if($id > 0){
-            $re = self::db()->where('id','=',$id)->delete();
+            $re = self::db()->where('orid','=',$id)->delete();
         }
         return $re;
     }
