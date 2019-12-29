@@ -32,16 +32,16 @@ class OrderService extends BaseService
                 case 1:
                     $search['status'] = [1,2,7];
                     break;
-                case 1:
+                case 2:
                     $search['status'] = [3,4];
                     break;
-                case 1:
+                case 3:
                     $search['status'] = [5,6];
                     break;
-                case 1:
+                case 4:
                     $search['status'] = [8];
                     break;
-                case 1:
+                case 5:
                     $search['status'] = [9];
                     break;
                 default:

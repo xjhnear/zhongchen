@@ -35,6 +35,7 @@ class ArticleController extends BaseController
 		$gid = Input::get('gid');
 
 		$result = ArticleService::getArticleList($pageIndex,$pageSize,$gid);
+//        $pager[] = ;
 		if($result['result']){
 			return $this->success(array('result'=>$result['data'],'hotline'=>'4006800000'));
 		}else{
