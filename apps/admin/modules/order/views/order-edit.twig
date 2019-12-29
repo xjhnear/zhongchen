@@ -18,23 +18,72 @@
                     </div>
 
 					<div class="control-group" >
-						<label class="control-label">电话:</label>
+						<label class="control-label">客户姓名:</label>
+						<div class="controls">
+							<input type="text" name="name" class="input-large" value="<!--{{data.name  }}-->" />
+						</div>
+					</div>
+
+					<div class="control-group" >
+						<label class="control-label">客户电话:</label>
 						<div class="controls">
 							<input type="text" name="tel" class="input-large" value="<!--{{data.tel  }}-->" />
 						</div>
 					</div>
 
 					<div class="control-group" >
-						<label class="control-label">价格:</label>
+						<label class="control-label">客户地址:</label>
+						<div class="controls">
+							<input type="text" name="address" class="input-large" value="<!--{{data.address  }}-->" />
+						</div>
+					</div>
+
+					<div class="control-group" >
+						<label class="control-label">客户证件号:</label>
+						<div class="controls">
+							<input type="text" name="idCard" class="input-large" value="<!--{{data.idCard  }}-->" />
+						</div>
+					</div>
+
+					<div class="control-group" >
+						<label class="control-label">订单价格:</label>
 						<div class="controls">
 							<input type="text" name="price" class="input-large" value="<!--{{data.price  }}-->" />
 						</div>
 					</div>
 
 					<div class="control-group">
-						<label for="group" class="control-label">分类</label>
+						<label for="group" class="control-label">付款状态</label>
+						<div class="controls">
+							<!--{{form_select('status',payStatus_arr,data.payStatus_arr)}}-->
+						</div>
+					</div>
+
+					<div class="control-group">
+						<label for="group" class="control-label">流程进度</label>
 						<div class="controls">
 							<!--{{form_select('status',status_arr,data.status)}}-->
+						</div>
+					</div>
+
+					<div class="control-group" >
+						<label class="control-label">发票类型:</label>
+						<div class="controls">
+							<input type="text" name="receiptType" class="input-large" value="<!--{{data.receiptType  }}-->" />
+						</div>
+					</div>
+
+					<div class="control-group" >
+						<label class="control-label">发票抬头:</label>
+						<div class="controls">
+							<input type="text" name="receiptTitle" class="input-large" value="<!--{{data.receiptTitle  }}-->" />
+						</div>
+					</div>
+
+					<div class="control-group" >
+						<label class="control-label">发票内容:</label>
+						<div class="controls">
+							<input type="text" name="receiptContent" class="input-large" value="<!--{{data.receiptContent  }}-->" />
 						</div>
 					</div>
 
