@@ -30,7 +30,7 @@ final class Order extends Model implements IModel
         $tb = self::db();
         if(isset($search['urid']) && !empty($search['urid'])) $tb = $tb->where('urid','=',$search['urid']);
         if(isset($search['orderNo']) && !empty($search['orderNo'])) $tb = $tb->where('orderNo','like','%'.$search['orderNo'].'%');
-        if(isset($search['status']) && !empty($search['status'])) $tb = $tb->where('status','in','('.implode(',',$search['status']).')');
+        if(isset($search['status']) && !empty($search['status'])) $tb = $tb->whereIn('status',$search['status']);
         return $tb->orderBy('orid','desc')->forPage($pageIndex,$pageSize)->get();
     }
 
