@@ -63,6 +63,10 @@ class OrderService extends BaseService
                 unset($item['contractTime']);
                 unset($item['testUrid']);
                 unset($item['contacts']);
+                unset($item['payTime']);
+                unset($item['receiptType']);
+                unset($item['receiptTitle']);
+                unset($item['receiptContent']);
                 $productList = Orderproduct::getListByOrid($item['orid']);
                 foreach ($productList as &$item_sub) {
                     unset($item_sub['orid']);
@@ -94,6 +98,12 @@ class OrderService extends BaseService
             unset($order['contractTime']);
             unset($order['testUrid']);
             unset($order['contacts']);
+            $order['receipt']['type'] = $order['receiptType'];
+            $order['receipt']['title'] = $order['receiptTitle'];
+            $order['receipt']['content'] = $order['receiptContent'];
+            unset($order['receiptType']);
+            unset($order['receiptTitle']);
+            unset($order['receiptContent']);
             $productList = Orderproduct::getListByOrid($order['orid']);
             foreach ($productList as &$item_sub) {
                 unset($item_sub['orid']);
