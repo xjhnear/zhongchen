@@ -101,6 +101,21 @@
 						</div>
 					</div>
 
+					<div class="control-group">
+						<label for="textfield" class="control-label">联系方式</label>
+						<div class="controls">
+							<div id="kv">
+								<p>
+									<span style="width:50%">姓名:<input type="text" name="keys[]" class="input-large" value=""></span>
+									<span style="width:50%;padding-left: 50px;">电话:<input type="text" name="values[]" class="input-xlarge" value=""></span>
+								</p>
+							</div>
+						</div>
+						<div class="controls">
+							<a class="btn btn-primary ajax-addkey" href="javascript:void(0);">添加联系方式</a>
+						</div>
+					</div>
+
 			        <div class="form-actions">
 			            <button type="submit" class="btn btn-primary"><i class="icon-ok"></i>保存</button>
 			        </div>
@@ -135,6 +150,11 @@
 	// 		increaseArea: '20%' // optional
 	// 	});
 	// 	$('.switchbox').bootstrapSwitch();
+        $(".ajax-addkey").bind('click',function(){
+            var str = '<p><span style="width:50%">姓名:<input type="text" name="keys[]" class="input-large" value=""></span>' +
+                '<span style="width:50%;padding-left: 50px;">电话:<input type="text" name="values[]" class="input-xlarge" value=""></span></p>';
+            $("#kv").append(str);
+        });
 	});
 </script>
 <!--{%endblock%}-->
