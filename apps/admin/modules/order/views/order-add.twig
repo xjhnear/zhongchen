@@ -52,6 +52,20 @@
 						</div>
 					</div>
 
+					<div class="control-group" >
+						<label class="control-label">合同时间:</label>
+						<div class="controls">
+							<input type="text" name="contractTime" class="datetimepicker" value="" />
+						</div>
+					</div>
+
+					<div class="control-group" >
+						<label class="control-label">支付时间:</label>
+						<div class="controls">
+							<input type="text" name="payTime" class="datetimepicker" value="" />
+						</div>
+					</div>
+
 					<div class="control-group">
 						<label for="group" class="control-label">付款状态</label>
 						<div class="controls">
@@ -87,13 +101,6 @@
 						</div>
 					</div>
 
-					<div class="control-group" >
-						<label class="control-label">发票抬头:</label>
-						<div class="controls">
-							<input type="text" name="receiptTitle" class="datetimepicker" value="" />
-						</div>
-					</div>
-
 			        <div class="form-actions">
 			            <button type="submit" class="btn btn-primary"><i class="icon-ok"></i>保存</button>
 			        </div>
@@ -120,7 +127,7 @@
 <script src="<!--{{asset('/static/js/MyHelp.js')}}-->"></script>
 <script>
 	$(function(){
-		$('input.datetimepicker').datetimepicker({format:'Y-m-d H:i:s',lang:'ch','minDate':''});
+		$('input.datetimepicker').datetimepicker({format:'Y-m-d H:i:00',lang:'ch','todayButton':true});
 	// 	UE.getEditor('intro',{initialFrameHeight:100});
 	// 	$('input').iCheck({
 	// 		checkboxClass: 'icheckbox_square-orange',
