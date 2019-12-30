@@ -116,6 +116,13 @@
 						</div>
 					</div>
 
+					<div class="control-group">
+						<label for="group" class="control-label">付款状态</label>
+						<div class="controls">
+							<!--{{form_select('status1',payStatus_arr,data.payStatus)}}-->
+						</div>
+					</div>
+
 			        <div class="form-actions">
 			            <button type="submit" class="btn btn-primary"><i class="icon-ok"></i>保存</button>
 			        </div>
@@ -140,6 +147,8 @@
 <link rel="stylesheet" href="<!--{{asset('/static/js/autosuggest_v2.1.3/css/autosuggest_inquisitor.css')}}-->">
 <script src="<!--{{asset('/static/js/autosuggest_v2.1.3/js/bsn.AutoSuggest_2.1.3_comp.js ')}}-->"></script>
 <script src="<!--{{asset('/static/js/MyHelp.js')}}-->"></script>
+<link rel="stylesheet" href="<!--{{asset('/static/css/select2.min.css')}}-->">
+<script src="<!--{{asset('/static/js/select2.min.js')}}-->"></script>
 <script>
 	$(function(){
 		$('input.datetimepicker').datetimepicker({format:'Y-m-d H:i:00',lang:'ch','todayButton':true});
@@ -155,6 +164,7 @@
                 '<span style="width:50%;padding-left: 50px;">电话: <input type="text" name="values[]" class="input-xlarge" value=""></span></p>';
             $("#kv").append(str);
         });
+        $("input[name='status1']").select2();
 	});
 </script>
 <!--{%endblock%}-->
