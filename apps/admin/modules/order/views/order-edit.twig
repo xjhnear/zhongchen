@@ -107,8 +107,8 @@
 							<div id="kv">
 								<!--{%for item in data.extrainfo%}-->
 								<p>
-									<span style="width:50%">姓名:<input type="text" name="keys[]" class="input-large" value="<!--{{item.title  }}-->" ></span>
-									<span style="width:50%;padding-left: 50px;">电话:<input type="text" name="values[]" class="input-xlarge" value="<!--{{item.content  }}-->" ></span>
+									<span style="width:50%">姓名: <input type="text" name="keys[]" class="input-large" value="<!--{{item.title  }}-->" ></span>
+									<span style="width:50%;padding-left: 50px;">电话: <input type="text" name="values[]" class="input-xlarge" value="<!--{{item.content  }}-->" ></span>
 								</p>
 								<!--{%endfor%}-->
 							</div>
@@ -152,8 +152,8 @@
         // 	});
         // 	$('.switchbox').bootstrapSwitch();
         $(".ajax-addkey").bind('click',function(){
-            var str = '<p><span style="width:50%">姓名:<input type="text" name="keys[]" class="input-large" value=""></span>' +
-                '<span style="width:50%;padding-left: 50px;">电话:<input type="text" name="values[]" class="input-xlarge" value=""></span></p>';
+            var str = '<p><span style="width:50%">姓名: <input type="text" name="keys[]" class="input-large" value=""></span>' +
+                '<span style="width:50%;padding-left: 50px;">电话: <input type="text" name="values[]" class="input-xlarge" value=""></span></p>';
             $("#kv").append(str);
         });
     });

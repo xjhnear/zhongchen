@@ -130,9 +130,9 @@ class UserController extends BaseController
 		$urid = Input::get('urid',0);
 		$input = array();
 		$input['username'] = Input::get('username');
-        if(Input::hasFile('imgkey')){
-            $avatar = MyHelp::save_img_no_url(Input::file('imgkey'),'img');
-            $input['img'] = $avatar;
+        if(Input::hasFile('image')){
+            $avatar = MyHelp::save_img_no_url(Input::file('image'),'user');
+            $input['image'] = $avatar;
         }
 		$input['sex'] = Input::get('sex');
         $input['companyId'] = Input::get('companyId',0);
