@@ -237,6 +237,28 @@ class MyHelp
         }
         return $titlePic;
     }
+
+    public static function save_img_base64($img,$dir_='user'){
+        $titlePic ="";
+        if($img) {
+            if (!isset($dir)) {
+                $dir = '/userdirs/'.$dir_.'/' . date('Y') . '/' . date('m') . '/';
+                $path = base_path() .'/runtime'. $dir;
+            }
+            self::createFolder($path);
+            $image="data:image/jpg;base64,".urldecode($img);
+            if (strstr($image,",")){
+                $image = explode(',',$image);
+                $image = $image[1];
+            }
+            $new_filename = date('YmdHis') . str_random(4).'.jpg';
+            $imageSrc= $path."/". $new_filename; //图片名字
+            $r = file_put_contents($imageSrc, base64_decode($image));//返回的是字节数
+            $titlePic = $dir . $new_filename;
+        }
+        return $titlePic;
+    }
+
     public static function save_imgs($imgs){
         $pic_arr = array();
         if($imgs){
