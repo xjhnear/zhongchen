@@ -246,7 +246,7 @@ class MyHelp
                 $path = base_path() .'/runtime'. $dir;
             }
             self::createFolder($path);
-            $image="data:image/jpg;base64,".urldecode($img);
+            $image="data:image/jpg;base64,".$img;
             if (strstr($image,",")){
                 $image = explode(',',$image);
                 $image = $image[1];
