@@ -155,7 +155,7 @@
 						<div class="controls">
 							<select id="products">
 							<!--{%for itemp in pr_arr%}-->
-								<option value="<!--{{itempr.prid  }}-->"><!--{{itempr.name  }}--></option>
+								<option value="<!--{{itemp.prid  }}-->"><!--{{itemp.name  }}--></option>
 							<!--{%endfor%}-->
 							</select>
 						</div>
@@ -163,7 +163,7 @@
 					<div class="control-group" >
 						<label class="control-label">数量:</label>
 						<div class="controls">
-							<input type="text" name="number" class="input-large" value="" />
+							<input type="text" id="number" class="input-large" value="" />
 						</div>
 					</div>
 				</form>
@@ -211,8 +211,9 @@
         $(".ajax-addpr-ok").bind('click',function(){
             var pname = $("#products").find("option:selected").text();
             var prid = $("#products ").val();
+            var number = $("#number ").val();
             var str = '<p><span style="width:50%">产品: <input type="hidden" name="prids[]" class="input-large" value="'+prid+'">'+pname+'</span>' +
-                '<span style="width:50%;padding-left: 50px;">数量: <input type="text" name="numbers[]" class="input-large" value=""></span></p>';
+                '<span style="width:50%;padding-left: 50px;">数量: <input type="text" name="numbers[]" class="input-large" value="'+pname+'"></span></p>';
             $("#kv").append(str);
             $("#address_edit_modal2").hide();
         });
