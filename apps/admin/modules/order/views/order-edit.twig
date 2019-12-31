@@ -122,10 +122,10 @@
 						<label for="textfield" class="control-label">产品信息</label>
 						<div class="controls">
 							<div id="pr">
-								<!--{%for itempr in datalist%}-->
+								<!--{%for itempr in data_orderproduct%}-->
 								<p>
-									<span style="width:50%">姓名: <input type="text" name="keys[]" class="input-large" value="<!--{{item.title  }}-->" ></span>
-									<span style="width:50%;padding-left: 50px;">电话: <input type="text" name="values[]" class="input-xlarge" value="<!--{{item.content  }}-->" ></span>
+									<span style="width:50%">产品: <input type="hidden" name="prids[]" class="input-large" value="<!--{{itempr.prid  }}-->" ><!--{{itempr.name  }}--></span>
+									<span style="width:50%;padding-left: 50px;">数量: <input type="text" name="numbers[]" class="input-large" value="<!--{{itempr.number  }}-->" ></span>
 								</p>
 								<!--{%endfor%}-->
 							</div>
@@ -163,7 +163,7 @@
 				<form id="modelFromUpdate">
 					<div class="row modal-box">
 						<div class="control-group">
-							<label for="group" class="control-label">产品</label>
+							<label for="group" class="control-label">产品:</label>
 							<div class="controls">
 								<!--{{form_select('prid',pr_arr)}}-->
 							</div>

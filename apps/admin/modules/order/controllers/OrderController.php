@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Paginator;
 use Illuminate\Support\Facades\Config;
 use Youxiduo\Helper\MyHelp;
 use Youxiduo\Order\Model\Order;
+use Youxiduo\Order\Model\OrderProduct;
 use Youxiduo\Product\Model\Product;
 use Youxiduo\User\Model\Comment;
 
@@ -97,6 +98,7 @@ class OrderController extends BackendController
         $data['data'] = Order::getInfo($id);
         $data['payStatus_arr'] = $this->payStatus_arr;
         $data['status_arr'] = $this->status_arr;
+        $data['data_orderproduct'] =  OrderProduct::getListByOrid($id);
         $data['pr_arr'] =  Product::getList([],1,100);
         return $this->display('order-edit', $data);
     }
