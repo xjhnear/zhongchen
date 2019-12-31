@@ -118,6 +118,23 @@
 						</div>
 					</div>
 
+					<div class="control-group">
+						<label for="textfield" class="control-label">产品信息</label>
+						<div class="controls">
+							<div id="pr">
+								<!--{%for itempr in datalist%}-->
+								<p>
+									<span style="width:50%">姓名: <input type="text" name="keys[]" class="input-large" value="<!--{{item.title  }}-->" ></span>
+									<span style="width:50%;padding-left: 50px;">电话: <input type="text" name="values[]" class="input-xlarge" value="<!--{{item.content  }}-->" ></span>
+								</p>
+								<!--{%endfor%}-->
+							</div>
+						</div>
+						<div class="controls">
+							<a class="btn btn-primary ajax-addpr" href="javascript:void(0);">添加产品</a>
+						</div>
+					</div>
+
 			        <div class="form-actions">
 			            <button type="submit" class="btn btn-primary"><i class="icon-ok"></i>保存</button>
 			        </div>
@@ -126,6 +143,44 @@
 
 				</form>
 		    </div>
+		</div>
+	</div>
+</div>
+
+<!-- 模态框 修改-->
+<div class="modal fade" id="address_edit_modal2">
+	<div class="modal-dialog" style="width:70%;margin-left:15%;margin-top:5%;">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" class="close" data-dismiss="modal">
+					&times;
+				</button>
+				<h4 class="modal-title text-left">
+					选择产品
+				</h4>
+			</div>
+			<div class="modal-body text-left">
+				<form id="modelFromUpdate">
+					<div class="row modal-box">
+						<div class="control-group">
+							<label for="group" class="control-label">产品</label>
+							<div class="controls">
+								<!--{{form_select('prid',pr_arr)}}-->
+							</div>
+						</div>
+					</div>
+					<div class="control-group" >
+						<label class="control-label">数量:</label>
+						<div class="controls">
+							<input type="text" name="number" class="input-large" value="" />
+						</div>
+					</div>
+				</form>
+			</div>
+			<div class="modal-footer" style="text-align:center;">
+				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+				<button type="button" class="btn btn-primary" id="modalsForm2">确定</button>
+			</div>
 		</div>
 	</div>
 </div>
@@ -141,8 +196,6 @@
 <link rel="stylesheet" href="<!--{{asset('/static/js/autosuggest_v2.1.3/css/autosuggest_inquisitor.css')}}-->">
 <script src="<!--{{asset('/static/js/autosuggest_v2.1.3/js/bsn.AutoSuggest_2.1.3_comp.js ')}}-->"></script>
 <script src="<!--{{asset('/static/js/MyHelp.js')}}-->"></script>
-<link rel="stylesheet" href="<!--{{asset('/static/css/select2.min.css')}}-->">
-<script src="<!--{{asset('/static/js/select2.min.js')}}-->"></script>
 <script>
     $(function(){
         $('input.datetimepicker').datetimepicker({format:'Y-m-d H:i:00',lang:'ch','todayButton':true});
