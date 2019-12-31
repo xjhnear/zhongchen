@@ -203,7 +203,9 @@
                 '<span style="width:50%;padding-left: 50px;">电话: <input type="text" name="values[]" class="input-xlarge" value=""></span></p>';
             $("#kv").append(str);
         });
-        $("input[name='status1']").select2();
+        $(".ajax-addpr").bind('click',function(){
+            $("#address_edit_modal2").show();
+        });
 	});
 </script>
 <!--{%endblock%}-->
