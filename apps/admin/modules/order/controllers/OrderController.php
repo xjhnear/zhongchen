@@ -72,7 +72,7 @@ class OrderController extends BackendController
     
     public function postAdd()
     {
-        $input = Input::only('urid', 'orderNo', 'tel','price','status');
+        $input = Input::only('urid', 'orderNo', 'name','tel','address','idCard','price','contractTime','payTime','payStatus','status','receiptType','receiptTitle','receiptContent','keys','values','prids','numbers');
 
         $data['title'] = $input['title'];
 //        $data['summary'] = $input['summary'];
@@ -105,7 +105,7 @@ class OrderController extends BackendController
 
     public function postEdit()
     {
-        $input = Input::only('id', 'urid', 'orderNo', 'tel','price','status');
+        $input = Input::only('id', 'urid', 'orderNo', 'name','tel','address','idCard','price','contractTime','payTime','payStatus','status','receiptType','receiptTitle','receiptContent','keys','values','prids','numbers');
         
         $data['orid'] = $input['id'];
         $data['orderNo'] = $input['orderNo'];

@@ -69,7 +69,7 @@
 					<div class="control-group">
 						<label for="group" class="control-label">付款状态</label>
 						<div class="controls">
-							<!--{{form_select('status',payStatus_arr,data.payStatus_arr)}}-->
+							<!--{{form_select('payStatus',payStatus_arr,data.payStatus_arr)}}-->
 						</div>
 					</div>
 
@@ -148,38 +148,37 @@
 </div>
 
 <!-- 模态框 修改-->
-<div class="modal fade" id="address_edit_modal2">
+<div class="modal" id="address_edit_modal2" style="display: none;">
 	<div class="modal-dialog" style="width:70%;margin-left:15%;margin-top:5%;">
 		<div class="modal-content">
 			<div class="modal-header">
-				<button type="button" class="close" data-dismiss="modal">
-					&times;
-				</button>
 				<h4 class="modal-title text-left">
 					选择产品
 				</h4>
 			</div>
 			<div class="modal-body text-left">
 				<form id="modelFromUpdate">
-					<div class="row modal-box">
-						<div class="control-group">
-							<label for="group" class="control-label">产品:</label>
-							<div class="controls">
-								<!--{{form_select('prid',pr_arr)}}-->
-							</div>
+					<div class="control-group">
+						<label for="group" class="control-label">产品:</label>
+						<div class="controls">
+							<select id="products">
+								<!--{%for itemp in pr_arr%}-->
+								<option value="<!--{{itemp.prid  }}-->"><!--{{itemp.name  }}--></option>
+								<!--{%endfor%}-->
+							</select>
 						</div>
 					</div>
 					<div class="control-group" >
 						<label class="control-label">数量:</label>
 						<div class="controls">
-							<input type="text" name="number" class="input-large" value="" />
+							<input type="text" id="number" class="input-large" value="" />
 						</div>
 					</div>
 				</form>
 			</div>
-			<div class="modal-footer" style="text-align:center;">
-				<button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
-				<button type="button" class="btn btn-primary" id="modalsForm2">确定</button>
+			<div class="modal-footer" style="text-align:center;background-color: #fff;padding-bottom: 5%;">
+				<a class="btn btn-default ajax-addpr-no" href="javascript:void(0);">取消</a>
+				<a class="btn btn-primary ajax-addpr-ok" href="javascript:void(0);">确定</a>
 			</div>
 		</div>
 	</div>
@@ -210,6 +209,21 @@
             var str = '<p><span style="width:50%">姓名: <input type="text" name="keys[]" class="input-large" value=""></span>' +
                 '<span style="width:50%;padding-left: 50px;">电话: <input type="text" name="values[]" class="input-xlarge" value=""></span></p>';
             $("#kv").append(str);
+        });
+        $(".ajax-addpr").bind('click',function(){
+            $("#address_edit_modal2").show();
+        });
+        $(".ajax-addpr-no").bind('click',function(){
+            $("#address_edit_modal2").hide();
+        });
+        $(".ajax-addpr-ok").bind('click',function(){
+            var pname = $("#products").find("option:selected").text();
+            var prid = $("#products ").val();
+            var number = $("#number ").val();
+            var str = '<p><span style="width:50%">产品: <input type="hidden" name="prids[]" class="input-large" value="'+prid+'">'+pname+'</span>' +
+                '<span style="width:50%;padding-left: 50px;">数量: <input type="text" name="numbers[]" class="input-large" value="'+number+'"></span></p>';
+            $("#kv").append(str);
+            $("#address_edit_modal2").hide();
         });
     });
 </script>
