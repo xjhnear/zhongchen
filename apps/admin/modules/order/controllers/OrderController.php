@@ -98,7 +98,8 @@ class OrderController extends BackendController
         $data['data'] = Order::getInfo($id);
         $data['payStatus_arr'] = $this->payStatus_arr;
         $data['status_arr'] = $this->status_arr;
-//        $data['data_orderproduct'] =  OrderProduct::getListByOrid($id);
+        $data['data_orderproduct'] =  OrderProduct::getListByOrid($id);
+        print_r($data['data_orderproduct']);exit;
         $data['pr_arr'] =  Product::getList(array(),1,100);
         return $this->display('order-edit', $data);
     }
