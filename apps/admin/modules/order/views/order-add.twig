@@ -140,7 +140,7 @@
 </div>
 
 <!-- 模态框 修改-->
-<div class="modal" id="address_edit_modal2">
+<div class="modal" id="address_edit_modal2" style="display: none;">
 	<div class="modal-dialog" style="width:70%;margin-left:15%;margin-top:5%;">
 		<div class="modal-content">
 			<div class="modal-header">
@@ -153,7 +153,11 @@
 					<div class="control-group">
 						<label for="group" class="control-label">产品:</label>
 						<div class="controls">
-							<!--{{form_select('prid',pr_arr)}}-->
+							<select id="products">
+							<!--{%for itemp in pr_arr%}-->
+								<option value="<!--{{itempr.prid  }}-->"><!--{{itempr.name  }}--></option>
+							<!--{%endfor%}-->
+							</select>
 						</div>
 					</div>
 					<div class="control-group" >
@@ -164,7 +168,7 @@
 					</div>
 				</form>
 			</div>
-			<div class="modal-footer" style="text-align:center;">
+			<div class="modal-footer" style="text-align:center;background-color: #fff;padding-bottom: 5%;">
 				<a class="btn btn-default ajax-addpr-no" href="javascript:void(0);">取消</a>
 				<a class="btn btn-primary ajax-addpr-ok" href="javascript:void(0);">确定</a>
 			</div>
@@ -205,9 +209,12 @@
             $("#address_edit_modal2").hide();
         });
         $(".ajax-addpr-ok").bind('click',function(){
-            var str = '<p><span style="width:50%">产品: <input type="hidden" name="prids[]" class="input-large" value=""></span>' +
+            var pname = $("#products").find("option:selected").text();
+            var prid = $("#products ").val();
+            var str = '<p><span style="width:50%">产品: <input type="hidden" name="prids[]" class="input-large" value="'+prid+'">'+pname+'</span>' +
                 '<span style="width:50%;padding-left: 50px;">数量: <input type="text" name="numbers[]" class="input-large" value=""></span></p>';
             $("#kv").append(str);
+            $("#address_edit_modal2").hide();
         });
 	});
 </script>
