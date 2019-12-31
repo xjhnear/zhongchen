@@ -124,4 +124,9 @@ class OrderService extends BaseService
         return array('result'=>false,'msg'=>"用户不存在");
     }
 
+    public static function getOrderProduct($orid)
+    {
+        $productList = Orderproduct::getListByOrid($orid);
+        return $productList;
+    }
 }
