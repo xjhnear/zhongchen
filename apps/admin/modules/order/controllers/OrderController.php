@@ -15,6 +15,7 @@ use Youxiduo\Helper\MyHelp;
 use Youxiduo\Order\Model\Order;
 use Youxiduo\Order\OrderService;
 use Youxiduo\Product\Model\Product;
+use Youxiduo\User\UserService;
 use Youxiduo\User\Model\Comment;
 
 class OrderController extends BackendController
@@ -74,14 +75,40 @@ class OrderController extends BackendController
     {
         $input = Input::only('urid', 'orderNo', 'name','tel','address','idCard','price','contractTime','payTime','payStatus','status','receiptType','receiptTitle','receiptContent','keys','values','prids','numbers');
 
-        $data['title'] = $input['title'];
-//        $data['summary'] = $input['summary'];
-//        $data['content'] = $input['content'];
-//        $data['gid'] = $input['gid'];
-//        if(Input::hasFile('img')){
-//            $img = MyHelp::save_img_no_url(Input::file('img'),'order_img');
-//            $data['img'] = $img;
-//        }
+        $data['orderNo'] = $input['orderNo'];
+        $data['name'] = $input['name'];
+        $data['tel'] = $input['tel'];
+
+        $result_pwd = UserService::getUserInfobyMobile($input['tel']);
+        if($result_pwd['result']){
+            $urid = $result_pwd['data']['urid'];
+        } else {
+            $user = UserService::createUserByPhone($input['tel'], 123456, 0);
+            $urid = $user['data'];
+        }
+        $data['urid'] = $urid;
+
+        $data['address'] = $input['address'];
+        $data['idCard'] = $input['idCard'];
+        $data['createUrid'] = '';
+        $data['contractTime'] = $input['contractTime'];
+        $data['payTime'] = $input['payTime'];
+        $data['price'] = $input['price'];
+        $data['payStatus'] = $input['payStatus'];
+        $data['status'] = $input['status'];
+        $data['receiptType'] = $input['receiptType'];
+        $data['receiptTitle'] = $input['receiptTitle'];
+        $data['receiptContent'] = $input['receiptContent'];
+        $extrainfo = [];
+        foreach ($input['keys'] as $k=>$v) {
+            if (strlen($v) > 0) {
+                $item = [];
+                $item['title'] = $v;
+                $item['content'] = $input['values'][$k];
+                $extrainfo[] = $item;
+            }
+        }
+        $data['contacts'] = json_encode($extrainfo);
 
         $result = Order::save($data);
         
@@ -106,17 +133,41 @@ class OrderController extends BackendController
     public function postEdit()
     {
         $input = Input::only('id', 'urid', 'orderNo', 'name','tel','address','idCard','price','contractTime','payTime','payStatus','status','receiptType','receiptTitle','receiptContent','keys','values','prids','numbers');
-        
-        $data['orid'] = $input['id'];
+
         $data['orderNo'] = $input['orderNo'];
+        $data['name'] = $input['name'];
         $data['tel'] = $input['tel'];
+
+        $result_pwd = UserService::getUserInfobyMobile($input['tel']);
+        if($result_pwd['result']){
+            $urid = $result_pwd['data']['urid'];
+        } else {
+            $user = UserService::createUserByPhone($input['tel'], 123456, 0);
+            $urid = $user['data'];
+        }
+        $data['urid'] = $urid;
+
+        $data['address'] = $input['address'];
+        $data['idCard'] = $input['idCard'];
+        $data['createUrid'] = '';
+        $data['contractTime'] = $input['contractTime'];
+        $data['payTime'] = $input['payTime'];
         $data['price'] = $input['price'];
-//        $data['gid'] = $input['gid'];
-//        $img = $input['old_img'];unset($input['old_img']);
-//        if(Input::hasFile('img')){
-//            $img = MyHelp::save_img_no_url(Input::file('img'),'order_img');
-//        }
-//        $data['img'] = $img;
+        $data['payStatus'] = $input['payStatus'];
+        $data['status'] = $input['status'];
+        $data['receiptType'] = $input['receiptType'];
+        $data['receiptTitle'] = $input['receiptTitle'];
+        $data['receiptContent'] = $input['receiptContent'];
+        $extrainfo = [];
+        foreach ($input['keys'] as $k=>$v) {
+            if (strlen($v) > 0) {
+                $item = [];
+                $item['title'] = $v;
+                $item['content'] = $input['values'][$k];
+                $extrainfo[] = $item;
+            }
+        }
+        $data['contacts'] = json_encode($extrainfo);
 
         $result = Order::save($data);
         
