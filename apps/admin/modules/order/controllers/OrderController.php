@@ -134,6 +134,7 @@ class OrderController extends BackendController
     {
         $input = Input::only('id', 'urid', 'orderNo', 'name','tel','address','idCard','price','contractTime','payTime','payStatus','status','receiptType','receiptTitle','receiptContent','keys','values','prids','numbers');
 
+        $data['orid'] = $input['id'];
         $data['orderNo'] = $input['orderNo'];
         $data['name'] = $input['name'];
         $data['tel'] = $input['tel'];
