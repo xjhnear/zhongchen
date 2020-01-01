@@ -73,7 +73,6 @@ final class Orderproduct extends Model implements IModel
 
     public static function createOrderProduct($data)
     {
-        $data = array();
         $data['createTime'] = date('Y-m-d H:i:s',time());;
         $data['updateTime'] = date('Y-m-d H:i:s',time());;
         $opid = self::db()->insertGetId($data);
