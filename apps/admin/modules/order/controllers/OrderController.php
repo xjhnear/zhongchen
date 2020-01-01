@@ -90,7 +90,7 @@ class OrderController extends BackendController
 
         $data['address'] = $input['address'];
         $data['idCard'] = $input['idCard'];
-        $data['createUrid'] = '';
+        $data['createUrid'] = 0;
         $data['contractTime'] = $input['contractTime'];
         $data['payTime'] = $input['payTime'];
         $data['price'] = $input['price'];
@@ -100,28 +100,32 @@ class OrderController extends BackendController
         $data['receiptTitle'] = $input['receiptTitle'];
         $data['receiptContent'] = $input['receiptContent'];
         $extrainfo = [];
-        foreach ($input['keys'] as $k=>$v) {
-            if (strlen($v) > 0) {
-                $item = [];
-                $item['title'] = $v;
-                $item['content'] = $input['values'][$k];
-                $extrainfo[] = $item;
+        if ($input['keys']) {
+            foreach ($input['keys'] as $k=>$v) {
+                if (strlen($v) > 0) {
+                    $item = [];
+                    $item['title'] = $v;
+                    $item['content'] = $input['values'][$k];
+                    $extrainfo[] = $item;
+                }
             }
         }
         $data['contacts'] = json_encode($extrainfo);
 
         $result = Order::save($data);
-        foreach ($input['prids'] as $k=>$v) {
-            if (strlen($v) > 0) {
-                $data_pr = [];
-                $data_pr['orid'] = $result;
-                $data_pr['prid'] = $v;
-                $data_pr['number'] = $input['numbers'][$k];
-                OrderService::createOrderProduct($data_pr);
-            }
-        }
 
         if ($result) {
+            if ($input['prids']) {
+                foreach ($input['prids'] as $k=>$v) {
+                    if (strlen($v) > 0) {
+                        $data_pr = [];
+                        $data_pr['orid'] = $result;
+                        $data_pr['prid'] = $v;
+                        $data_pr['number'] = $input['numbers'][$k];
+                        OrderService::createOrderProduct($data_pr);
+                    }
+                }
+            }
             return $this->redirect('order/order/list')->with('global_tips', '保存成功');
         } else {
             return $this->back('保存失败');
@@ -159,7 +163,7 @@ class OrderController extends BackendController
 
         $data['address'] = $input['address'];
         $data['idCard'] = $input['idCard'];
-        $data['createUrid'] = '';
+        $data['createUrid'] = 0;
         $data['contractTime'] = $input['contractTime'];
         $data['payTime'] = $input['payTime'];
         $data['price'] = $input['price'];
@@ -169,28 +173,32 @@ class OrderController extends BackendController
         $data['receiptTitle'] = $input['receiptTitle'];
         $data['receiptContent'] = $input['receiptContent'];
         $extrainfo = [];
-        foreach ($input['keys'] as $k=>$v) {
-            if (strlen($v) > 0) {
-                $item = [];
-                $item['title'] = $v;
-                $item['content'] = $input['values'][$k];
-                $extrainfo[] = $item;
+        if ($input['keys']) {
+            foreach ($input['keys'] as $k=>$v) {
+                if (strlen($v) > 0) {
+                    $item = [];
+                    $item['title'] = $v;
+                    $item['content'] = $input['values'][$k];
+                    $extrainfo[] = $item;
+                }
             }
         }
         $data['contacts'] = json_encode($extrainfo);
 
         $result = Order::save($data);
-        foreach ($input['prids'] as $k=>$v) {
-            if (strlen($v) > 0) {
-                $data_pr = [];
-                $data_pr['orid'] = $data['orid'];
-                $data_pr['prid'] = $v;
-                $data_pr['number'] = $input['numbers'][$k];
-                OrderService::createOrderProduct($data_pr);
-            }
-        }
-        
+
         if ($result) {
+            if ($input['prids']) {
+                foreach ($input['prids'] as $k=>$v) {
+                    if (strlen($v) > 0) {
+                        $data_pr = [];
+                        $data_pr['orid'] = $data['orid'];
+                        $data_pr['prid'] = $v;
+                        $data_pr['number'] = $input['numbers'][$k];
+                        OrderService::createOrderProduct($data_pr);
+                    }
+                }
+            }
             return $this->redirect('order/order/list')->with('global_tips', '保存成功');
         } else {
             return $this->back('保存失败');
