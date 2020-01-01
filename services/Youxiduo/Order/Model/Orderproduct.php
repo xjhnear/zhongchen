@@ -70,4 +70,13 @@ final class Orderproduct extends Model implements IModel
         $tb = $tb->where('orderproduct.state','=',1);
         return $tb->orderBy('orid','desc')->get();
     }
+
+    public static function createOrderProduct($data)
+    {
+        $data = array();
+        $data['createTime'] = date('Y-m-d H:i:s',time());;
+        $data['updateTime'] = date('Y-m-d H:i:s',time());;
+        $opid = self::db()->insertGetId($data);
+        return $opid;
+    }
 }

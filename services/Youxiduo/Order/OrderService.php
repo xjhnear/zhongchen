@@ -129,4 +129,11 @@ class OrderService extends BaseService
         $productList = Orderproduct::getListByOrid($orid);
         return $productList;
     }
+
+    public static function createOrderProduct($data)
+    {
+        $opid = Orderproduct::createOrderProduct($data);
+        return $opid;
+    }
+
 }

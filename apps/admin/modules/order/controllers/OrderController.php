@@ -111,7 +111,16 @@ class OrderController extends BackendController
         $data['contacts'] = json_encode($extrainfo);
 
         $result = Order::save($data);
-        
+        foreach ($input['prids'] as $k=>$v) {
+            if (strlen($v) > 0) {
+                $data_pr = [];
+                $data_pr['orid'] = $result;
+                $data_pr['prid'] = $v;
+                $data_pr['number'] = $input['numbers'][$k];
+                OrderService::createOrderProduct($data_pr);
+            }
+        }
+
         if ($result) {
             return $this->redirect('order/order/list')->with('global_tips', '保存成功');
         } else {
@@ -171,6 +180,15 @@ class OrderController extends BackendController
         $data['contacts'] = json_encode($extrainfo);
 
         $result = Order::save($data);
+        foreach ($input['prids'] as $k=>$v) {
+            if (strlen($v) > 0) {
+                $data_pr = [];
+                $data_pr['orid'] = $data['orid'];
+                $data_pr['prid'] = $v;
+                $data_pr['number'] = $input['numbers'][$k];
+                OrderService::createOrderProduct($data_pr);
+            }
+        }
         
         if ($result) {
             return $this->redirect('order/order/list')->with('global_tips', '保存成功');
