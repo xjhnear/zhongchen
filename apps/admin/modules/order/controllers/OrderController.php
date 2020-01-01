@@ -192,7 +192,7 @@ class OrderController extends BackendController
                 foreach ($input['prids'] as $k=>$v) {
                     if (strlen($v) > 0) {
                         $data_pr = [];
-                        $data_pr['orid'] = $data['orid'];
+                        $data_pr['orid'] = $input['id'];
                         $data_pr['prid'] = $v;
                         $data_pr['number'] = $input['numbers'][$k];
                         OrderService::createOrderProduct($data_pr);
