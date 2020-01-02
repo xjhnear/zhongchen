@@ -109,6 +109,7 @@
 								<p>
 									<span style="width:50%">姓名: <input type="text" name="keys[]" class="input-large" value="<!--{{item.title  }}-->" ></span>
 									<span style="width:50%;padding-left: 50px;">电话: <input type="text" name="values[]" class="input-xlarge" value="<!--{{item.content  }}-->" ></span>
+									<a class="btn btn-danger ajax-delkey" href="javascript:void(0);">&times;</a>
 								</p>
 								<!--{%endfor%}-->
 							</div>
@@ -126,6 +127,7 @@
 								<p>
 									<span style="width:50%">产品: <input type="hidden" name="prids[]" class="input-large" value="<!--{{itempr.prid  }}-->" ><!--{{itempr.name  }}--></span>
 									<span style="width:50%;padding-left: 50px;">数量: <input type="text" name="numbers[]" class="input-large" value="<!--{{itempr.number  }}-->" ></span>
+									<a class="btn btn-danger ajax-delpr" href="javascript:void(0);">&times;</a>
 								</p>
 								<!--{%endfor%}-->
 							</div>
@@ -207,8 +209,12 @@
         // 	$('.switchbox').bootstrapSwitch();
         $(".ajax-addkey").bind('click',function(){
             var str = '<p><span style="width:50%">姓名: <input type="text" name="keys[]" class="input-large" value=""></span>' +
-                '<span style="width:50%;padding-left: 50px;">电话: <input type="text" name="values[]" class="input-xlarge" value=""></span></p>';
+                '<span style="width:50%;padding-left: 50px;">电话: <input type="text" name="values[]" class="input-xlarge" value=""></span>' +
+				'<a class="btn btn-danger ajax-delkey" href="javascript:void(0);">&times;</a></p>';
             $("#kv").append(str);
+        });
+        $(".ajax-delkey").bind('click',function(){
+            $(this).parent().remove();
         });
         $(".ajax-addpr").bind('click',function(){
             $("#address_edit_modal2").show();
@@ -221,9 +227,13 @@
             var prid = $("#products ").val();
             var number = $("#number ").val();
             var str = '<p><span style="width:50%">产品: <input type="hidden" name="prids[]" class="input-large" value="'+prid+'">'+pname+'</span>' +
-                '<span style="width:50%;padding-left: 50px;">数量: <input type="text" name="numbers[]" class="input-large" value="'+number+'"></span></p>';
+                '<span style="width:50%;padding-left: 50px;">数量: <input type="text" name="numbers[]" class="input-large" value="'+number+'"></span>' +
+				'<a class="btn btn-danger ajax-delpr" href="javascript:void(0);">&times;</a></p>';
             $("#kv").append(str);
             $("#address_edit_modal2").hide();
+        });
+        $(".ajax-delpr").bind('click',function(){
+            $(this).parent().remove();
         });
     });
 </script>
