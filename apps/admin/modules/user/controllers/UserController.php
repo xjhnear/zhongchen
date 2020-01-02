@@ -31,10 +31,11 @@ class UserController extends BackendController
 		return $this->display('user_list',$data);
 	}
 
-	public function getSublist()
+	public function getSublist($parentId)
 	{
 		$pageIndex = Input::get('page',1);
-		$search = Input::only('mobile','name','parentId');
+		$search = Input::only('mobile','name');
+        $search['parentId'] = $parentId;
 		$pageSize = 10;
 		$data = array();
 		$data['datalist'] = User::getList($search,$pageIndex,$pageSize);
