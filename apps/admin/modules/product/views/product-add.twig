@@ -89,6 +89,7 @@
                                 <p>
 								<span style="width:50%"><input type="text" name="keys[]" class="input-large" value=""></span>
 								<span style="width:50%;padding-left: 50px;"><input type="text" name="values[]" class="input-xlarge" value=""></span>
+								<a class="btn btn-primary ajax-delkey" href="javascript:void(0);">&times;</a>
                                 </p>
 							</div>
 						</div>
@@ -138,6 +139,9 @@
             var str = '<p><span style="width:50%"><input type="text" name="keys[]" class="input-large" value=""></span>' +
                 '<span style="width:50%;padding-left: 50px;"><input type="text" name="values[]" class="input-xlarge" value=""></span></p>';
             $("#kv").append(str);
+        });
+        $(".ajax-delkey").bind('click',function(){
+			$(this).parent().remove();
         });
 	});
 </script>
