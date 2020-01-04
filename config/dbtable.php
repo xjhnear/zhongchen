@@ -21,6 +21,7 @@ $v4_tables = array(
 
     // 中晨
     'youxiduo_system_model_appvers'=>array('db'=>'system','table'=>'appvers'),
+    'youxiduo_system_model_config'=>array('db'=>'system','table'=>'config'),
 
     'youxiduo_company_model_company'=>array('db'=>'www','table'=>'company'),
     'youxiduo_order_model_order'=>array('db'=>'www','table'=>'order'),
@@ -30,7 +31,6 @@ $v4_tables = array(
     'youxiduo_product_model_product'=>array('db'=>'www','table'=>'product'),
     'youxiduo_user_model_user'=>array('db'=>'www','table'=>'user'),
     'youxiduo_user_model_userdistributor'=>array('db'=>'www','table'=>'userdistributor')
-
 
 
 );

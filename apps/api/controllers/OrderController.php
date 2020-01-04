@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Input;
 use Youxiduo\Order\OrderService;
 use Youxiduo\User\UserService;
 use Youxiduo\Helper\MyHelp;
+use Youxiduo\System\Model\Config;
 
 use PHPImageWorkshop\ImageWorkshop;
 
@@ -21,8 +22,9 @@ class OrderController extends BaseController
         $search = Input::only('urid','type');
 
 		$result = OrderService::getOrderList($search,$pageIndex,$pageSize);
+        $hotline = Config::getInfoByType(1);
 		if($result['result']){
-			return $this->success(array('result'=>$result['data'],'hotline'=>'4006800000'));
+			return $this->success(array('result'=>$result['data'],'hotline'=>$hotline['content']));
 		}else{
 			return $this->fail(201,$result['msg']);
 		}
@@ -33,8 +35,9 @@ class OrderController extends BaseController
         $orid = Input::get('orid',0);
 
         $result = OrderService::getOrderInfo($orid);
+        $hotline = Config::getInfoByType(1);
         if($result['result']){
-            return $this->success(array('result'=>$result['data'],'hotline'=>'4006800000'));
+            return $this->success(array('result'=>$result['data'],'hotline'=>$hotline['content']));
         }else{
             return $this->fail(201,$result['msg']);
         }

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Input;
 use Youxiduo\User\ArticleService;
 use Youxiduo\User\ArticleGroupService;
 use Youxiduo\User\UserService;
+use Youxiduo\System\Model\Config;
 use Youxiduo\Helper\MyHelp;
 
 use PHPImageWorkshop\ImageWorkshop;
@@ -36,8 +37,9 @@ class ArticleController extends BaseController
 
 		$result = ArticleService::getArticleList($pageIndex,$pageSize,$gid);
 //        $pager[] = ;
+        $hotline = Config::getInfoByType(1);
 		if($result['result']){
-			return $this->success(array('result'=>$result['data'],'hotline'=>'4006800000'));
+			return $this->success(array('result'=>$result['data'],'hotline'=>$hotline['content']));
 		}else{
 			return $this->fail(201,$result['msg']);
 		}
