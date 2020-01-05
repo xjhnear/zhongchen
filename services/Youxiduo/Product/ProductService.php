@@ -42,7 +42,7 @@ class ProductService extends BaseService
         if($product){
             return array('result'=>true,'data'=>$product);
         }
-        return array('result'=>false,'msg'=>"用户不存在");
+        return array('result'=>false,'msg'=>"产品不存在");
     }
 
 }

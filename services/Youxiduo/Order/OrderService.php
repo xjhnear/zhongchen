@@ -121,7 +121,7 @@ class OrderService extends BaseService
             $order['pairList'] = $pairList;
             return array('result'=>true,'data'=>$order);
         }
-        return array('result'=>false,'msg'=>"用户不存在");
+        return array('result'=>false,'msg'=>"订单不存在");
     }
 
     public static function getOrderProduct($orid)

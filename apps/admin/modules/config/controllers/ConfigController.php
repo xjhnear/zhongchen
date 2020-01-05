@@ -31,7 +31,7 @@ class ConfigController extends BackendController
 
     public function postSave()
     {
-        $input = Input::only('id', 'hotline');
+        $input = Input::only('id', 'content');
         
         $data['id'] = $input['id'];
         $data['type'] = 1;
