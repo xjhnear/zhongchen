@@ -54,6 +54,7 @@ final class Order extends Model implements IModel
 	{
 		$batch = self::db()->where('orid','=',$id)->first();
 		if(!$batch) return array();
+        $batch && $batch['contacts'] = json_decode($batch['contacts'],true);
 		return $batch;
 	}
 	
