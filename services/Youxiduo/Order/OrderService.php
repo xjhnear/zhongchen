@@ -14,6 +14,7 @@ use Illuminate\Support\Facades\Config;
 use Youxiduo\Base\BaseService;
 use Youxiduo\Order\Model\Order;
 use Youxiduo\Order\Model\Orderproduct;
+use Youxiduo\Order\Model\Orderuser;
 use Youxiduo\Order\Model\Orderrepair;
 use Youxiduo\Product\ProductService;
 use Youxiduo\User\UploaderService;
@@ -136,4 +137,9 @@ class OrderService extends BaseService
         return $opid;
     }
 
+    public static function createOrderUser($data)
+    {
+        $opid = Orderuser::createOrderUser($data);
+        return $opid;
+    }
 }

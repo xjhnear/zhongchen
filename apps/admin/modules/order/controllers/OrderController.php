@@ -126,6 +126,28 @@ class OrderController extends BackendController
                     }
                 }
             }
+            $data_ou = [];
+            $data_ou['orid'] = $result;
+            $data_ou['urid'] = $v;
+            OrderService::createOrderUser($data_ou);
+            if ($input['keys']) {
+                foreach ($input['keys'] as $k=>$v) {
+                    if (strlen($v) > 0) {
+                        $result_pwd = UserService::getUserInfobyMobile($input['values'][$k]);
+                        if($result_pwd['result']){
+                            $urid = $result_pwd['data']['urid'];
+                        } else {
+                            $user = UserService::createUserByPhone($input['values'][$k], 123456, 0);
+                            $urid = $user['data'];
+                        }
+                        $data_ou = [];
+                        $data_ou['orid'] = $result;
+                        $data_ou['urid'] = $urid;
+                        OrderService::createOrderUser($data_ou);
+                    }
+                }
+            }
+
             return $this->redirect('order/order/list')->with('global_tips', '保存成功');
         } else {
             return $this->back('保存失败');
@@ -196,6 +218,27 @@ class OrderController extends BackendController
                         $data_pr['prid'] = $v;
                         $data_pr['number'] = $input['numbers'][$k];
                         OrderService::createOrderProduct($data_pr);
+                    }
+                }
+            }
+            $data_ou = [];
+            $data_ou['orid'] = $result;
+            $data_ou['urid'] = $v;
+            OrderService::createOrderUser($data_ou);
+            if ($input['keys']) {
+                foreach ($input['keys'] as $k=>$v) {
+                    if (strlen($v) > 0) {
+                        $result_pwd = UserService::getUserInfobyMobile($input['values'][$k]);
+                        if($result_pwd['result']){
+                            $urid = $result_pwd['data']['urid'];
+                        } else {
+                            $user = UserService::createUserByPhone($input['values'][$k], 123456, 0);
+                            $urid = $user['data'];
+                        }
+                        $data_ou = [];
+                        $data_ou['orid'] = $result;
+                        $data_ou['urid'] = $urid;
+                        OrderService::createOrderUser($data_ou);
                     }
                 }
             }

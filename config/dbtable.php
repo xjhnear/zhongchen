@@ -27,6 +27,7 @@ $v4_tables = array(
     'youxiduo_order_model_order'=>array('db'=>'www','table'=>'order'),
     'youxiduo_order_model_orderlog'=>array('db'=>'www','table'=>'orderlog'),
     'youxiduo_order_model_orderproduct'=>array('db'=>'www','table'=>'orderproduct'),
+    'youxiduo_order_model_orderuser'=>array('db'=>'www','table'=>'orderuser'),
     'youxiduo_order_model_orderrepair'=>array('db'=>'www','table'=>'orderrepair'),
     'youxiduo_product_model_product'=>array('db'=>'www','table'=>'product'),
     'youxiduo_user_model_user'=>array('db'=>'www','table'=>'user'),
