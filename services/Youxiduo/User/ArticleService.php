@@ -28,7 +28,6 @@ class ArticleService extends BaseService
 		if($article){
 		    foreach ($article as &$item) {
                 unset($item['gid']);
-                unset($item['summary']);
                 unset($item['content']);
                 $item['img'] = Utility::getImageUrl($item['img']);
             }
@@ -42,7 +41,6 @@ class ArticleService extends BaseService
 		$article = Article::getInfo($arid);
 		if($article){
 			unset($article['gid']);
-			unset($article['summary']);
 			$article['img'] = Utility::getImageUrl($article['img']);
 			return array('result'=>true,'data'=>$article);
 		}
