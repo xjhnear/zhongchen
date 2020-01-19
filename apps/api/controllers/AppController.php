@@ -43,8 +43,18 @@ class AppController extends BaseController
         $urid = Input::get('urid','');
 
         $result = [];
-        $result['startupPage'] = Config::getInfoByType(2);
-        $result['startupSecond'] = Config::getInfoByType(3);
+        $startupPage =  Config::getInfoByType(2);
+        if ($startupPage) {
+            $result['startupPage'] = $startupPage['content'];
+        } else {
+            $result['startupPage'] = '';
+        }
+        $startupSecond =  Config::getInfoByType(3);
+        if ($startupSecond) {
+            $result['startupSecond'] = $startupSecond['content'];
+        } else {
+            $result['startupSecond'] = '';
+        }
         return $this->success($result);
     }
 }
