@@ -37,4 +37,15 @@ class ArticleService extends BaseService
 		return array('result'=>false,'msg'=>"暂无数据");
 	}
 
+	public static function getArticleInfo($arid)
+	{
+		$article = Article::getInfo($arid);
+		if($article){
+			unset($article['gid']);
+			unset($article['summary']);
+			$article['img'] = Utility::getImageUrl($article['img']);
+			return array('result'=>true,'data'=>$article);
+		}
+		return array('result'=>false,'msg'=>"数据不存在");
+	}
 }

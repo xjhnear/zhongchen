@@ -21,6 +21,8 @@ Route::pattern('symbol', '[\/]?');
 /*-------------------------------系统-----------------------------*/
 //检查更新√
 Route::any('app/upgrade{symbol}',array('before'=>'uri_verify','uses'=>'AppController@upGrade'));
+//系统设置√
+Route::any('app/config{symbol}',array('before'=>'uri_verify','uses'=>'AppController@config'));
 
 /*-------------------------------用户-------------------------------*/
 //登录√
@@ -42,6 +44,7 @@ Route::any('user/identifyrefresh',array('uses'=>'UserController@identifyRefresh'
 //文章列表
 Route::any('article/getgrouplist',array('uses'=>'ArticleController@getgrouplist'));
 Route::any('article/getlist',array('uses'=>'ArticleController@getlist'));
+Route::any('article/getdetail',array('uses'=>'ArticleController@getdetail'));
 Route::any('article/comment{symbol}',array('before'=>'uri_verify','uses'=>'ArticleController@comment'));
 //视频列表
 Route::any('video/getgrouplist',array('uses'=>'VideoController@getgrouplist'));

@@ -45,6 +45,19 @@ class ArticleController extends BaseController
 		}
 	}
 
+	public function getdetail()
+	{
+		$arid = Input::get('arid',0);
+
+		$result = ArticleService::getArticleInfo($arid);
+		$hotline = Config::getInfoByType(1);
+		if($result['result']){
+			return $this->success(array('result'=>$result['data'],'hotline'=>$hotline['content']));
+		}else{
+			return $this->fail(201,$result['msg']);
+		}
+	}
+
 	public function comment()
 	{
 		$pid = Input::get('pid');

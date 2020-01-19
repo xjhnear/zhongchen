@@ -2,6 +2,7 @@
 use Yxd\Modules\Core\CacheService;
 use Illuminate\Support\Facades\Input;
 use Youxiduo\System\AppversService;
+use Youxiduo\System\Model\Config;
 
 class AppController extends BaseController 
 {
@@ -32,5 +33,18 @@ class AppController extends BaseController
         }else{
             return $this->fail(500,'暂无数据');
         }
-	}	
+	}
+
+    public function config()
+    {
+        $version = Input::get('version','');
+        $platform = Input::get('platform','');
+        $udid = Input::get('udid','');
+        $urid = Input::get('urid','');
+
+        $result = [];
+        $result['startupPage'] = Config::getInfoByType(2);
+        $result['startupSecond'] = Config::getInfoByType(3);
+        return $this->success($result);
+    }
 }
