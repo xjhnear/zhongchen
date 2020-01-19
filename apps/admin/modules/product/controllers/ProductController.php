@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Paginator;
 use Illuminate\Support\Facades\Config;
 use Youxiduo\Helper\MyHelp;
 use Youxiduo\Product\Model\Product;
+use Youxiduo\Product\Model\ProductGroup;
 use Youxiduo\User\Model\Comment;
 
 class ProductController extends BackendController
@@ -43,14 +44,17 @@ class ProductController extends BackendController
     {
         $data = array();
         $data['state'] = 1;
+        $groups = ProductGroup::getNameList();
+        $data['groups'] = $groups;
         return $this->display('product-add', $data);
     }
     
     public function postAdd()
     {
-        $input = Input::only('name', 'content', 'specs','img','price','remarks','extrainfo','state','keys','values');
+        $input = Input::only('name', 'gid', 'content', 'specs','img','price','remarks','extrainfo','state','keys','values');
 
         $data['name'] = $input['name'];
+        $data['gid'] = $input['gid'];
         $data['specs'] = $input['specs'];
         $data['content'] = $input['content'];
         $data['price'] = $input['price'];
@@ -83,16 +87,19 @@ class ProductController extends BackendController
     public function getEdit($id)
     {
         $data = array();
+        $groups = ProductGroup::getNameList();
+        $data['groups'] = $groups;
         $data['data'] = Product::getProductInfoById($id);
         return $this->display('product-edit', $data);
     }
 
     public function postEdit()
     {
-        $input = Input::only('id', 'name', 'content', 'specs','img','price','remarks','extrainfo','state','old_img','keys','values');
+        $input = Input::only('id', 'name', 'content', 'gid', 'specs','img','price','remarks','extrainfo','state','old_img','keys','values');
         
         $data['prid'] = $input['id'];
         $data['name'] = $input['name'];
+        $data['gid'] = $input['gid'];
         $data['specs'] = $input['specs'];
         $data['content'] = $input['content'];
         $data['price'] = $input['price'];

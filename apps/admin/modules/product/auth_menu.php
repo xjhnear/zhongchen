@@ -6,9 +6,11 @@ return array(
     'default_url'=>'product/product/list',
     'child_menu' => array(
         array('name'=>'产品管理','url'=>'product/product/list'),
+        array('name'=>'产品类别管理','url'=>'product/group/list'),
     ),
     'extra_node'=>array(
         array('name'=>'全部产品管理模块','url'=>'product/*'),
         array('name'=>'产品管理','url'=>'product/product/*'),
+        array('name'=>'产品类别管理','url'=>'product/group/*'),
     )
 );

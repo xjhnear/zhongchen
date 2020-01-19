@@ -30,6 +30,7 @@ $v4_tables = array(
     'youxiduo_order_model_orderuser'=>array('db'=>'www','table'=>'orderuser'),
     'youxiduo_order_model_orderrepair'=>array('db'=>'www','table'=>'orderrepair'),
     'youxiduo_product_model_product'=>array('db'=>'www','table'=>'product'),
+    'youxiduo_product_model_productgroup'=>array('db'=>'www','table'=>'product_group'),
     'youxiduo_user_model_user'=>array('db'=>'www','table'=>'user'),
     'youxiduo_user_model_userdistributor'=>array('db'=>'www','table'=>'userdistributor')
 
