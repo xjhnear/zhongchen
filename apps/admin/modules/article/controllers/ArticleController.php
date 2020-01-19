@@ -53,8 +53,8 @@ class ArticleController extends BackendController
         $input = Input::only('title', 'content', 'summary','img','gid');
 
         $data['title'] = $input['title'];
-//        $data['summary'] = $input['summary'];
-//        $data['content'] = $input['content'];
+        $data['summary'] = $input['summary'];
+        $data['content'] = $input['content'];
 //        $data['gid'] = $input['gid'];
         if(Input::hasFile('img')){
             $img = MyHelp::save_img_no_url(Input::file('img'),'article_img');
@@ -86,8 +86,8 @@ class ArticleController extends BackendController
         
         $data['arid'] = $input['id'];
         $data['title'] = $input['title'];
-//        $data['summary'] = $input['summary'];
-//        $data['content'] = $input['content'];
+        $data['summary'] = $input['summary'];
+        $data['content'] = $input['content'];
 //        $data['gid'] = $input['gid'];
         $img = $input['old_img'];unset($input['old_img']);
         if(Input::hasFile('img')){
