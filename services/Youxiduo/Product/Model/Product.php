@@ -29,6 +29,7 @@ final class Product extends Model implements IModel
     {
         $tb = self::db();
         if(isset($search['name']) && !empty($search['name'])) $tb = $tb->where('name','like','%'.$search['name'].'%');
+        if(isset($search['group_id']) && $search['group_id']>0) $tb = $tb->where('gid','=',$search['group_id']);
         return $tb->orderBy('prid','desc')->forPage($pageIndex,$pageSize)->get();
     }
 
@@ -36,6 +37,7 @@ final class Product extends Model implements IModel
     {
         $tb = self::db();
         if(isset($search['name']) && !empty($search['name'])) $tb = $tb = $tb->where('name','like','%'.$search['name'].'%');
+        if(isset($search['group_id']) && $search['group_id']>0) $tb = $tb->where('gid','=',$search['group_id']);
         return $tb->count();
     }
 

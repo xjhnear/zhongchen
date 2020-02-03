@@ -11,6 +11,9 @@
                 <div class="actions">
                     <table class="table-filter">
                         <tr>
+                            <td><!--{{form_select('group_id',groups,search.group_id,{'style':'width:120px;margin-bottom:0px'})}}--></td>
+                            <td><input name="name" type="text" class="input-small" value="<!--{{search.name}}-->" /></td>
+                            <td><button class="btn btn-teal"><i class="icon-search"></i>搜索</button></td>
                             <td><a href="<!--{{url('product/product/add')}}-->" class="btn btn-teal">添加产品</a></td>
                         </tr>
                     </table>
@@ -22,6 +25,7 @@
                     <tr>
                     	<th class="col-60">ID</th>
                         <th class="col-60">产品名</th>
+                        <th class="col-60">产品类别</th>
                         <th class="col-60">价格</th>
                         <th class="table-btn-group">操作</th>
                     </tr>
@@ -31,6 +35,7 @@
                     <tr>
                     	<td><!--{{item.prid}}--></td>
                         <td><!--{{item.name}}--></td>
+                        <td><!--{{groups[item.group_id]}}--></td>
                         <td><!--{{item.price}}--></td>
                         <td>
                             <a href="<!--{{url('product/product/edit',{id:item.prid})}}-->" class="btn btn-primary">编辑</a> |
