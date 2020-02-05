@@ -57,7 +57,7 @@ class OrderService extends BaseService
                 unset($item['name']);
                 unset($item['tel']);
                 unset($item['address']);
-                unset($item['idCard']);
+                unset($item['pay']);
                 unset($item['companyId']);
                 unset($item['companyName']);
                 unset($item['createUrid']);
@@ -92,7 +92,7 @@ class OrderService extends BaseService
         $order = Order::getOrderInfoById($orid);
         if($order){
             $order['payType'] = 1;
-            unset($order['idCard']);
+            unset($order['pay']);
             unset($order['companyId']);
             unset($order['companyName']);
             unset($order['createUrid']);

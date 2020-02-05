@@ -73,7 +73,7 @@ class OrderController extends BackendController
     
     public function postAdd()
     {
-        $input = Input::only('urid', 'orderNo', 'name','tel','address','idCard','price','contractTime','payTime','payStatus','status','receiptType','receiptTitle','receiptContent','keys','values','prids','numbers');
+        $input = Input::only('urid', 'orderNo', 'name','tel','address','pay','price','contractTime','payTime','payStatus','status','receiptType','receiptTitle','receiptContent','keys','values','prids','numbers');
 
         $data['orderNo'] = $input['orderNo'];
         $data['name'] = $input['name'];
@@ -89,7 +89,7 @@ class OrderController extends BackendController
         $data['urid'] = $urid;
 
         $data['address'] = $input['address'];
-        $data['idCard'] = $input['idCard'];
+        $data['pay'] = $input['pay'];
         $data['createUrid'] = 0;
         $data['contractTime'] = $input['contractTime'];
         $data['payTime'] = $input['payTime'];
@@ -167,7 +167,7 @@ class OrderController extends BackendController
 
     public function postEdit()
     {
-        $input = Input::only('id', 'urid', 'orderNo', 'name','tel','address','idCard','price','contractTime','payTime','payStatus','status','receiptType','receiptTitle','receiptContent','keys','values','prids','numbers');
+        $input = Input::only('id', 'urid', 'orderNo', 'name','tel','address','pay','price','contractTime','payTime','payStatus','status','receiptType','receiptTitle','receiptContent','keys','values','prids','numbers');
 
         $data['orid'] = $input['id'];
         $data['orderNo'] = $input['orderNo'];
@@ -184,7 +184,7 @@ class OrderController extends BackendController
         $data['urid'] = $urid;
 
         $data['address'] = $input['address'];
-        $data['idCard'] = $input['idCard'];
+        $data['pay'] = $input['pay'];
         $data['createUrid'] = 0;
         $data['contractTime'] = $input['contractTime'];
         $data['payTime'] = $input['payTime'];
