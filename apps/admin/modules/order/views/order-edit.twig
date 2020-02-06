@@ -106,11 +106,17 @@
 						<div class="controls">
 							<div id="kv">
 								<!--{%for item in data.contacts%}-->
-								<p>
-									<span style="width:50%">姓名: <input type="text" name="keys[]" class="input-large" value="<!--{{item.title  }}-->" ></span>
-									<span style="width:50%;padding-left: 50px;">电话: <input type="text" name="values[]" class="input-xlarge" value="<!--{{item.content  }}-->" ></span>
-									<a class="btn btn-danger ajax-delkey" href="javascript:void(0);">&times;</a>
-								</p>
+                                <p>
+                                    <span style="width: 40%;display: table-cell;">姓名: <input type="text" name="keys[]" class="input-large" value="<!--{{item.title  }}-->" style="width: 70%;margin-left: 25px;"></span>
+                                    <span style="display: table-cell;width: 40%;padding-left: 30px;">电话: <input type="text" name="values[]" class="input-xlarge" value="<!--{{item.content  }}-->"></span>
+                                    <span style="display: table-cell;width: 10%;padding-left: 20px;"><a class="btn btn-danger ajax-delkey" href="javascript:void(0);">×</a></span>
+                                </p>
+                                <p>
+                                    <span style="width: 100%;">收货地址: <input type="text" name="add1[]" class="input-large" value="<!--{{item.add1  }}-->" style="width: 80%;"></span>
+                                </p>
+                                <p>
+                                    <span style="width:100%">发票地址: <input type="text" name="add2[]" class="input-large" value="<!--{{item.add2  }}-->" style="width: 80%;"></span>
+                                </p>
 								<!--{%endfor%}-->
 							</div>
 						</div>
@@ -208,9 +214,11 @@
         // 	});
         // 	$('.switchbox').bootstrapSwitch();
         $(".ajax-addkey").bind('click',function(){
-            var str = '<p><span style="width:50%">姓名: <input type="text" name="keys[]" class="input-large" value=""></span>' +
-                '<span style="width:50%;padding-left: 50px;">电话: <input type="text" name="values[]" class="input-xlarge" value=""></span>' +
-				'<a class="btn btn-danger ajax-delkey" href="javascript:void(0);">&times;</a></p>';
+            var str = '<p><span style="width: 40%;display: table-cell;">姓名: <input type="text" name="keys[]" class="input-large" value="" style="width: 70%;margin-left: 25px;"></span>' +
+                '<span style="display: table-cell;width: 40%;padding-left: 30px;">电话: <input type="text" name="values[]" class="input-xlarge" value=""></span>' +
+                '<span style="display: table-cell;width: 10%;padding-left: 20px;"><a class="btn btn-danger ajax-delkey" href="javascript:void(0);">&times;</a></span></p>' +
+                '<p><span style="width: 100%;">收货地址: <input type="text" name="add1[]" class="input-large" value="" style="width: 80%;"></span></p>' +
+                '<p><span style="width:100%">发票地址: <input type="text" name="add2[]" class="input-large" value="" style="width: 80%;"></span></p>';
             $("#kv").append(str);
         });
         $(".ajax-delkey").bind('click',function(){
@@ -226,9 +234,9 @@
             var pname = $("#products").find("option:selected").text();
             var prid = $("#products ").val();
             var number = $("#number ").val();
-            var str = '<p><span style="width:50%">产品: <input type="hidden" name="prids[]" class="input-large" value="'+prid+'">'+pname+'</span>' +
-                '<span style="width:50%;padding-left: 50px;">数量: <input type="text" name="numbers[]" class="input-large" value="'+number+'"></span>' +
-				'<a class="btn btn-danger ajax-delpr" href="javascript:void(0);">&times;</a></p>';
+            var str = '<p><span style="width: 40%;display: table-cell;">产品: <input type="hidden" name="prids[]" class="input-large" value="'+prid+'" style="width: 70%;margin-left: 25px;">'+pname+'</span>' +
+                '<span style="display: table-cell;width: 40%;padding-left: 30px;">数量: <input type="text" name="numbers[]" class="input-large" value="'+number+'"></span>' +
+				'<span style="display: table-cell;width: 10%;padding-left: 20px;"><a class="btn btn-danger ajax-delpr" href="javascript:void(0);">&times;</a></span></p>';
             $("#kv").append(str);
             $("#address_edit_modal2").hide();
         });
