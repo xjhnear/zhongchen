@@ -273,7 +273,7 @@ class OrderController extends BackendController
     {
         $id = Input::get('orid');
         if($id){
-            Order::del($id);
+            Order::delById($id);
         }
         return json_encode(array('state'=>1,'msg'=>'删除成功'));
     }
