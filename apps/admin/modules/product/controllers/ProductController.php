@@ -26,11 +26,10 @@ class ProductController extends BackendController
 
     public function getList()
     {
-		$data = array();
         $pageIndex = Input::get('page',1);
+        $search = Input::only('group_id','name');
         $pageSize = 10;
-		$search = array('group_id','name');
-
+        $data = array();
         $data['datalist'] = Product::getList($search,$pageIndex,$pageSize);
         $groups = ProductGroup::getNameList();
         $data['groups'] = $groups;
