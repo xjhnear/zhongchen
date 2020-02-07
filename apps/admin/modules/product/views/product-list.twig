@@ -12,7 +12,7 @@
                     <table class="table-filter">
                         <tr>
                             <td><!--{{form_select('group_id',groups,search.group_id,{'style':'width:120px;margin-bottom:0px'})}}--></td>
-                            <td><input name="name" type="text" class="input-small" value="<!--{{search.name}}-->" /></td>
+                            <td><input name="name" type="text" class="input-small" placeholder="产品名" value="<!--{{search.name}}-->" /></td>
                             <td><button class="btn btn-teal"><i class="icon-search"></i>搜索</button></td>
                             <td><a href="<!--{{url('product/product/add')}}-->" class="btn btn-teal">添加产品</a></td>
                         </tr>
@@ -55,6 +55,8 @@
 
 <!--{%endblock%}-->
 <!--{%block footer_js%}-->
+<script src="/static/js/laydate/laydate.js"></script>
+<script src="<!--{{asset('/static/js/ajaxfileupload.js')}}-->"></script>
 <script>
     $(function(){
         $('input.ids').iCheck({
