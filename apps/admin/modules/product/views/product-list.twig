@@ -9,6 +9,7 @@
                     产品列表管理
                 </h3>
                 <div class="actions">
+                    <form action="<!--{{url('product/product/list')}}-->" class="">
                     <table class="table-filter">
                         <tr>
                             <td><!--{{form_select('group_id',groups,search.group_id,{'style':'width:120px;margin-bottom:0px'})}}--></td>
@@ -17,6 +18,7 @@
                             <td><a href="<!--{{url('product/product/add')}}-->" class="btn btn-teal">添加产品</a></td>
                         </tr>
                     </table>
+                    </form>
                 </div>
             </div>
             <div class="box-content nopadding">
