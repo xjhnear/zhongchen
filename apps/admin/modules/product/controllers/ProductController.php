@@ -33,8 +33,8 @@ class ProductController extends BackendController
         $data = array();
         $data['datalist'] = Product::getList($search,$pageIndex,$pageSize,$orderby);
         $groups = ProductGroup::getNameList();
-        $data['groups'] = array('0'=>'全部');
-        $data['groups'] = array_merge($data['groups'],$groups);
+        $groups[0] = '全部';
+        $data['groups'] = $groups;
         $data['search'] = $search;
         $data['keys'] = array('1'=>'ID','2'=>'价格');
         $data['values'] = array('1'=>'降序','2'=>'升序');
