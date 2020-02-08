@@ -66,6 +66,12 @@ final class Product extends Model implements IModel
         if(!$info) return null;
 		$info && $info['img'] = Utility::getImageUrl($info['img']);
         $info && $info['extrainfo'] = json_decode($info['extrainfo'],true);
+        if ($info['content'] == null) {
+            $info['content'] = '';
+        }
+        if ($info['remarks'] == null) {
+            $info['remarks'] = '';
+        }
         return $info;
     }
 

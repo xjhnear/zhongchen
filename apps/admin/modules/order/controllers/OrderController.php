@@ -76,6 +76,9 @@ class OrderController extends BackendController
         $input = Input::only('urid', 'orderNo', 'name','tel','address','pay','price','contractTime','payTime','payStatus','status','receiptType','receiptTitle','receiptContent','keys','values','add1','add2','prids','numbers');
 
         $data['orderNo'] = $input['orderNo'];
+        if (OrderService::checkOrderNo($data['orderNo'])) {
+            return $this->back('订单号重复');
+        }
         $data['name'] = $input['name'];
         $data['tel'] = $input['tel'];
 
@@ -174,6 +177,9 @@ class OrderController extends BackendController
 
         $data['orid'] = $input['id'];
         $data['orderNo'] = $input['orderNo'];
+        if (OrderService::checkOrderNo($data['orderNo'])) {
+            return $this->back('订单号重复');
+        }
         $data['name'] = $input['name'];
         $data['tel'] = $input['tel'];
 

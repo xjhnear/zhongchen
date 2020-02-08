@@ -142,4 +142,13 @@ class OrderService extends BaseService
         $opid = Orderuser::createOrderUser($data);
         return $opid;
     }
+
+    public static function checkOrderNo($orderNo)
+    {
+        $order = Order::getOrderInfoByorderNo($orderNo);
+        if($order){
+            return true;
+        }
+        return false;
+    }
 }

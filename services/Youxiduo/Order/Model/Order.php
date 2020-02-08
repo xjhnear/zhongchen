@@ -61,6 +61,13 @@ final class Order extends Model implements IModel
         return $info;
     }
 
+    public static function getOrderInfoByorderNo($orderNo)
+    {
+        $info = self::db()->where('orderNo','=',$orderNo)->first();
+        if(!$info) return null;
+        return $info;
+    }
+
 	public static function getInfo($id)
 	{
 		$batch = self::db()->where('orid','=',$id)->first();
