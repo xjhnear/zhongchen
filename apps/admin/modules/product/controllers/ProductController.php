@@ -33,8 +33,12 @@ class ProductController extends BackendController
         $data = array();
         $data['datalist'] = Product::getList($search,$pageIndex,$pageSize,$orderby);
         $groups = ProductGroup::getNameList();
-        $data['groups'] = $groups;
+        $data['groups'] = array('0'=>'全部');
+        $data['groups'] = array_merge($data['groups'],$groups);
         $data['search'] = $search;
+        $data['keys'] = array('1'=>'ID','2'=>'价格');
+        $data['values'] = array('1'=>'降序','2'=>'升序');
+        $data['orderby'] = $orderby;
         $total = Product::getCount($search);
         $pager = Paginator::make(array(),$total,$pageSize);
         $pager->appends($search);
