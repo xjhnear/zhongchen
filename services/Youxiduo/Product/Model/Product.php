@@ -25,12 +25,31 @@ final class Product extends Model implements IModel
         return __CLASS__;
     }
 
-    public static function getList($search,$pageIndex=1,$pageSize=20)
+    public static function getList($search,$pageIndex=1,$pageSize=20,$orderby=[])
     {
         $tb = self::db();
         if(isset($search['name']) && !empty($search['name'])) $tb = $tb->where('name','like','%'.$search['name'].'%');
         if(isset($search['group_id']) && $search['group_id']>0) $tb = $tb->where('gid','=',$search['group_id']);
-        return $tb->orderBy('prid','desc')->forPage($pageIndex,$pageSize)->get();
+        if (isset($orderby['key']) && $orderby['key']>0) {
+            $orderby_key = 'prid';
+            switch ($orderby['key']) {
+                case 1:
+                    $orderby_key = 'prid';
+                    break;
+                case 2:
+                    $orderby_key = 'price';
+                    break;
+            }
+            if ($orderby['value'] == 2) {
+                $orderby_value = 'asc';
+            } else {
+                $orderby_value = 'desc';
+            }
+            $tb->orderBy($orderby_key,$orderby_value);
+        } else {
+            $tb->orderBy('prid','desc');
+        }
+        return $tb->forPage($pageIndex,$pageSize)->get();
     }
 
     public static function getCount($search)

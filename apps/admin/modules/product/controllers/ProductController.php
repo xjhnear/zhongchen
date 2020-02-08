@@ -28,9 +28,10 @@ class ProductController extends BackendController
     {
         $pageIndex = Input::get('page',1);
         $search = Input::only('group_id','name');
+        $orderby = Input::only('key','value');
         $pageSize = 10;
         $data = array();
-        $data['datalist'] = Product::getList($search,$pageIndex,$pageSize);
+        $data['datalist'] = Product::getList($search,$pageIndex,$pageSize,$orderby);
         $groups = ProductGroup::getNameList();
         $data['groups'] = $groups;
         $data['search'] = $search;

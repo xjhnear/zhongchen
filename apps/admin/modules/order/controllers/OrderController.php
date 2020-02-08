@@ -51,7 +51,7 @@ class OrderController extends BackendController
         $pageSize = 10;
 		$search = array();
 
-        $data['datalist'] = Order::getList($search,$pageIndex,$pageSize);
+        $data['datalist'] = Order::getListBackend($search,$pageIndex,$pageSize);
         $data['search'] = $search;
         $total = Order::getCount($search);
         $pager = Paginator::make(array(),$total,$pageSize);
@@ -160,6 +160,7 @@ class OrderController extends BackendController
     {
         $data = array();
         $data['data'] = Order::getInfo($id);
+        $data['data']['rest'] = ($data['data']['price'] - $data['data']['pay']) > 0 ? $data['data']['price'] - $data['data']['pay'] : 0;
         $data['payStatus_arr'] = $this->payStatus_arr;
         $data['status_arr'] = $this->status_arr;
         $data['data_orderproduct'] = OrderService::getOrderProduct($id);

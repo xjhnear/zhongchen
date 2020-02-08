@@ -12,6 +12,19 @@
                     <form action="<!--{{url('product/product/list')}}-->" class="">
                     <table class="table-filter">
                         <tr>
+                            按
+                            <td>
+                                <select style="width:120px;margin-bottom:0px" name="key">
+                                    <option value="1">ID</option><option value="2">价格</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select style="width:120px;margin-bottom:0px" name="value">
+                                    <option value="1">降序</option><option value="2">升序</option>
+                                </select>
+                            </td>
+                            排序
+
                             <td><!--{{form_select('group_id',groups,search.group_id,{'style':'width:120px;margin-bottom:0px'})}}--></td>
                             <td><input name="name" type="text" class="input-small" placeholder="产品名" value="<!--{{search.name}}-->" /></td>
                             <td><button class="btn btn-teal"><i class="icon-search"></i>搜索</button></td>

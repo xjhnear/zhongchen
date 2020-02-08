@@ -36,6 +36,15 @@ final class Order extends Model implements IModel
         return $tb->orderBy('order.orid','desc')->forPage($pageIndex,$pageSize)->get();
     }
 
+    public static function getListBackend($search,$pageIndex=1,$pageSize=20)
+    {
+        $tb = self::db();
+        if(isset($search['urid']) && !empty($search['urid'])) $tb = $tb->where('urid','=',$search['urid']);
+        if(isset($search['orderNo']) && !empty($search['orderNo'])) $tb = $tb->where('orderNo','like','%'.$search['orderNo'].'%');
+        if(isset($search['status']) && !empty($search['status'])) $tb = $tb->whereIn('status',$search['status']);
+        return $tb->orderBy('order.orid','desc')->forPage($pageIndex,$pageSize)->get();
+    }
+
     public static function getCount($search)
     {
         $tb = self::db();
