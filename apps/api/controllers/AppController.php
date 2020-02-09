@@ -45,7 +45,7 @@ class AppController extends BaseController
         $result = [];
         $startupPage =  Config::getInfoByType(2);
         if ($startupPage) {
-            $result['startupPage'] = $startupPage['content'];
+            $result['startupPage'] = Utility::getImageUrl($startupPage['content']);
         } else {
             $result['startupPage'] = '';
         }
