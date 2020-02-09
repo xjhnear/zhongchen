@@ -3,6 +3,7 @@ use Yxd\Modules\Core\CacheService;
 use Illuminate\Support\Facades\Input;
 use Youxiduo\System\AppversService;
 use Youxiduo\System\Model\Config;
+use Youxiduo\Helper\Utility;
 
 class AppController extends BaseController 
 {
