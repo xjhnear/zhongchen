@@ -177,9 +177,6 @@ class OrderController extends BackendController
 
         $data['orid'] = $input['id'];
         $data['orderNo'] = $input['orderNo'];
-        if (OrderService::checkOrderNo($data['orderNo'])) {
-            return $this->back('订单号重复');
-        }
         $data['name'] = $input['name'];
         $data['tel'] = $input['tel'];
 
