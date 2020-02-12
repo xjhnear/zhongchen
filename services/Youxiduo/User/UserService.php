@@ -168,7 +168,7 @@ class UserService extends BaseService
 	{
 		if(!$urid) return false;
 
-		$fields = array('username','image','sex','type','companyId','companyName','password','state','parentId','register');
+		$fields = array('username','image','sex','type','companyId','companyName','companyAddress','password','state','parentId','register');
 		$data = array();
 		//过滤非法字段
 		foreach($fields as $field){
@@ -182,9 +182,9 @@ class UserService extends BaseService
                     $company_data['id'] = $data['companyId'];
                 }
                 $company_data['companyName'] = $data['companyName'];
+                $company_data['address'] = $data['companyAddress'];
 		        Company::save($company_data);
                 unset($data['companyId']);
-                unset($data['companyName']);
             }
 			$res = User::modifyUserInfo($urid, $data);
 			if($res){

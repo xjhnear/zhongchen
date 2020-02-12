@@ -137,6 +137,7 @@ class UserController extends BaseController
 		$input['sex'] = Input::get('sex');
         $input['companyId'] = Input::get('companyId',0);
         $input['companyName'] = Input::get('companyName');
+        $input['companyAddress'] = Input::get('companyAddress');
 		if($urid <= 0){
 			return $this->fail(202,'参数异常');
 		}
