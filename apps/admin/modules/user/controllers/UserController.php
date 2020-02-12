@@ -63,7 +63,7 @@ class UserController extends BackendController
 	
 	public function postSave()
 	{
-		$input = Input::only('urid','mobile','username','sex','type','image','old_image');
+		$input = Input::only('urid','mobile','username','sex','type','image','old_image','companyName','companyAddress');
 		$head_img = $input['old_image'];unset($input['old_image']);
         if(Input::hasFile('image')){
             $head_img = MyHelp::save_img_no_url(Input::file('image'),'image');

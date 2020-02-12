@@ -41,6 +41,8 @@ final class Order extends Model implements IModel
         $tb = self::db();
         if(isset($search['urid']) && !empty($search['urid'])) $tb = $tb->where('urid','=',$search['urid']);
         if(isset($search['orderNo']) && !empty($search['orderNo'])) $tb = $tb->where('orderNo','like','%'.$search['orderNo'].'%');
+        if(isset($search['address']) && !empty($search['address'])) $tb = $tb->where('address','like','%'.$search['address'].'%');
+        if(isset($search['name']) && !empty($search['name'])) $tb = $tb->where('name','like','%'.$search['name'].'%');
         if(isset($search['status']) && !empty($search['status'])) $tb = $tb->whereIn('status',$search['status']);
         return $tb->orderBy('order.orid','desc')->forPage($pageIndex,$pageSize)->get();
     }
@@ -50,6 +52,8 @@ final class Order extends Model implements IModel
         $tb = self::db();
         if(isset($search['urid']) && !empty($search['urid'])) $tb = $tb->where('urid','=',$search['urid']);
         if(isset($search['orderNo']) && !empty($search['orderNo'])) $tb = $tb->where('orderNo','like','%'.$search['orderNo'].'%');
+        if(isset($search['address']) && !empty($search['address'])) $tb = $tb->where('address','like','%'.$search['address'].'%');
+        if(isset($search['name']) && !empty($search['name'])) $tb = $tb->where('name','like','%'.$search['name'].'%');
         if(isset($search['status']) && !empty($search['status'])) $tb = $tb->where('status','in','('.implode(',',$search['status']).')');
         return $tb->count();
     }

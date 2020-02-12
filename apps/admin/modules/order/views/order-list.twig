@@ -9,11 +9,17 @@
                     订单列表管理
                 </h3>
                 <div class="actions">
+                    <form action="<!--{{url('order/order/list')}}-->" class="">
                     <table class="table-filter">
                         <tr>
+                            <td><input name="orderNo" type="text" class="input-small" placeholder="订单号" value="<!--{{search.orderNo}}-->" /></td>
+                            <td><input name="address" type="text" class="input-small" placeholder="客户单位" value="<!--{{search.address}}-->" /></td>
+                            <td><input name="name" type="text" class="input-small" placeholder="姓名" value="<!--{{search.name}}-->" /></td>
+                            <td><button class="btn btn-teal"><i class="icon-search"></i>搜索</button></td>
                             <td><a href="<!--{{url('order/order/add')}}-->" class="btn btn-teal">添加订单</a></td>
                         </tr>
                     </table>
+                    </form>
                 </div>
             </div>
             <div class="box-content nopadding">
@@ -22,6 +28,7 @@
                     <tr>
                     	<th class="col-60">ID</th>
                         <th class="col-60">订单号</th>
+                        <th class="col-60">客户单位</th>
                         <th class="col-60">姓名</th>
                         <th class="col-60">电话</th>
                         <th class="col-60">流程进度</th>
@@ -33,6 +40,7 @@
                     <tr>
                     	<td><!--{{item.orid}}--></td>
                         <td><!--{{item.orderNo}}--></td>
+                        <td><!--{{item.address}}--></td>
                         <td><!--{{item.name}}--></td>
                         <td><!--{{item.tel}}--></td>
                         <td><!--{{status_arr[item.status]}}--></td>

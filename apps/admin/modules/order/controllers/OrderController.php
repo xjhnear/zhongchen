@@ -34,7 +34,7 @@ class OrderController extends BackendController
         $this->status_arr = [
             1 => '新建',
             2 => '到款',
-            3 => '开始生产',
+            3 => '生产中',
             4 => '生产完成',
             5 => '已发货',
             6 => '已签收',
@@ -49,7 +49,7 @@ class OrderController extends BackendController
 		$data = array();
         $pageIndex = Input::get('page',1);
         $pageSize = 10;
-		$search = array();
+        $search = Input::only('orderNo','address','name');
 
         $data['datalist'] = Order::getListBackend($search,$pageIndex,$pageSize);
         $data['search'] = $search;
