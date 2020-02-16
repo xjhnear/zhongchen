@@ -73,7 +73,7 @@ class OrderController extends BackendController
     
     public function postAdd()
     {
-        $input = Input::only('urid', 'orderNo', 'name','tel','address','pay','price','contractTime','finishTime','payTime','payStatus','status','receiptType','receiptTitle','receiptContent','keys','values','add1','add2','prids','numbers');
+        $input = Input::only('urid', 'orderNo', 'name','tel','address','pay','price','contractTime','finishTime','payTime','payStatus','status','receiptType','receiptTitle','receiptContent','keys','values','add1','prids','numbers');
 
         $data['orderNo'] = $input['orderNo'];
         if (OrderService::checkOrderNo($data['orderNo'])) {
@@ -110,7 +110,6 @@ class OrderController extends BackendController
                     $item['title'] = $v;
                     $item['content'] = $input['values'][$k];
                     $item['add1'] = $input['add1'][$k];
-                    $item['add2'] = $input['add2'][$k];
                     $extrainfo[] = $item;
                 }
             }
@@ -173,7 +172,7 @@ class OrderController extends BackendController
 
     public function postEdit()
     {
-        $input = Input::only('id', 'urid', 'orderNo', 'name','tel','address','pay','price','contractTime','finishTime','payTime','payStatus','status','receiptType','receiptTitle','receiptContent','keys','values','add1','add2','prids','numbers');
+        $input = Input::only('id', 'urid', 'orderNo', 'name','tel','address','pay','price','contractTime','finishTime','payTime','payStatus','status','receiptType','receiptTitle','receiptContent','keys','values','add1','prids','numbers');
 
         $data['orid'] = $input['id'];
         $data['name'] = $input['name'];
@@ -207,7 +206,6 @@ class OrderController extends BackendController
                     $item['title'] = $v;
                     $item['content'] = $input['values'][$k];
                     $item['add1'] = $input['add1'][$k];
-                    $item['add2'] = $input['add2'][$k];
                     $extrainfo[] = $item;
                 }
             }
@@ -218,6 +216,7 @@ class OrderController extends BackendController
 
         if ($result) {
             if ($input['prids']) {
+                OrderService::deleteOrderProduct($input['id']);
                 foreach ($input['prids'] as $k=>$v) {
                     if (strlen($v) > 0) {
                         $data_pr = [];

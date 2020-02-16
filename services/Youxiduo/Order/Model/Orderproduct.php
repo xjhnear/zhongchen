@@ -78,4 +78,12 @@ final class Orderproduct extends Model implements IModel
         $opid = self::db()->insertGetId($data);
         return $opid;
     }
+
+    public static function deleteOrderProduct($orid)
+    {
+        if($orid > 0){
+            $re = self::db()->where('orid','=',$orid)->delete();
+        }
+        return $re;
+    }
 }

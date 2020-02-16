@@ -137,6 +137,12 @@ class OrderService extends BaseService
         return $opid;
     }
 
+    public static function deleteOrderProduct($orid)
+    {
+        $opid = Orderproduct::deleteOrderProduct($orid);
+        return $opid;
+    }
+
     public static function createOrderUser($data)
     {
         $opid = Orderuser::createOrderUser($data);
