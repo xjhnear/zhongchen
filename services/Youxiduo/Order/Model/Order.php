@@ -28,10 +28,14 @@ final class Order extends Model implements IModel
     public static function getList($search,$pageIndex=1,$pageSize=20)
     {
         $tb = self::db();
+        $tb = $tb->select('order.*','orderuser.*','orderproduct.id as id2','orderproduct.prid','orderproduct.number','orderproduct.state','product.gid','product.name','product.img','product.specs','product.price as price2','product.extrainfo');
         $tb = $tb->join('orderuser','orderuser.orid','=','order.orid');
+        $tb = $tb->leftjoin('orderproduct','orderproduct.orid','=','order.orid');
+        $tb = $tb->leftjoin('product','product.prid','=','orderproduct.prid');
         if(isset($search['urid']) && !empty($search['urid'])) $tb = $tb->where('orderuser.urid','=',$search['urid']);
         if(isset($search['orderNo']) && !empty($search['orderNo'])) $tb = $tb->where('orderNo','like','%'.$search['orderNo'].'%');
         if(isset($search['status']) && !empty($search['status'])) $tb = $tb->whereIn('status',$search['status']);
+        if(isset($search['keyword']) && !empty($search['keyword'])) $tb = $tb->where('orderNo','like','%'.$search['keyword'].'%')->orwhere('product.name','like','%'.$search['keyword'].'%');
         $tb = $tb->where('orderuser.state','=',1);
         return $tb->orderBy('order.orid','desc')->forPage($pageIndex,$pageSize)->get();
     }

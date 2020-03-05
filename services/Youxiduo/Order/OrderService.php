@@ -51,36 +51,83 @@ class OrderService extends BaseService
             }
             unset($search['type']);
         }
-		$order = Order::getList($search,$pageIndex,$pageSize);
+		$order = Order::getList($search,$pageIndex,500);
 		if($order){
-		    foreach ($order as &$item) {
-                unset($item['name']);
-                unset($item['tel']);
-                unset($item['address']);
-                unset($item['pay']);
-                unset($item['companyId']);
-                unset($item['companyName']);
-                unset($item['createUrid']);
-                unset($item['contractTime']);
-                unset($item['testUrid']);
-                unset($item['contacts']);
-                unset($item['payTime']);
-                unset($item['receiptType']);
-                unset($item['receiptTitle']);
-                unset($item['receiptContent']);
-                $productList = Orderproduct::getListByOrid($item['orid']);
-                foreach ($productList as &$item_sub) {
-                    unset($item_sub['orid']);
-                    unset($item_sub['createUrid']);
-                    unset($item_sub['createTime']);
-                    unset($item_sub['updateTime']);
-                    unset($item_sub['transportName']);
-                    unset($item_sub['transportNo']);
-                    unset($item_sub['content']);
-                    unset($item_sub['remarks']);
+            $order_out = [];
+            foreach ($order as $item) {
+                $order_tmp = $productList = [];
+                if ($item['id2'] > 0) {
+                    $productList['id'] = $item['id2'];
+                    $productList['prid'] = $item['prid'];
+                    $productList['number'] = $item['number'];
+                    $productList['state'] = $item['state'];
+                    $productList['gid'] = $item['gid'];
+                    $productList['name'] = $item['name'];
+                    $productList['img'] = $item['img'];
+                    $productList['specs'] = $item['specs'];
+                    $productList['price'] = $item['price2'];
+                    $productList['extrainfo'] = $item['extrainfo'];
                 }
-                $item['productList'] = $productList;
+                if (isset($order_out[$item['orid']])) {
+                    $order_out[$item['orid']]['productList'][] = $productList;
+                } else {
+                    $order_tmp['orid'] = $item['orid'];
+                    $order_tmp['orderNo'] = $item['orderNo'];
+                    $order_tmp['urid'] = $item['urid'];
+                    $order_tmp['createTime'] = $item['createTime'];
+                    $order_tmp['updateTime'] = $item['updateTime'];
+                    $order_tmp['finishTime'] = $item['finishTime'];
+                    $order_tmp['price'] = $item['price'];
+                    $order_tmp['payStatus'] = $item['payStatus'];
+                    $order_tmp['status'] = $item['status'];
+                    $order_tmp['state'] = $item['state'];
+                    $order_tmp['id'] = $item['id'];
+                    $order_tmp['productList'][] = $productList;
+                    $order_out[$item['orid']] = $order_tmp;
+                }
             }
+            $order = array_merge($order_out);
+            usort($order, function ($a, $b){
+                $criteria = array(
+                    'orid'=>'desc'
+                );
+                foreach($criteria as $what => $order){
+                    if($a[$what] == $b[$what]){
+                        continue;
+                    }
+                    return (($order == 'desc')?-1:1) * (($a[$what] < $b[$what]) ? -1 : 1);
+                }
+                return 0;
+            });
+            $order = self::pagerProcess($order, $pageIndex, $pageSize);
+//		    foreach ($order as &$item) {
+//                unset($item['name']);
+//                unset($item['tel']);
+//                unset($item['address']);
+//                unset($item['pay']);
+//                unset($item['companyId']);
+//                unset($item['companyName']);
+//                unset($item['createUrid']);
+//                unset($item['contractTime']);
+//                unset($item['testUrid']);
+//                unset($item['contacts']);
+//                unset($item['payTime']);
+//                unset($item['receiptType']);
+//                unset($item['receiptTitle']);
+//                unset($item['receiptContent']);
+//                $productList = Orderproduct::getListByOrid($item['orid']);
+//                foreach ($productList as &$item_sub) {
+//                    unset($item_sub['orid']);
+//                    unset($item_sub['createUrid']);
+//                    unset($item_sub['createTime']);
+//                    unset($item_sub['updateTime']);
+//                    unset($item_sub['transportName']);
+//                    unset($item_sub['transportNo']);
+//                    unset($item_sub['content']);
+//                    unset($item_sub['remarks']);
+//                }
+//                $item['productList'] = $productList;
+//            }
 			return array('result'=>true,'data'=>$order);
 		}
 		return array('result'=>false,'msg'=>"暂无数据");
@@ -156,5 +203,23 @@ class OrderService extends BaseService
             return true;
         }
         return false;
+    }
+
+    public static function pagerProcess($out, $page=1, $pagesize=20)
+    {
+        $totalItems = count($out);
+        $totalPages = ceil(count($out) / $pagesize);
+        if (($page > $totalPages)) {
+            return [];
+        }
+        $start = $pagesize * ($page - 1);
+        $end = $start + $pagesize;
+        $out_thispage = [];
+        for ($i=$start;$i<$end;$i++) {
+            if ($out[$i]) {
+                $out_thispage[] = $out[$i];
+            }
+        }
+        return $out_thispage;
     }
 }

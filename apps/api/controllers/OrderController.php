@@ -19,7 +19,7 @@ class OrderController extends BaseController
 	{
 		$pageIndex = Input::get('pageIndex',1);
 		$pageSize = Input::get('pageSize',20);
-        $search = Input::only('urid','type');
+        $search = Input::only('urid','type','keyword');
 
 		$result = OrderService::getOrderList($search,$pageIndex,$pageSize);
         $hotline = Config::getInfoByType(1);
