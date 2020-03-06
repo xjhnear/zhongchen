@@ -216,7 +216,7 @@ class OrderService extends BaseService
         $end = $start + $pagesize;
         $out_thispage = [];
         for ($i=$start;$i<$end;$i++) {
-            if ($out[$i]) {
+            if (isset($out[$i])) {
                 $out_thispage[] = $out[$i];
             }
         }
