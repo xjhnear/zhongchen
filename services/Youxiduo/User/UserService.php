@@ -177,13 +177,13 @@ class UserService extends BaseService
         $data['updateTime'] = time();
 		if($data){
 		    if (isset($data['companyName'])) {
-		        $company_data = [];
-		        if ($data['companyId'] > 0) {
-                    $company_data['id'] = $data['companyId'];
-                }
-                $company_data['companyName'] = $data['companyName'];
-                $company_data['address'] = $data['companyAddress'];
-		        Company::save($company_data);
+//		        $company_data = [];
+//		        if ($data['companyId'] > 0) {
+//                    $company_data['id'] = $data['companyId'];
+//                }
+//                $company_data['companyName'] = $data['companyName'];
+//                $company_data['address'] = $data['companyAddress'];
+//		        Company::save($company_data);
                 unset($data['companyId']);
             }
 			$res = User::modifyUserInfo($urid, $data);
