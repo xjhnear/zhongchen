@@ -10,7 +10,7 @@ namespace modules\config\controllers;
 use Yxd\Modules\Core\BackendController;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Paginator;
-//use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\Config as SystemConfig;
 use Youxiduo\Helper\MyHelp;
 use Youxiduo\System\Model\Config;
 
@@ -27,7 +27,7 @@ class ConfigController extends BackendController
         $data = array();
         $data['data'] = Config::getInfoByType(1);
         $data['data2'] = Config::getInfoByType(2);
-        $data['data2']['content'] = Config::get('app.img_url').$data['data2']['content'];
+        $data['data2']['content'] = SystemConfig::get('app.img_url').$data['data2']['content'];
         $data['data3'] = Config::getInfoByType(3);
         return $this->display('config_info', $data);
     }
