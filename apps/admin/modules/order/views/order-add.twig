@@ -27,7 +27,7 @@
 					<div class="control-group" >
 						<label class="control-label">客户电话:</label>
 						<div class="controls">
-							<input type="text" name="tel" class="input-large" value="" />
+							<input type="text" name="tel"  id="tel" class="input-large" value="" />
 
 							<input type="text" value="" id="searchInput" />
 
@@ -235,6 +235,10 @@
             }
         }).result(function(event, row, formatted) {
             alert($("#searchInput").width());
+        });
+
+        $("#searchInput").on('change', function(){
+            $("#tel").val($("#searchInput").val());
         });
 
         $('input.datetimepicker').datetimepicker({format:'Y-m-d H:i:00',lang:'ch','todayButton':true});
