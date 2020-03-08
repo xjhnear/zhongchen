@@ -260,6 +260,20 @@ class UserService extends BaseService
 		}
 	}
 
+    public static function getUserList()
+    {
+        $search = $out = [];
+        $user = User::getList($search,1,2000);
+        foreach ($user as $item) {
+            $out_itme = [];
+            $out_itme['username'] = $item['username'];
+            $out_itme['mobile'] = $item['mobile'];
+            $out_itme['companyName'] = $item['companyName'];
+            $out[] = $out_itme;
+        }
+        return $out;
+    }
+
 	public static function getSubUserList($pageIndex=1,$pageSize=20,$urid=0)
 	{
 		$search['parentId'] = $urid;
