@@ -224,6 +224,40 @@
             $("#tel").val(row.mobile);
         });
 
+
+        $("#inbankid").autocomplete('<%=request.getContextPath() %>/protected/accountAction.do?m=searchBankName', {
+            max: 5,    //列表里的条目数
+            minChars: 1,    //自动完成激活之前填入的最小字符
+            width: $("#inbankid").width(),     //提示的宽度，溢出隐藏
+            scrollHeight: 300,   //提示的高度，溢出显示滚动条
+            matchContains: true,    //包含匹配，就是data参数里的数据，是否只要包含文本框里的数据就显示
+            autoFill: false,    //自动填充
+            dataType : "json",
+            parse: function(data){
+                var rows = [];
+                var d = data;
+                for(var i=0; i<d.length; i++){
+                    rows[rows.length] = {
+                        data:d[i],
+                        value:d[i].bankName,
+                        result:d[i].bankName
+                    };
+                }
+                return rows;
+            },
+            formatItem: function(row, i, max) {
+                return row.bankName + '[' + row.bankCode + ']';
+            },
+            formatMatch: function(row, i, max) {
+                return  row.bankName;
+            },
+            formatResult: function(row) {
+                return row.bankName;
+            }
+        }).result(function(event, row, formatted) {
+
+        });
+        
         // $("#searchInput").on('change', function(){
         //     $("#tel").val($("#searchInput").val());
         // });
