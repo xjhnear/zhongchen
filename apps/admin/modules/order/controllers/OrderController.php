@@ -67,7 +67,6 @@ class OrderController extends BackendController
         $data = array();
         $data['payStatus_arr'] = $this->payStatus_arr;
         $data['status_arr'] = $this->status_arr;
-        $data['userlist'] = json_encode(UserService::getUserList());
         $data['pr_arr'] =  Product::getList(array(),1,100);
         return $this->display('order-add', $data);
     }
@@ -166,7 +165,6 @@ class OrderController extends BackendController
         $data['data']['rest'] = ($data['data']['price'] - $data['data']['pay']) > 0 ? $data['data']['price'] - $data['data']['pay'] : 0;
         $data['payStatus_arr'] = $this->payStatus_arr;
         $data['status_arr'] = $this->status_arr;
-        $data['userlist'] = json_encode(UserService::getUserList());
         $data['data_orderproduct'] = OrderService::getOrderProduct($id);
         $data['pr_arr'] =  Product::getList(array(),1,100);
         return $this->display('order-edit', $data);
