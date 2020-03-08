@@ -8,13 +8,43 @@
 			</div>
 			<div class="box-content nopadding">
 				<form action="<!--{{url('config/config/save')}}-->" method="POST" class='form-horizontal form-bordered form-validate'>
-					<input name="id" type="hidden" value="<!--{{data.id}}-->" />
 					<div class="control-group">
 						<label for="description" class="control-label">热线电话</label>
 						<div class="controls">
+							<input name="id" type="hidden" value="<!--{{data.id}}-->" />
 							<input type="text" name="content" class="input-normal" value="<!--{{data.content}}-->" data-rule-required="true" data-msg-required="不能为空">
 						</div>
 					</div>
+
+					<div class="row-fluid">
+						<div class="span3">
+							<div class="control-group">
+								<label class="control-label">启动页图片</label>
+								<div class="controls">
+									<input name="id2" type="hidden" value="<!--{{data2.id}}-->" />
+									<div class="fileupload fileupload-new" data-provides="fileupload">
+										<div class="fileupload-new thumbnail" style="max-width: 120px; max-height: 120px;">
+											<img src="<!--{{data2.content|default('/static/img/nopic.gif')}}-->" />
+										</div>
+										<div class="fileupload-preview fileupload-exists thumbnail" style="max-width: 120px; max-height: 120px; line-height: 20px;"></div>
+										<div>
+											<span class="btn btn-file"><i class="icon-picture"></i><span class="fileupload-new">选择图片</span><span class="fileupload-exists">重新选择</span><input type="file"  name='content2' /></span>
+										</div>
+									</div>
+									<span class="help-inline"></span>
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="control-group" >
+						<label class="control-label">启动页停留时间(秒)</label>
+						<div class="controls">
+							<input name="id3" type="hidden" value="<!--{{data3.id}}-->" />
+							<input type="text" name="content3" class="input-large" value="<!--{{data3.content  }}-->" />
+						</div>
+					</div>
+
 				<div class="control-group">
 					<div class="form-actions">
 						<button type="submit" class="btn btn-primary"><i class="icon-ok"></i>保存</button>
@@ -25,4 +55,7 @@
 		</div>
     </div>
 </div>
+<!--{%endblock%}-->
+<!--{%block footer_js%}-->
+<script src="<!--{{asset('/static/js/MyHelp.js')}}-->"></script>
 <!--{%endblock%}-->
