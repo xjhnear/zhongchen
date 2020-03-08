@@ -177,13 +177,13 @@ class UserService extends BaseService
         $data['updateTime'] = time();
 		if($data){
 		    if (isset($data['companyName'])) {
-		        $company_data = [];
-		        if ($data['companyId'] > 0) {
-                    $company_data['id'] = $data['companyId'];
-                }
-                $company_data['companyName'] = $data['companyName'];
-                $company_data['address'] = $data['companyAddress'];
-		        Company::save($company_data);
+//		        $company_data = [];
+//		        if ($data['companyId'] > 0) {
+//                    $company_data['id'] = $data['companyId'];
+//                }
+//                $company_data['companyName'] = $data['companyName'];
+//                $company_data['address'] = $data['companyAddress'];
+//		        Company::save($company_data);
                 unset($data['companyId']);
             }
 			$res = User::modifyUserInfo($urid, $data);
@@ -259,6 +259,20 @@ class UserService extends BaseService
 			return array('result'=>false,'msg'=>"评论提交失败");
 		}
 	}
+
+    public static function getUserList()
+    {
+        $search = $out = [];
+        $user = User::getList($search,1,2000);
+        foreach ($user as $item) {
+            $out_itme = [];
+            $out_itme['username'] = $item['username'];
+            $out_itme['mobile'] = $item['mobile'];
+            $out_itme['companyName'] = $item['companyName'];
+            $out[] = $out_itme;
+        }
+        return $out;
+    }
 
 	public static function getSubUserList($pageIndex=1,$pageSize=20,$urid=0)
 	{

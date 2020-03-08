@@ -9,7 +9,7 @@
 
             <div class="box-content">
                 <form id="gift-info-form" action="<!--{{url('/order/order/add')}}-->" method="POST" class='form-horizontal form-validate' enctype="multipart/form-data">
-	
+					<input id="userlist" type="hidden" value='<!--{{userlist}}-->'  />
            			<div class="control-group" >
                         <label class="control-label">订单号:</label>
                         <div class="controls">
@@ -27,7 +27,10 @@
 					<div class="control-group" >
 						<label class="control-label">客户电话:</label>
 						<div class="controls">
-							<input type="text" name="tel" class="input-large" value="" />
+							<input type="text" name="tel"  id="tel" class="input-large" value="" />
+
+							<input type="text" value="" id="searchInput" />
+
 						</div>
 					</div>
 
@@ -200,7 +203,66 @@
 <script src="<!--{{asset('/static/js/MyHelp.js')}}-->"></script>
 <script>
 	$(function(){
-		$('input.datetimepicker').datetimepicker({format:'Y-m-d H:i:00',lang:'ch','todayButton':true});
+        var users = JSON.parse($("#userlist").val());
+        $("#searchInput").autocomplete(users, {
+            max: 5,    //列表里的条目数
+            minChars: 0,    //自动完成激活之前填入的最小字符
+            width: $("#searchInput").width()+1,     //提示的宽度，溢出隐藏
+            scrollHeight: 300,   //提示的高度，溢出显示滚动条
+            matchContains: true,    //包含匹配，就是data参数里的数据，是否只要包含文本框里的数据就显示
+            autoFill: false,    //自动填充
+            formatItem: function(row, i, max) {
+                return row.username;
+            },
+            formatMatch: function(row, i, max) {
+                return row.name;
+            },
+            formatResult: function(row) {
+                return row.name;
+            }
+        }).result(function(event, row, formatted) {
+            $("#tel").val(row.mobile);
+        });
+
+
+        $("#inbankid").autocomplete('<%=request.getContextPath() %>/protected/accountAction.do?m=searchBankName', {
+            max: 5,    //列表里的条目数
+            minChars: 1,    //自动完成激活之前填入的最小字符
+            width: $("#inbankid").width(),     //提示的宽度，溢出隐藏
+            scrollHeight: 300,   //提示的高度，溢出显示滚动条
+            matchContains: true,    //包含匹配，就是data参数里的数据，是否只要包含文本框里的数据就显示
+            autoFill: false,    //自动填充
+            dataType : "json",
+            parse: function(data){
+                var rows = [];
+                var d = data;
+                for(var i=0; i<d.length; i++){
+                    rows[rows.length] = {
+                        data:d[i],
+                        value:d[i].bankName,
+                        result:d[i].bankName
+                    };
+                }
+                return rows;
+            },
+            formatItem: function(row, i, max) {
+                return row.bankName + '[' + row.bankCode + ']';
+            },
+            formatMatch: function(row, i, max) {
+                return  row.bankName;
+            },
+            formatResult: function(row) {
+                return row.bankName;
+            }
+        }).result(function(event, row, formatted) {
+
+        });
+        
+        // $("#searchInput").on('change', function(){
+        //     $("#tel").val($("#searchInput").val());
+        // });
+
+        $('input.datetimepicker').datetimepicker({format:'Y-m-d H:i:00',lang:'ch','todayButton':true});
 	// 	UE.getEditor('intro',{initialFrameHeight:100});
 	// 	$('input').iCheck({
 	// 		checkboxClass: 'icheckbox_square-orange',
