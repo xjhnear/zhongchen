@@ -29,35 +29,7 @@
 						<div class="controls">
 							<input type="text" name="tel" class="input-large" value="" />
 
-							<select>
-								<option value="jQuery插件库">jQuery插件库</option>
-								<option value="BlackBerry">BlackBerry</option>
-								<option value="device">device</option>
-								<option value="with">with</option>
-								<option value="entertainment">entertainment</option>
-								<option value="and">and</option>
-								<option value="social">social</option>
-								<option value="networking">networking</option>
-								<option value="apps">apps</option>
-								<option value="or">or</option>
-								<option value="apps">apps</option>
-								<option value="that">that</option>
-								<option value="will">will</option>
-								<option value="boost">boost</option>
-								<option value="your">your</option>
-								<option value="productivity">productivity</option>
-								<option value="Download">Download</option>
-								<option value="or">or</option>
-								<option value="buy">buy</option>
-								<option value="apps">apps</option>
-								<option value="from">from</option>
-								<option value="Afbb">Afbb</option>
-								<option value="Akademie">Akademie</option>
-								<option value="Berlin">Berlin</option>
-								<option value="reviews">reviews</option>
-								<option value="by">by</option>
-								<option value="real">real</option>
-							</select>
+							<div id="abc"></div>
 
 						</div>
 					</div>
@@ -231,7 +203,20 @@
 <script src="<!--{{asset('/static/js/MyHelp.js')}}-->"></script>
 <script>
 	$(function(){
-        $('select').searchableSelect();
+        var data = [
+            {'name':'a','id':'001',key:'one'},
+            {'name':'b','id':'002',key:'two'},
+            {'name':'c','id':'003',key:'three'},
+            {'name':'d','id':'004',key:'four'},
+            {'name':'e','id':'005',key:'five'}
+        ];
+        //初始化方法
+        var option = {
+            data:data,emptyTip: '暂无数据',placeholder:'请输入会员名称/手机号',width:'200px',height:'36px',type:2
+        };
+        $('#abc').initWkSelect(option);
+        $('#abc').setDefaultInput({name:'wk'});
+
 		$('input.datetimepicker').datetimepicker({format:'Y-m-d H:i:00',lang:'ch','todayButton':true});
 	// 	UE.getEditor('intro',{initialFrameHeight:100});
 	// 	$('input').iCheck({
