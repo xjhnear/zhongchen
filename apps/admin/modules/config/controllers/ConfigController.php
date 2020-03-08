@@ -47,7 +47,10 @@ class ConfigController extends BackendController
             $data2['id'] = $input['id2'];
         }
         $data2['type'] = 2;
-        $data2['content'] = $input['content2'];
+        if(Input::hasFile('content2')){
+            $img = MyHelp::save_img_no_url(Input::file('content2'),'article_img');
+            $data2['content'] = $img;
+        }
         $result2 = Config::saveInfo($data2);
 
         if ($input['id3'] > 0) {
