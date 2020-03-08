@@ -20,21 +20,21 @@
 					<div class="control-group" >
 						<label class="control-label">客户姓名:</label>
 						<div class="controls">
-							<input type="text" name="name" class="input-large" value="<!--{{data.name  }}-->" />
+							<input type="text" name="name" id="name" class="input-large" value="<!--{{data.name  }}-->" />
 						</div>
 					</div>
 
 					<div class="control-group" >
 						<label class="control-label">客户电话:</label>
 						<div class="controls">
-							<input type="text" name="tel" class="input-large" value="<!--{{data.tel  }}-->" />
+							<input type="text" name="tel" id="tel" class="input-large" value="<!--{{data.tel  }}-->" />
 						</div>
 					</div>
 
 					<div class="control-group" >
 						<label class="control-label">客户单位:</label>
 						<div class="controls">
-							<input type="text" name="address" class="input-large" value="<!--{{data.address  }}-->" />
+							<input type="text" name="address" id="address" class="input-large" value="<!--{{data.address  }}-->" />
 						</div>
 					</div>
 
@@ -216,6 +216,74 @@
 <script src="<!--{{asset('/static/js/MyHelp.js')}}-->"></script>
 <script>
     $(function(){
+        $("#name").autocomplete('/order/order/ajaxuserlist', {
+            max: 5,    //列表里的条目数
+            minChars: 1,    //自动完成激活之前填入的最小字符
+            width: $("#name").width(),     //提示的宽度，溢出隐藏
+            scrollHeight: 300,   //提示的高度，溢出显示滚动条
+            matchContains: true,    //包含匹配，就是data参数里的数据，是否只要包含文本框里的数据就显示
+            autoFill: false,    //自动填充
+            dataType : "json",
+            parse: function(data){
+                var rows = [];
+                var d = data.result;
+                for(var i=0; i<d.length; i++){
+                    rows[rows.length] = {
+                        data:d[i],
+                        value:d[i].username,
+                        result:d[i].username
+                    };
+                }
+                return rows;
+            },
+            formatItem: function(row, i, max) {
+                return row.username;
+            },
+            formatMatch: function(row, i, max) {
+                return row.username;
+            },
+            formatResult: function(row) {
+                return row.username;
+            }
+        }).result(function(event, row, formatted) {
+            $("#tel").val(row.mobile);
+            $("#address").val(row.companyName);
+        });
+
+        $("#tel").autocomplete('/order/order/ajaxuserlist', {
+            max: 5,    //列表里的条目数
+            minChars: 1,    //自动完成激活之前填入的最小字符
+            width: $("#tel").width(),     //提示的宽度，溢出隐藏
+            scrollHeight: 300,   //提示的高度，溢出显示滚动条
+            matchContains: true,    //包含匹配，就是data参数里的数据，是否只要包含文本框里的数据就显示
+            autoFill: false,    //自动填充
+            dataType : "json",
+            parse: function(data){
+                var rows = [];
+                var d = data.result;
+                for(var i=0; i<d.length; i++){
+                    rows[rows.length] = {
+                        data:d[i],
+                        value:d[i].mobile,
+                        result:d[i].mobile
+                    };
+                }
+                return rows;
+            },
+            formatItem: function(row, i, max) {
+                return row.mobile;
+            },
+            formatMatch: function(row, i, max) {
+                return row.mobile;
+            },
+            formatResult: function(row) {
+                return row.mobile;
+            }
+        }).result(function(event, row, formatted) {
+            $("#name").val(row.username);
+            $("#address").val(row.companyName);
+        });
+
         $('input.datetimepicker').datetimepicker({format:'Y-m-d H:i:00',lang:'ch','todayButton':true});
         // 	UE.getEditor('intro',{initialFrameHeight:100});
         // 	$('input').iCheck({
