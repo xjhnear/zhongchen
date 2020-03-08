@@ -203,7 +203,7 @@
 <script src="<!--{{asset('/static/js/MyHelp.js')}}-->"></script>
 <script>
 	$(function(){
-        var users = $("#userlist").val()
+        var users = JSON.parse($("#userlist").val());
         $("#searchInput").autocomplete(users, {
             max: 5,    //列表里的条目数
             minChars: 0,    //自动完成激活之前填入的最小字符
