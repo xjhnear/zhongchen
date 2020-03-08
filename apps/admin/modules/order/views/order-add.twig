@@ -27,9 +27,9 @@
 					<div class="control-group" >
 						<label class="control-label">客户电话:</label>
 						<div class="controls">
-							<input type="text" name="tel" class="input-large" value="" />
+							<input type="text" id="abc" name="tel" class="input-large" value="" />
 
-							<div id="abc"></div>
+							<div ></div>
 
 						</div>
 					</div>
@@ -215,9 +215,21 @@
             data:data,emptyTip: '暂无数据',placeholder:'请输入会员名称/手机号',width:'200px',height:'36px',type:2
         };
         $('#abc').initWkSelect(option);
-        $('#abc').setDefaultInput({name:'wk'});
+        $('#abc').wkInputClick(function () {
+            data[0].name = 'wk';
+            var rec = data;
+            $('#abc').updateWkSelectList(rec,'暂无数据');
+        });
+        $('#abc').wkInputKeyup(function () {
+            data[0].name = 'z';
+            var rec = data;
+            if( $('#abc').getWkVal().length>5){
+                rec = [];
+            }
+            $('#abc').updateWkSelectList(rec,'暂无数据');
+        });
 
-		$('input.datetimepicker').datetimepicker({format:'Y-m-d H:i:00',lang:'ch','todayButton':true});
+        $('input.datetimepicker').datetimepicker({format:'Y-m-d H:i:00',lang:'ch','todayButton':true});
 	// 	UE.getEditor('intro',{initialFrameHeight:100});
 	// 	$('input').iCheck({
 	// 		checkboxClass: 'icheckbox_square-orange',
