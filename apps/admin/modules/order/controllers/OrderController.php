@@ -279,4 +279,10 @@ class OrderController extends BackendController
         }
         return json_encode(array('state'=>1,'msg'=>'删除成功'));
     }
+
+    public function getAjaxuserlist()
+    {
+        $result = UserService::getUserList();
+        return json_encode(array('result'=>$result));
+    }
 }

@@ -203,7 +203,7 @@
 <script src="<!--{{asset('/static/js/MyHelp.js')}}-->"></script>
 <script>
 	$(function(){
-        $("#searchInput").autocomplete('http://zcapi.52applepie.com/user/userlist', {
+        $("#searchInput").autocomplete('/order/order/getAjaxuserlist', {
             max: 5,    //列表里的条目数
             minChars: 1,    //自动完成激活之前填入的最小字符
             width: $("#searchInput").width(),     //提示的宽度，溢出隐藏
@@ -213,7 +213,7 @@
             dataType : "json",
             parse: function(data){
                 var rows = [];
-                var d = data;
+                var d = data.result;
                 for(var i=0; i<d.length; i++){
                     rows[rows.length] = {
                         data:d[i],
