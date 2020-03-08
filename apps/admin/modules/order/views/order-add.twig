@@ -29,7 +29,7 @@
 						<div class="controls">
 							<input type="text" name="tel" class="input-large" value="" />
 
-							<div id="abc"></div>
+							<input type="text" value="" id="searchInput" />
 
 						</div>
 					</div>
@@ -203,30 +203,38 @@
 <script src="<!--{{asset('/static/js/MyHelp.js')}}-->"></script>
 <script>
 	$(function(){
-        var data = [
-            {'name':'a','id':'001',key:'one'},
-            {'name':'b','id':'002',key:'two'},
-            {'name':'c','id':'003',key:'three'},
-            {'name':'d','id':'004',key:'four'},
-            {'name':'e','id':'005',key:'five'}
+        var emails = [
+            { name: "Peter Pan", to: "peter@pan.de" },
+            { name: "Molly", to: "molly@yahoo.com" },
+            { name: "Forneria Marconi", to: "live@japan.jp" },
+            { name: "Master <em>Sync</em>", to: "205bw@samsung.com" },
+            { name: "Dr. <strong>Tech</strong> de Log", to: "g15@logitech.com" },
+            { name: "Don Corleone", to: "don@vegas.com" },
+            { name: "Mc Chick", to: "info@donalds.org" },
+            { name: "Donnie Darko", to: "dd@timeshift.info" },
+            { name: "Quake The Net", to: "webmaster@quakenet.org" },
+            { name: "Dr. Write", to: "write@writable.com" },
+            { name: "GG Bond", to: "Bond@qq.com" },
+            { name: "Zhuzhu Xia", to: "zhuzhu@qq.com" }
         ];
-        //初始化方法
-        var option = {
-            data:data,emptyTip: '暂无数据',placeholder:'请输入会员名称/手机号',width:'200px',height:'36px',type:2
-        };
-        $('#abc').initWkSelect(option);
-        $('#abc').wkInputClick(function () {
-            data[0].name = 'wk';
-            var rec = data;
-            $('#abc').updateWkSelectList(rec,'暂无数据');
-        });
-        $('#abc').wkInputKeyup(function () {
-            data[0].name = 'z';
-            var rec = data;
-            if( $('#abc').getWkVal().length>5){
-                rec = [];
+        $("#searchInput").autocomplete(emails, {
+            max: 5,    //列表里的条目数
+            minChars: 0,    //自动完成激活之前填入的最小字符
+            width: $("#searchInput").width()+1,     //提示的宽度，溢出隐藏
+            scrollHeight: 300,   //提示的高度，溢出显示滚动条
+            matchContains: true,    //包含匹配，就是data参数里的数据，是否只要包含文本框里的数据就显示
+            autoFill: false,    //自动填充
+            formatItem: function(row, i, max) {
+                return i + '/' + max + ':"' + row.name + '"[' + row.to + ']';
+            },
+            formatMatch: function(row, i, max) {
+                return row.name + row.to;
+            },
+            formatResult: function(row) {
+                return row.to;
             }
-            $('#abc').updateWkSelectList(rec,'暂无数据');
+        }).result(function(event, row, formatted) {
+            alert($("#searchInput").width());
         });
 
         $('input.datetimepicker').datetimepicker({format:'Y-m-d H:i:00',lang:'ch','todayButton':true});
