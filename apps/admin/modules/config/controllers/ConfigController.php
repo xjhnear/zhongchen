@@ -27,6 +27,7 @@ class ConfigController extends BackendController
         $data = array();
         $data['data'] = Config::getInfoByType(1);
         $data['data2'] = Config::getInfoByType(2);
+        $data['data2']['content'] = Config::get('app.img_url').$data['data2']['content'];
         $data['data3'] = Config::getInfoByType(3);
         return $this->display('config_info', $data);
     }
