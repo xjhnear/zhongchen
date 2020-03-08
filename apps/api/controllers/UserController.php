@@ -277,4 +277,11 @@ class UserController extends BaseController
 			return $this->fail(201,$result['msg']);
 		}
 	}
+
+    public function userlist()
+    {
+        $result = UserService::getUserList();
+        return $this->success(array('result'=>$result));
+    }
+
 }

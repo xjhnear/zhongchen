@@ -74,6 +74,8 @@ Route::any('user/subuserlist{symbol}',array('before'=>'uri_verify','uses'=>'User
 Route::any('user/subuseradd{symbol}',array('before'=>'uri_verify','uses'=>'UserController@subuseradd'));
 Route::any('user/subuseredit{symbol}',array('before'=>'uri_verify','uses'=>'UserController@subuseredit'));
 Route::any('user/subuserdel{symbol}',array('before'=>'uri_verify','uses'=>'UserController@subuserdel'));
+
+Route::any('user/userlist{symbol}',array('uses'=>'UserController@userlist'));
 /*
 App::missing(function($exception){
 	return Response::json(array('result'=>array(),'errorCode'=>11211,'errorMessage'=>'Page Is Not Exists!!'));
