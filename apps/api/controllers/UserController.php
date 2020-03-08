@@ -280,16 +280,8 @@ class UserController extends BaseController
 
     public function userlist()
     {
-        $pageIndex = Input::get('pageIndex',1);
-        $pageSize = Input::get('pageSize',20);
-        $urid = Input::get('urid',0);
-
-        $result = UserService::getUserList($pageIndex,$pageSize,$urid);
-        if($result['result']){
-            return $this->success(array('result'=>$result['data']));
-        }else{
-            return $this->fail(201,$result['msg']);
-        }
+        $result = UserService::getUserList();
+        return $this->success(array('result'=>$result));
     }
 
 }
