@@ -35,7 +35,12 @@ final class Order extends Model implements IModel
         if(isset($search['urid']) && !empty($search['urid'])) $tb = $tb->where('orderuser.urid','=',$search['urid']);
         if(isset($search['orderNo']) && !empty($search['orderNo'])) $tb = $tb->where('orderNo','like','%'.$search['orderNo'].'%');
         if(isset($search['status']) && !empty($search['status'])) $tb = $tb->whereIn('status',$search['status']);
-        if(isset($search['keyword']) && !empty($search['keyword'])) $tb = $tb->where('orderNo','like','%'.$search['keyword'].'%')->orwhere('product.name','like','%'.$search['keyword'].'%');
+        if(isset($search['keyword']) && !empty($search['keyword'])) {
+            $keyword = $search['keyword'];
+            $tb = $tb->where(function ($query) use ($keyword) {
+                $query->where('orderNo','like','%'.$keyword.'%')->orWhere('product.name','like','%'.$keyword.'%');
+            });
+        }
         $tb = $tb->where('orderuser.state','=',1);
         return $tb->orderBy('order.orid','desc')->forPage($pageIndex,$pageSize)->get();
     }
