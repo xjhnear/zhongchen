@@ -95,6 +95,7 @@ class OrderController extends BackendController
         $data['pay'] = $input['pay'];
         $data['createUrid'] = 0;
         $data['contractTime'] = $input['contractTime'];
+        $data['finishTime'] = $input['finishTime'];
         $data['payTime'] = $input['payTime'];
         $data['price'] = $input['price'];
         $data['payStatus'] = $input['payStatus'];
@@ -191,6 +192,7 @@ class OrderController extends BackendController
         $data['pay'] = $input['pay'];
         $data['createUrid'] = 0;
         $data['contractTime'] = $input['contractTime'];
+        $data['finishTime'] = $input['finishTime'];
         $data['payTime'] = $input['payTime'];
         $data['price'] = $input['price'];
         $data['payStatus'] = $input['payStatus'];
