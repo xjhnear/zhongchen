@@ -48,9 +48,9 @@ class UserService extends BaseService
 	{
 		if(Utility::validateMobile($mobile)===true){
 			$verifycode = Utility::random(6,'alnum');
-			$verifycode = '123456';
+//			$verifycode = '123456';
 			$result = UserMobile::saveVerifyCodeByPhone($mobile,$type,$verifycode,false,$udid);
-//			$result==true && Utility::sendVerifySMS($mobile,$verifycode,$sms);
+			$result==true && Utility::sendVerifyAllSMS($mobile,$verifycode,$sms);
 			return array('result'=>true,'data'=>$result);
 		}
 		return array('result'=>false,'msg'=>"手机号无效");
@@ -63,7 +63,7 @@ class UserService extends BaseService
 	 */
 	public static function verifyPhoneVerifyCode($mobile,$type,$verifycode)
 	{
-		if ($verifycode == '123456') return array('result'=>true);
+//		if ($verifycode == '123456') return array('result'=>true);
 		if(Utility::validateMobile($mobile)===true && !empty($verifycode)){
 			$num = 0;	
 			$result = UserMobile::verifyPhoneVerifyCode($mobile,$type,$verifycode,$num);

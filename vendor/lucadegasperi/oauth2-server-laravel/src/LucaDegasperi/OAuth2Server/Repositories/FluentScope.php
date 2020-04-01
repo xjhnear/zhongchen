@@ -31,10 +31,10 @@ class FluentScope implements ScopeInterface
         }
 
         return array(
-            'id'          => $result['id'],
-            'scope'       => $result['scope'],
-            'name'        => $result['name'],
-            'description' => $result['description']
+            'id'          => $result->id,
+            'scope'       => $result->scope,
+            'name'        => $result->name,
+            'description' => $result->description
         );
     }
 }

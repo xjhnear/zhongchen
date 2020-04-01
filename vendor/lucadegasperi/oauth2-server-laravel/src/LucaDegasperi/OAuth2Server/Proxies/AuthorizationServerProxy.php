@@ -159,9 +159,4 @@ class AuthorizationServerProxy
 
         return Response::json($response);
     }
-    
-    public function removeAccessToken()
-    {
-    	return $this->authServer->getGrantType('authorization_code')->removeAccessToken();
-    }
 }

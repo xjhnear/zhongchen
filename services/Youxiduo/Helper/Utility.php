@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Log;
 use App;
 use Illuminate\Support\Facades\Config;
 use Youxiduo\Helper\MyHelpLx;
+use AlibabaCloud\Client\AlibabaCloud;
+use AlibabaCloud\Client\Exception\ClientException;
+use AlibabaCloud\Client\Exception\ServerException;
 
 class Utility
 {
@@ -564,7 +567,39 @@ class Utility
         }
         return $response;
     }
-    
+
+    public static function sendVerifyAllSMS($mobile,$code,$sms=true)
+    {
+        AlibabaCloud::accessKeyClient(Config::get('sms.AccessKeyId'), Config::get('sms.AccessKeySecret'))
+            ->regionId('cn-hangzhou')
+            ->asDefaultClient();
+
+        try {
+            $result = AlibabaCloud::rpc()
+                ->product('Dysmsapi')
+                // ->scheme('https') // https | http
+                ->version('2017-05-25')
+                ->action('SendSms')
+                ->method('POST')
+                ->host('dysmsapi.aliyuncs.com')
+                ->options([
+                    'query' => [
+                        'RegionId' => "cn-hangzhou",
+                        'PhoneNumbers' => $mobile,
+                        'SignName' => Config::get('sms.SignName'),
+                        'TemplateCode' => Config::get('sms.TemplateCode'),
+                        'TemplateParam' => json_encode(array($code)),
+                    ],
+                ])
+                ->request();
+            return $result->toArray();
+        } catch (ClientException $e) {
+            return $e->getErrorMessage() . PHP_EOL;
+        } catch (ServerException $e) {
+            return $e->getErrorMessage() . PHP_EOL;
+        }
+    }
+
      public static function sendVerifySMS($mobile,$code,$sms=true)
     {    	
     	$to = $mobile;

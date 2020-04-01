@@ -110,10 +110,10 @@ class AuthCode implements GrantTypeInterface {
      * @return array             Authorise request parameters
      */
     public function checkAuthoriseParams($inputParams = array())
-    {    	
+    {
         // Auth params
-        $authParams = $this->authServer->getParam(array('client_id', 'redirect_uri', 'response_type', 'scope', 'state'), 'post', $inputParams);
-        
+        $authParams = $this->authServer->getParam(array('client_id', 'redirect_uri', 'response_type', 'scope', 'state'), 'get', $inputParams);
+
         if (is_null($authParams['client_id'])) {
             throw new Exception\ClientException(sprintf($this->authServer->getExceptionMessage('invalid_request'), 'client_id'), 0);
         }
@@ -273,12 +273,9 @@ class AuthCode implements GrantTypeInterface {
                 $this->authServer->getStorage('session')->associateScope($accessTokenId, $scope['scope_id']);
             }
         }
-        
-        $sess = $this->authServer->getStorage('session')->validateAccessToken($accessToken);
 
         $response = array(
             'access_token'  =>  $accessToken,
-            'uid'           =>  $sess['owner_id'],
             'token_type'    =>  'bearer',
             'expires'       =>  $accessTokenExpires,
             'expires_in'    =>  $accessTokenExpiresIn
@@ -293,60 +290,6 @@ class AuthCode implements GrantTypeInterface {
         }
 
         return $response;
-    }
-    
-    public function removeAccessToken($inputParams = null)
-    {
-    	// Get the required params
-        $authParams = $this->authServer->getParam(array('client_id', 'client_secret', 'redirect_uri', 'access_token'), 'post', $inputParams);
-
-        if (is_null($authParams['client_id'])) {
-            throw new Exception\ClientException(sprintf($this->authServer->getExceptionMessage('invalid_request'), 'client_id'), 0);
-        }
-
-        if (is_null($authParams['client_secret'])) {
-            throw new Exception\ClientException(sprintf($this->authServer->getExceptionMessage('invalid_request'), 'client_secret'), 0);
-        }
-
-        if (is_null($authParams['redirect_uri'])) {
-            throw new Exception\ClientException(sprintf($this->authServer->getExceptionMessage('invalid_request'), 'redirect_uri'), 0);
-        }
-
-        // Validate client ID and redirect URI
-        $clientDetails = $this->authServer->getStorage('client')->getClient($authParams['client_id'], $authParams['client_secret'], $authParams['redirect_uri'], $this->identifier);
-
-        if ($clientDetails === false) {
-            throw new Exception\ClientException($this->authServer->getExceptionMessage('invalid_client'), 8);
-        }
-        
-        if(is_null($authParams['access_token'])){
-        	throw new Exception\ClientException(sprintf($this->authServer->getExceptionMessage('invalid_request'), 'access_token'), 0);
-        }
-
-        $authParams['client_details'] = $clientDetails;
-        
-        $this->authServer->getStorage('session')->removeSessionByAccessToken($authParams['access_token']);
-    }
-    
-    public function verifyAccessToken($inputParams = null)
-    {
-    	$authParams = $this->authServer->getParam(array('access_token'), 'post', $inputParams);
-        
-        if(is_null($authParams['access_token'])){
-        	throw new Exception\ClientException(sprintf($this->authServer->getExceptionMessage('invalid_request'), 'access_token'), 0);
-        }
-        
-        $token = $this->authServer->getStorage('session')->validateAccessToken($authParams['access_token']);
-        if($token===false){
-        	return false;
-        }else{
-        	return array(
-        	    'access_token'=>$token['access_token'],
-        	    'access_token_expires'=>$token['access_token_expires'],
-        	    'uid'=>$token['owner_id'],
-        	    'type'=>$token['owner_type']
-        	);
-        }
     }
 
 }

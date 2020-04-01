@@ -34,15 +34,16 @@ class FluentClient implements ClientInterface
         }
 
         $result = $query->first();
+
         if (is_null($result)) {
             return false;
         }
-        
+
         return array(
-            'client_id'     =>  $result['id'],
-            'client_secret' =>  $result['secret'],
-            'redirect_uri'  =>  (isset($result['redirect_uri'])) ? $result['redirect_uri'] : null,
-            'name'          =>  $result['name']
+            'client_id'     =>  $result->id,
+            'client_secret' =>  $result->secret,
+            'redirect_uri'  =>  (isset($result->redirect_uri)) ? $result->redirect_uri : null,
+            'name'          =>  $result->name
         );
     }
 }

@@ -7,7 +7,8 @@
 		"laravel/framework": "4.0.*",
 		"rcrowe/twigbridge": "0.5.*",
 		"league/oauth2-server": "2.1.1",
-		"lucadegasperi/oauth2-server-laravel": "0.9.3"
+		"lucadegasperi/oauth2-server-laravel": "0.9.3",
+		"alibabacloud/client": "dev-master"
 	},
 	"autoload": {
 		"classmap": [

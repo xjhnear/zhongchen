@@ -13,8 +13,8 @@ class FluentSession implements SessionInterface, SessionManagementInterface
             'client_id'  => $clientId,
             'owner_type' => $ownerType,
             'owner_id'   => $ownerId,
-            'created_at' => Carbon::now()->getTimestamp(),
-            'updated_at' => Carbon::now()->getTimestamp()
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
         ));
     }
 
@@ -32,8 +32,8 @@ class FluentSession implements SessionInterface, SessionManagementInterface
         DB::table('oauth_session_redirects')->insert(array(
             'session_id'   => $sessionId,
             'redirect_uri' => $redirectUri,
-            'created_at' => Carbon::now()->getTimestamp(),
-            'updated_at' => Carbon::now()->getTimestamp()
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
         ));
     }
 
@@ -43,8 +43,8 @@ class FluentSession implements SessionInterface, SessionManagementInterface
             'session_id'           => $sessionId,
             'access_token'         => $accessToken,
             'access_token_expires' => $expireTime,
-            'created_at' => Carbon::now()->getTimestamp(),
-            'updated_at' => Carbon::now()->getTimestamp()
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
         ));
     }
 
@@ -55,8 +55,8 @@ class FluentSession implements SessionInterface, SessionManagementInterface
             'refresh_token'           => $refreshToken,
             'refresh_token_expires'   => $expireTime,
             'client_id'               => $clientId,
-            'created_at' => Carbon::now()->getTimestamp(),
-            'updated_at' => Carbon::now()->getTimestamp()
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
         ));
     }
 
@@ -66,8 +66,8 @@ class FluentSession implements SessionInterface, SessionManagementInterface
             'session_id'        => $sessionId,
             'auth_code'         => $authCode,
             'auth_code_expires' => $expireTime,
-            'created_at' => Carbon::now()->getTimestamp(),
-            'updated_at' => Carbon::now()->getTimestamp()
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
         ));
 
         return $id;
@@ -114,7 +114,7 @@ class FluentSession implements SessionInterface, SessionManagementInterface
                     ->where('refresh_token_expires', '>=', time())
                     ->first();
 
-        return (is_null($result)) ? false : $result['session_access_token_id'];
+        return (is_null($result)) ? false : $result->session_access_token_id;
     }
 
     public function getAccessToken($accessTokenId)
@@ -131,8 +131,8 @@ class FluentSession implements SessionInterface, SessionManagementInterface
         DB::table('oauth_session_token_scopes')->insert(array(
             'session_access_token_id' => $accessTokenId,
             'scope_id'                => $scopeId,
-            'created_at' => Carbon::now()->getTimestamp(),
-            'updated_at' => Carbon::now()->getTimestamp()
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
         ));
     }
 
@@ -146,15 +146,12 @@ class FluentSession implements SessionInterface, SessionManagementInterface
             ->get();
         
         $scopes = array();
-        if(is_object($scopesResults)){
-	        foreach($scopesResults as $key=>$scope)
-	        {
-				$scopes[$key] = get_object_vars($scope);
+        
+		foreach($scopeResults as $key=>$scope)
+		{
+			$scopes[$key] = get_object_vars($scope);
 	
-			}
-        }else{
-        	$scopes = $scopesResults;
-        }
+		}
 		
         return $scopes;
     }
@@ -164,8 +161,8 @@ class FluentSession implements SessionInterface, SessionManagementInterface
         DB::table('oauth_session_authcode_scopes')->insert(array(
             'oauth_session_authcode_id' => $authCodeId,
             'scope_id'                  => $scopeId,
-            'created_at' => Carbon::now()->getTimestamp(),
-            'updated_at' => Carbon::now()->getTimestamp()
+            'created_at' => Carbon::now(),
+            'updated_at' => Carbon::now()
         ));
     }
 
@@ -176,15 +173,12 @@ class FluentSession implements SessionInterface, SessionManagementInterface
                 ->get();
 
         $scopes = array();
-        if(is_object($scopesResults)){
-	        foreach($scopesResults as $key=>$scope)
-	        {
-				$scopes[$key] = get_object_vars($scope);
-	
-			}
-        }else{
-        	$scopes = $scopesResults;
-        }
+
+        foreach($scopesResults as $key=>$scope)
+        {
+			$scopes[$key] = get_object_vars($scope);
+
+		}
         
         return $scopes;
         
@@ -194,21 +188,6 @@ class FluentSession implements SessionInterface, SessionManagementInterface
     {
         DB::table('oauth_session_refresh_tokens')
             ->where('refresh_token', '=', $refreshToken)
-            ->delete();
-    }
-    
-    public function removeSessionByAccessToken($accessToken)
-    {
-    	$sess_at =  DB::table('oauth_session_access_tokens')
-            ->where('access_token', '=', $accessToken)
-            ->first();
-        $sess_id = $sess_at ? $sess_at['session_id'] : false;
-        if($sess_id===false) return true;
-    	DB::table('oauth_session_access_tokens')
-            ->where('access_token', '=', $accessToken)
-            ->delete();
-        DB::table('oauth_sessions')
-            ->where('id','=',$sess_id)
             ->delete();
     }
 
