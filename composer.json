@@ -8,7 +8,8 @@
 		"rcrowe/twigbridge": "0.5.*",
 		"league/oauth2-server": "2.1.1",
 		"lucadegasperi/oauth2-server-laravel": "0.9.3",
-		"alibabacloud/client": "dev-master"
+		"alibabacloud/client": "dev-master",
+		"mrgoon/aliyun-sms": "dev-master"
 	},
 	"autoload": {
 		"classmap": [
