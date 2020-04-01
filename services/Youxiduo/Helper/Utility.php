@@ -16,7 +16,7 @@ use Youxiduo\Helper\MyHelpLx;
 //use AlibabaCloud\Client\AlibabaCloud;
 //use AlibabaCloud\Client\Exception\ClientException;
 //use AlibabaCloud\Client\Exception\ServerException;
-use Aliyun\DySDKLite\SignatureHelper;
+use Youxiduo\Helper\SignatureHelper;
 
 class Utility
 {
@@ -622,7 +622,7 @@ class Utility
             )),
             $security
         );
-print_r(json_encode($content));exit;
+
         return $content;
     }
 
