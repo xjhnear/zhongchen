@@ -63,7 +63,7 @@ class OrderService extends BaseService
                     $productList['state'] = $item['state'];
                     $productList['gid'] = $item['gid'];
                     $productList['name'] = $item['name'];
-                    $productList['img'] = $item['img'];
+                    $productList['img'] = Utility::getImageUrl($item['img']);
                     $productList['specs'] = $item['specs'];
                     $productList['price'] = $item['price2'];
                     $productList['extrainfo'] = $item['extrainfo'];
@@ -162,6 +162,7 @@ class OrderService extends BaseService
                 unset($item_sub['transportNo']);
                 unset($item_sub['content']);
                 unset($item_sub['remarks']);
+                $item_sub && $item_sub['img'] = Utility::getImageUrl($item_sub['img']);
             }
             $order['productList'] = $productList;
             $search['orid'] = $order['orid'];
