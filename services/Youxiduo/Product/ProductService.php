@@ -27,6 +27,7 @@ class ProductService extends BaseService
 		$product = Product::getList($search,$pageIndex,$pageSize);
 		if($product){
             foreach ($product as &$item) {
+                $item && $item['img'] = Utility::getImageUrl($item['img']);
                 unset($item['content']);
                 unset($item['remarks']);
                 unset($item['extrainfo']);
