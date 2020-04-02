@@ -133,7 +133,7 @@ class OrderController extends BackendController
             }
             $data_ou = [];
             $data_ou['orid'] = $result;
-            $data_ou['urid'] = $v;
+            $data_ou['urid'] = $data['urid'];
             OrderService::createOrderUser($data_ou);
             if ($input['keys']) {
                 foreach ($input['keys'] as $k=>$v) {
@@ -231,7 +231,7 @@ class OrderController extends BackendController
             }
             $data_ou = [];
             $data_ou['orid'] = $result;
-            $data_ou['urid'] = $v;
+            $data_ou['urid'] = $data['urid'];
             OrderService::createOrderUser($data_ou);
             if ($input['keys']) {
                 foreach ($input['keys'] as $k=>$v) {
