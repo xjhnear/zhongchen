@@ -22,6 +22,7 @@ class UserController extends BackendController
 		$search = Input::only('mobile','name');
 		$pageSize = 10;
 		$data = array();
+        $search['parentId'] = 0;
 		$data['datalist'] = User::getList($search,$pageIndex,$pageSize);
 		$data['search'] = $search;
 		$total = User::getCount($search);
@@ -64,6 +65,7 @@ class UserController extends BackendController
     public function getSubadd()
     {
         $data = array();
+        $data['info']['parentId'] = Input::get('parentId');
         return $this->display('user_subinfo',$data);
     }
 
@@ -93,7 +95,7 @@ class UserController extends BackendController
 
     public function postSubsave()
     {
-        $input = Input::only('urid','mobile','username','sex','image','old_image','companyName','companyAddress');
+        $input = Input::only('urid','mobile','username','sex','image','old_image','companyName','companyAddress','parentId');
         $head_img = $input['old_image'];unset($input['old_image']);
         if(Input::hasFile('image')){
             $head_img = MyHelp::save_img_no_url(Input::file('image'),'image');

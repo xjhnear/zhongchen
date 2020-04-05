@@ -17,7 +17,7 @@
 				            <td><input name="mobile" type="text" class="input-small" placeholder="手机号码"  value="<!--{{search.mobile}}-->" /></td>
 							<td><input name="name" type="text" class="input-small" placeholder="姓名"  value="<!--{{search.name}}-->" /></td>
 				            <td><button class="btn btn-teal"><i class="icon-search"></i>搜索</button></td>
-				            <td><a href="<!--{{url('user/user/subadd')}}-->" class="btn btn-teal">添加用户</a></td>
+				            <td><a href="<!--{{url('user/user/subadd',{'parentId':search.parentId})}}-->" class="btn btn-teal">添加用户</a></td>
 				        </tr>
 				    </table>
 				    </form>
@@ -46,7 +46,7 @@
 						<td><!--{{item.regTime|date('Y-m-d H:i:s')}}--></td>
 						<td><!--{{item.updateTime|date('Y-m-d H:i:s')}}--></td>
 						<td>
-							<a href="<!--{{url('user/user/subedit',{'admin_id':item.urid})}}-->" class="btn btn-primary">编辑</a>
+							<a href="<!--{{url('user/user/subedit',{'admin_id':item.urid,'parentId':search.parentId})}}-->" class="btn btn-primary">编辑</a>
 							<a class="btn btn-danger ajax-del" urid="<!--{{item.urid}}-->" href="javascript:void(0);">删除</a>
 						</td>
 					</tr>

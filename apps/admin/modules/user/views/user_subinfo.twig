@@ -9,6 +9,7 @@
 			<div class="box-content">
 				<form id="batch-edit" action="<!--{{url('user/user/subsave')}}-->" method="POST" class='form-horizontal form-validate' enctype="multipart/form-data">
 				<input name="urid" type="hidden" value="<!--{{info.urid}}-->" />
+                <input name="parentId" type="hidden" value="<!--{{info.parentId}}-->" />
 				<input name="old_image" type="hidden" value="<!--{{info.image}}-->" />
 				<div class="control-group">
 					<label for="username" class="control-label">手机号</label>
