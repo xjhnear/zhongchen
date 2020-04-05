@@ -62,10 +62,10 @@ class UserController extends BackendController
 		return $this->display('user_info',$data);
 	}
 
-    public function getSubadd()
+    public function getSubadd($parentId)
     {
         $data = array();
-        $data['info']['parentId'] = Input::get('parentId');
+        $data['info']['parentId'] = $parentId;
         return $this->display('user_subinfo',$data);
     }
 

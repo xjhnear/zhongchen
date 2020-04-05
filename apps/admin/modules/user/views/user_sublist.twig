@@ -46,7 +46,7 @@
 						<td><!--{{item.regTime|date('Y-m-d H:i:s')}}--></td>
 						<td><!--{{item.updateTime|date('Y-m-d H:i:s')}}--></td>
 						<td>
-							<a href="<!--{{url('user/user/subedit',{'admin_id':item.urid,'parentId':search.parentId})}}-->" class="btn btn-primary">编辑</a>
+							<a href="<!--{{url('user/user/subedit',{'admin_id':item.urid})}}-->" class="btn btn-primary">编辑</a>
 							<a class="btn btn-danger ajax-del" urid="<!--{{item.urid}}-->" href="javascript:void(0);">删除</a>
 						</td>
 					</tr>
