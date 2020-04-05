@@ -60,7 +60,21 @@ class UserController extends BackendController
 		$data['info']['image'] = Config::get('app.img_url').$data['info']['image'];
 		return $this->display('user_info',$data);
 	}
-	
+
+    public function getSubadd()
+    {
+        $data = array();
+        return $this->display('user_subinfo',$data);
+    }
+
+    public function getSubedit($urid)
+    {
+        $data = array();
+        $data['info'] = User::getInfo($urid);
+        $data['info']['image'] = Config::get('app.img_url').$data['info']['image'];
+        return $this->display('user_subinfo',$data);
+    }
+
 	public function postSave()
 	{
 		$input = Input::only('urid','mobile','username','sex','type','image','old_image','companyName','companyAddress');
@@ -76,6 +90,22 @@ class UserController extends BackendController
 			return $this->back('用户保存成功');
 		}
 	}
+
+    public function postSubsave()
+    {
+        $input = Input::only('urid','mobile','username','sex','image','old_image','companyName','companyAddress');
+        $head_img = $input['old_image'];unset($input['old_image']);
+        if(Input::hasFile('image')){
+            $head_img = MyHelp::save_img_no_url(Input::file('image'),'image');
+        }
+        $input['image'] = $head_img;
+        $result = User::save($input);
+        if($result){
+            return $this->redirect('user/user/sublist','用户保存成功');
+        }else{
+            return $this->back('用户保存成功');
+        }
+    }
 
 	public function postAjaxDel()
 	{
