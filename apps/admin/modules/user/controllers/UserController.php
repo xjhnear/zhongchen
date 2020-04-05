@@ -103,7 +103,7 @@ class UserController extends BackendController
         $input['image'] = $head_img;
         $result = User::save($input);
         if($result){
-            return $this->redirect('user/user/sublist','用户保存成功');
+            return $this->redirect('user/user/sublist/'.$input['parentId'],'用户保存成功');
         }else{
             return $this->back('用户保存成功');
         }
