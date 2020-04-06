@@ -44,6 +44,12 @@ class AppController extends BaseController
         $urid = Input::get('urid','');
 
         $result = [];
+        $hotline = Config::getInfoByType(1);
+        if ($hotline) {
+            $result['hotline'] = Utility::getImageUrl($hotline['content']);
+        } else {
+            $result['hotline'] = '';
+        }
         $startupPage =  Config::getInfoByType(2);
         if ($startupPage) {
             $result['startupPage'] = Utility::getImageUrl($startupPage['content']);
