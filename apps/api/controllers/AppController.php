@@ -46,7 +46,7 @@ class AppController extends BaseController
         $result = [];
         $hotline = Config::getInfoByType(1);
         if ($hotline) {
-            $result['hotline'] = Utility::getImageUrl($hotline['content']);
+            $result['hotline'] = $hotline['content'];
         } else {
             $result['hotline'] = '';
         }
