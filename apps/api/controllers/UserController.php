@@ -7,6 +7,7 @@ use Yxd\Services\RelationService;
 use Illuminate\Support\Facades\Input;
 use Youxiduo\User\UserService;
 use Youxiduo\Helper\MyHelp;
+use Youxiduo\System\Model\Config;
 
 use PHPImageWorkshop\ImageWorkshop;
 
@@ -119,6 +120,8 @@ class UserController extends BaseController
             $result['data']['image'] = Config::get('app.img_url','').$result['data']['image'];
         }
 		if($result['result']){
+			$hotline = Config::getInfoByType(1);
+			$result['data']['hotline'] = $hotline['content'];
 			return $this->success($result['data']);
 		}else{
 			return $this->fail(201,$result['msg']);
