@@ -119,8 +119,6 @@ class UserController extends BaseController
             $result['data']['image'] = Config::get('app.img_url','').$result['data']['image'];
         }
 		if($result['result']){
-			$hotline = Config::getInfoByType(1);
-			$result['data']['hotline'] = $hotline['content'];
 			return $this->success($result['data']);
 		}else{
 			return $this->fail(201,$result['msg']);
