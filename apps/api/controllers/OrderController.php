@@ -20,7 +20,13 @@ class OrderController extends BaseController
 		$pageIndex = Input::get('pageIndex',1);
 		$pageSize = Input::get('pageSize',20);
         $search = Input::only('urid','type','keyword');
-
+        if ($search['urid'] > 0) {
+            $userInfo = UserService::getUserInfo($search['urid']);
+            $userType = $userInfo['data']['type'];
+            if ($userType == 3) {
+                unset($search['urid']);
+            }
+        }
 		$result = OrderService::getOrderList($search,$pageIndex,$pageSize);
         $hotline = Config::getInfoByType(1);
 		if($result['result']){

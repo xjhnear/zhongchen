@@ -43,14 +43,23 @@
 						<td><!--{{item.mobile}}--></td>
 						<td><!--{{item.username}}--></td>
 						<td><!--{{item.register == 1 ? '是' : '否'}}--></td>
-						<td><!--{{item.type == 1 ? '普通用户' : '经销商用户'}}--></td>
+						<!--{%if item.type==1 %}-->
+						<td>普通用户</td>
+						<!--{%elseif item.type==2 %}-->
+						<td>经销商用户</td>
+						<!--{%else%}-->
+						<td>管理员</td>
+						<!--{%endif%}-->
 						<td><!--{{item.regTime|date('Y-m-d H:i:s')}}--></td>
 						<td><!--{{item.updateTime|date('Y-m-d H:i:s')}}--></td>
 						<td>
 							<!--{%if item.type==1 %}-->
 								<a class="btn btn-primary ajax-reset" urid="<!--{{item.urid}}-->" type="2" href="javascript:void(0);">升为经销商用户</a>
-							<!--{%else%}-->
+							<!--{%elseif item.type==2 %}-->
 								<a class="btn btn-primary ajax-reset" urid="<!--{{item.urid}}-->" type="1" href="javascript:void(0);">降为普通用户</a>
+							<!--{%endif%}-->
+							<!--{%if item.type!=3 %}-->
+								<a class="btn btn-danger ajax-reset" urid="<!--{{item.urid}}-->" type="3" href="javascript:void(0);">设置为管理员</a>
 							<!--{%endif%}-->
 							<!--{%if item.type==2 %}-->
 								<a href="<!--{{url('user/user/sublist',{'parentId':item.urid})}}-->" class="btn btn-primary">查看下属用户</a>
