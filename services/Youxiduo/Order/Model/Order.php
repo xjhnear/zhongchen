@@ -30,8 +30,8 @@ final class Order extends Model implements IModel
         $tb = self::db();
         $tb = $tb->select('order.*','orderuser.*','orderproduct.id as id2','orderproduct.prid','orderproduct.number','orderproduct.state','product.gid','product.name','product.img','product.specs','product.price as price2','product.extrainfo');
         $tb = $tb->join('orderuser','orderuser.orid','=','order.orid');
-        $tb = $tb->join('orderproduct','orderproduct.orid','=','order.orid');
-        $tb = $tb->join('product','product.prid','=','orderproduct.prid');
+        $tb = $tb->leftjoin('orderproduct','orderproduct.orid','=','order.orid');
+        $tb = $tb->leftjoin('product','product.prid','=','orderproduct.prid');
         if(isset($search['urid']) && !empty($search['urid'])) $tb = $tb->where('orderuser.urid','=',$search['urid']);
         if(isset($search['orderNo']) && !empty($search['orderNo'])) $tb = $tb->where('orderNo','like','%'.$search['orderNo'].'%');
         if(isset($search['status']) && !empty($search['status'])) $tb = $tb->whereIn('status',$search['status']);
@@ -42,6 +42,7 @@ final class Order extends Model implements IModel
             });
         }
         $tb = $tb->where('orderuser.state','=',1);
+        $tb = $tb->groupBy('order.orid,product.prid');
         return $tb->orderBy('order.orid','desc')->forPage($pageIndex,$pageSize)->get();
     }
 
