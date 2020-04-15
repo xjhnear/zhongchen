@@ -42,7 +42,6 @@ final class Order extends Model implements IModel
             });
         }
         $tb = $tb->where('orderuser.state','=',1);
-        $tb = $tb->groupBy('order.orid','product.prid');
         return $tb->orderBy('order.orid','desc')->forPage($pageIndex,$pageSize)->get();
     }
 

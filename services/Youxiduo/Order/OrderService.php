@@ -52,11 +52,13 @@ class OrderService extends BaseService
             unset($search['type']);
         }
 		$order = Order::getList($search,$pageIndex,500);
+        $orderproductArr = [];
 		if($order){
             $order_out = [];
             foreach ($order as $item) {
                 $order_tmp = $productList = [];
                 if ($item['id2'] > 0) {
+                    if (isset($orderproductArr[$item['orid']][$item['prid']])) continue;
                     $productList['id'] = $item['id2'];
                     $productList['prid'] = $item['prid'];
                     $productList['number'] = $item['number'];
@@ -67,6 +69,7 @@ class OrderService extends BaseService
                     $productList['specs'] = $item['specs'];
                     $productList['price'] = $item['price2'];
                     $productList['extrainfo'] = $item['extrainfo'];
+                    $orderproductArr[$item['orid']][$item['prid']] = 1;
                 }
                 if (isset($order_out[$item['orid']])) {
                     $order_out[$item['orid']]['productList'][] = $productList;
